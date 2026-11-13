@@ -1,4 +1,6 @@
-const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+import { animationsEnabled, initMotionControls } from './motion';
+import './depth';
+initMotionControls();
 const preference = {
   get(key: string) {
     try {
@@ -104,7 +106,7 @@ window.matchMedia('(min-width: 768px)').addEventListener('change', (event) => {
 });
 
 // Once-only reveals preserve natural scrolling, and stay visible without JS.
-if (!reducedMotion.matches) {
+if (animationsEnabled()) {
   const revealObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -149,10 +151,7 @@ const orbitObserver = new IntersectionObserver(
       void import('./orbit')
         .then(({ initOrbit }) => initOrbit(element))
         .catch(() => {
-          const control = element.querySelector<HTMLButtonElement>(
-            '[data-motion-toggle]',
-          );
-          if (control) control.hidden = true;
+          element.dataset.renderer = 'css';
         });
     }
   },

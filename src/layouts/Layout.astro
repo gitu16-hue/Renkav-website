@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import '../styles/motion.css';
 import Icon from '../components/Icon.astro';
 interface Props {
   title: string;
@@ -63,6 +64,18 @@ const navigation = [
           ))}
         </nav>
         <div class="header-actions">
+          <button
+            class="header-motion-toggle"
+            type="button"
+            data-motion-toggle
+            aria-label="Pause animations"
+            aria-pressed="false"
+          >
+            <span class="pause-icon" aria-hidden="true">
+              Ⅱ
+            </span>
+            <span data-motion-label>Motion on</span>
+          </button>
           <button
             class="sound-toggle"
             type="button"

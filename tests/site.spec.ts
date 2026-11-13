@@ -154,9 +154,9 @@ test('3D renders, pauses, and click-sound preference persists', async ({
   await page.waitForTimeout(350);
   const after = await canvas.screenshot();
   expect(before.equals(after)).toBe(false);
-  await page.getByRole('button', { name: 'Pause 3D motion' }).click();
+  await page.locator('.orbital-art [data-motion-toggle]').click();
   await expect(
-    page.getByRole('button', { name: 'Play 3D motion' }),
+    page.locator('.orbital-art [data-motion-toggle]'),
   ).toHaveAttribute('aria-pressed', 'true');
   const paused = await canvas.screenshot();
   await page.waitForTimeout(200);
@@ -169,9 +169,7 @@ test('3D renders, pauses, and click-sound preference persists', async ({
   await expect(
     page.getByRole('button', { name: 'Enable click sounds' }),
   ).toHaveAttribute('aria-pressed', 'false');
-  await expect(
-    page.getByRole('button', { name: 'Play 3D motion' }),
-  ).toBeVisible();
+  await expect(page.locator('.orbital-art [data-motion-toggle]')).toBeVisible();
   expect(errors).toEqual([]);
 });
 
@@ -180,11 +178,11 @@ test('reduced motion keeps all content available with a static sculpture', async
 }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  await expect(
-    page.getByRole('button', {
-      name: 'Motion reduced by your system preference',
-    }),
-  ).toBeDisabled();
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
+  await expect(page.locator('.header-motion-toggle')).toHaveAttribute(
+    'aria-label',
+    'Enable animations',
+  );
   await expect(page.locator('[data-orbit]')).toHaveClass(/is-rendered/);
   expect(
     await page
@@ -214,6 +212,18 @@ test('unsupported WebGL retains artwork and usable navigation', async ({
   await page.goto('/');
   await expect(page.locator('[data-orbit] canvas')).toBeHidden();
   await expect(page.locator('.orbit-fallback')).toBeVisible();
+  const ring = page.locator('.orbit-fallback i').first();
+  const before = await ring.evaluate((el) => getComputedStyle(el).transform);
+  await page.waitForTimeout(200);
+  expect(await ring.evaluate((el) => getComputedStyle(el).transform)).not.toBe(
+    before,
+  );
+  await page.locator('.header-motion-toggle').click();
+  const paused = await ring.evaluate((el) => getComputedStyle(el).transform);
+  await page.waitForTimeout(200);
+  expect(await ring.evaluate((el) => getComputedStyle(el).transform)).toBe(
+    paused,
+  );
   await expect(
     page.getByRole('link', { name: 'Explore ELEVEN', exact: true }),
   ).toBeVisible();
@@ -267,4 +277,63 @@ test('without JavaScript, direct contact works and the draft form cannot submit 
     page.getByRole('link', { name: 'Email Gitanshu' }),
   ).toHaveAttribute('href', 'mailto:gitanshu@renkav.online');
   await context.close();
+});
+
+test('scroll assembles the 3D layers and rotates the ELEVEN sculpture', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const eleven = page.locator('.eleven-object');
+  const before = await eleven.evaluate((el) => el.style.transform);
+  await eleven.scrollIntoViewIfNeeded();
+  await expect
+    .poll(() => eleven.evaluate((el) => el.style.transform))
+    .not.toBe(before);
+  const scene = page.locator('[data-continuity]');
+  const layer = page.locator('[data-layer="2"]');
+  await scene.evaluate((el) =>
+    window.scrollTo({
+      top: (el as HTMLElement).offsetTop - 86,
+      behavior: 'instant',
+    }),
+  );
+  await expect(page.locator('[data-scene-count]')).toHaveText('01 / 03');
+  const exploded = await layer.evaluate((el) => el.style.transform);
+  await scene.evaluate((el) =>
+    window.scrollTo({
+      top:
+        (el as HTMLElement).offsetTop -
+        86 +
+        el.clientHeight -
+        (innerHeight - 86),
+      behavior: 'instant',
+    }),
+  );
+  await expect(page.locator('[data-scene-count]')).toHaveText('03 / 03');
+  expect(await layer.evaluate((el) => el.style.transform)).not.toBe(exploded);
+  await page.locator('.header-motion-toggle').click();
+  const paused = await layer.evaluate((el) => el.style.transform);
+  await page.mouse.wheel(0, -400);
+  await page.waitForTimeout(250);
+  expect(await layer.evaluate((el) => el.style.transform)).toBe(paused);
+});
+
+test('a visitor can explicitly enable animations while the system prefers reduced motion', async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'off');
+  await page.locator('.header-motion-toggle').click();
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'on');
+  await expect(page.locator('[data-orbit]')).toHaveAttribute(
+    'data-renderer',
+    'webgl',
+  );
+  const canvas = page.locator('[data-orbit] canvas');
+  const before = await canvas.screenshot();
+  await page.waitForTimeout(400);
+  expect(before.equals(await canvas.screenshot())).toBe(false);
+  await page.reload();
+  await expect(page.locator('html')).toHaveAttribute('data-motion', 'on');
 });

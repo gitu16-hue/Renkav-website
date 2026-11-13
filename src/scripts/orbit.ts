@@ -1,42 +1,11 @@
 import * as THREE from 'three';
+import { animationsEnabled } from './motion';
 
 /** A local, procedural sculpture. No textures, external assets, or tracking. */
 export async function initOrbit(container: HTMLElement) {
   const canvas = container.querySelector<HTMLCanvasElement>('canvas');
   if (!canvas) return;
-  const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const button = container.querySelector<HTMLButtonElement>(
-    '[data-motion-toggle]',
-  );
-  let manuallyPaused = false;
-  try {
-    manuallyPaused = localStorage.getItem('renkav-motion') === 'paused';
-  } catch {
-    /* optional preference */
-  }
-  const paused = () => manuallyPaused || motion.matches;
-  function updateButton() {
-    button?.setAttribute('aria-pressed', String(paused()));
-    button?.setAttribute(
-      'aria-label',
-      motion.matches
-        ? 'Motion reduced by your system preference'
-        : paused()
-          ? 'Play 3D motion'
-          : 'Pause 3D motion',
-    );
-    const label = button?.querySelector('[data-motion-label]');
-    if (label)
-      label.textContent = motion.matches
-        ? 'Reduced motion'
-        : paused()
-          ? 'Play motion'
-          : 'Pause motion';
-    const icon = button?.querySelector('.pause-icon');
-    if (icon) icon.textContent = paused() ? '▷' : 'Ⅱ';
-    if (button) button.disabled = motion.matches;
-  }
-  updateButton();
+  const paused = () => !animationsEnabled();
   try {
     const renderer = new THREE.WebGLRenderer({
       canvas,
@@ -148,6 +117,7 @@ export async function initOrbit(container: HTMLElement) {
     const render = () => {
       renderer.render(scene, camera);
       container.classList.add('is-rendered');
+      container.dataset.renderer = 'webgl';
     };
     const resize = () => {
       const { width, height } = container.getBoundingClientRect();
@@ -166,18 +136,22 @@ export async function initOrbit(container: HTMLElement) {
       elapsed += delta;
       const scroll = Math.min(window.scrollY / window.innerHeight, 1);
       sculpture.rotation.y +=
-        (Math.sin(elapsed * 0.16) * 0.24 +
-          pointerX * 0.22 +
-          scroll * 0.4 -
+        (elapsed * 0.18 +
+          pointerX * 0.38 +
+          scroll * 0.95 -
           sculpture.rotation.y) *
         0.035;
       sculpture.rotation.x +=
-        (-0.12 + pointerY * 0.13 + scroll * 0.12 - sculpture.rotation.x) *
+        (-0.12 + pointerY * 0.13 + scroll * 0.28 - sculpture.rotation.x) *
         0.035;
       sculpture.position.y = Math.sin(elapsed * 0.6) * 0.075;
-      outer.rotation.z = -0.55 + elapsed * 0.035;
-      middle.rotation.y = 1.08 + Math.sin(elapsed * 0.22) * 0.2;
-      satellites.rotation.y = elapsed * 0.09;
+      // A circular ring spinning around its normal looks stationary. Tilt its plane.
+      outer.rotation.x = 0.85 + Math.sin(elapsed * 0.45) * 0.6;
+      outer.rotation.y = 0.35 + elapsed * 0.25;
+      middle.rotation.y = 1.08 - elapsed * 0.2;
+      middle.rotation.x = -0.45 + Math.sin(elapsed * 0.55) * 0.4;
+      inner.rotation.y = -0.45 - elapsed * 0.32;
+      satellites.rotation.y = elapsed * 0.45;
       render();
       frame = requestAnimationFrame(tick);
     }
@@ -202,20 +176,6 @@ export async function initOrbit(container: HTMLElement) {
         Math.min(1, ((event.clientY - rect.top) / rect.height) * 2 - 1),
       );
     };
-    const toggle = () => {
-      manuallyPaused = !manuallyPaused;
-      try {
-        localStorage.setItem('renkav-motion', manuallyPaused ? 'paused' : 'on');
-      } catch {
-        /* optional preference */
-      }
-      updateButton();
-      schedule();
-    };
-    const onMotion = () => {
-      updateButton();
-      schedule();
-    };
     const observer = new IntersectionObserver((entries) => {
       visible = entries[0].isIntersecting;
       schedule();
@@ -225,8 +185,7 @@ export async function initOrbit(container: HTMLElement) {
     resizer.observe(container);
     window.addEventListener('pointermove', pointer, { passive: true });
     document.addEventListener('visibilitychange', schedule);
-    motion.addEventListener('change', onMotion);
-    button?.addEventListener('click', toggle);
+    window.addEventListener('renkav:motion', schedule);
     sculpture.rotation.set(-0.12, -0.15, 0.06);
     resize();
     schedule();
@@ -235,7 +194,8 @@ export async function initOrbit(container: HTMLElement) {
       destroyed = true;
       cancelAnimationFrame(frame);
       container.classList.remove('is-rendered');
-      if (button) button.hidden = true;
+      container.dataset.renderer = 'css';
+      canvas.hidden = true;
     });
     window.addEventListener(
       'pagehide',
@@ -247,7 +207,7 @@ export async function initOrbit(container: HTMLElement) {
         resizer.disconnect();
         window.removeEventListener('pointermove', pointer);
         document.removeEventListener('visibilitychange', schedule);
-        motion.removeEventListener('change', onMotion);
+        window.removeEventListener('renkav:motion', schedule);
         scene.traverse((object) => {
           if (object instanceof THREE.Mesh) object.geometry.dispose();
         });
@@ -261,7 +221,7 @@ export async function initOrbit(container: HTMLElement) {
     );
   } catch {
     // The CSS sculpture is also the fallback when WebGL is unavailable.
-    if (button) button.hidden = true;
+    container.dataset.renderer = 'css';
     canvas.hidden = true;
   }
 }

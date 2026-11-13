@@ -39,9 +39,11 @@ Live servers must restart in a new cloud task; installed dependencies and genera
 - `src/layouts/Layout.astro`: shared navigation, metadata, and footer.
 - `src/styles/global.css`: responsive layout and motion styles.
 - `src/scripts/site.ts`: navigation, click sounds, reveals, and the local email-draft form.
-- `src/scripts/orbit.ts`: lazily loaded procedural 3D artwork, pointer/scroll response, pause, and cleanup.
+- `src/scripts/orbit.ts`: lazily loaded procedural 3D artwork with visibly turning ring planes, pointer/scroll response, and cleanup.
+- `src/scripts/depth.ts`: scroll-driven assembly of the context, intelligence, and control layers; ELEVEN sculpture rotation; decorative portrait depth.
+- `src/scripts/motion.ts`: shared motion preference and controls. Reduced motion is the default when requested by the operating system; a visitor can explicitly enable it. CSS fallback artwork also animates when WebGL is unavailable.
 
-The form generates a `mailto:` URI to `gitanshu@renkav.online`. It does not submit, store, or log visitor values. An installed email handler is needed to open the draft. A direct address and copy control provide a webmail fallback. Sound is generated only following an interaction, with a mute preference saved locally. Motion also has a saved pause preference, respects reduced-motion settings, and stops rendering offscreen or in a hidden tab. Without WebGL, CSS artwork remains visible.
+The form generates a `mailto:` URI to `gitanshu@renkav.online`. It does not submit, store, or log visitor values. An installed email handler is needed to open the draft. A direct address and copy control provide a webmail fallback. Sound is generated only following an interaction, with a mute preference saved locally. Motion also has a saved pause preference, respects reduced-motion settings, and stops rendering offscreen or in a hidden tab. Without WebGL, animated CSS artwork remains visible. The header motion control pauses or enables all decorative motion, including the scroll scene and CSS fallback.
 
 ## Draft and release status
 
