@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+const principles = [
+  [
+    'Start with the work.',
+    'Choose a real workflow and test whether the assistant makes it easier.',
+  ],
+  [
+    'Make control visible.',
+    'People should be able to tell what the assistant is proposing and what requires their approval.',
+  ],
+  [
+    'Show the evidence.',
+    'Describe what works, what is experimental, and what is still planned.',
+  ],
+];
+---
+
+<Layout
+  title="About | RENKAV Technologies"
+  description="Learn why RENKAV started and how we approach building AI software that keeps people in control."
+>
+  <section class="masthead dark-section">
+    <div class="container">
+      <span class="eyebrow entry">ABOUT RENKAV</span>
+      <h1 class="entry entry-1">
+        Why we started
+        <br />
+        <span class="mint">RENKAV.</span>
+      </h1>
+      <p class="entry entry-2">
+        We want working with AI to feel less like
+        <br class="desktop-break" /> starting over every time.
+      </p>
+      <span class="masthead-mark" aria-hidden="true">
+        R.
+      </span>
+    </div>
+  </section>
+  <section class="section story-section">
+    <div class="container editorial-grid">
+      <div>
+        <span class="eyebrow">THE REASON WE’RE HERE</span>
+        <span class="section-number" aria-hidden="true">
+          01 /
+        </span>
+      </div>
+      <div data-reveal>
+        <h2>
+          Keep the thread.
+          <br />
+          <span class="serif-accent">Move the work forward.</span>
+        </h2>
+        <p class="large-copy">
+          Switching between AI tools can mean rebuilding context every time. You
+          explain the project again, bring the right notes over, and decide what
+          to do with the answer.
+        </p>
+        <p class="large-copy">
+          We started RENKAV to explore a simpler way to work with AI. ELEVEN is
+          where we’re starting.
+        </p>
+      </div>
+    </div>
+  </section>
+  <section class="section mission-section">
+    <div class="container mission-grid">
+      <article class="mission-panel" data-reveal>
+        <Icon name="diagonal" size={30} />
+        <span class="eyebrow">OUR MISSION</span>
+        <h2>
+          From an idea.
+          <br />
+          To a <span class="serif-accent">next step.</span>
+        </h2>
+        <p>
+          Build AI software that helps people move from an idea to a next step
+          they can review and act on.
+        </p>
+      </article>
+      <article class="mission-panel vision-panel" data-reveal>
+        <Icon name="context" size={30} />
+        <span class="eyebrow">OUR VISION</span>
+        <h2>
+          Work that
+          <br />
+          <span class="serif-accent">stays connected.</span>
+        </h2>
+        <p>
+          An assistant that keeps the thread of your work across conversations,
+          models and approved tools, while you decide what it remembers and what
+          it can do.
+        </p>
+      </article>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container editorial-grid">
+      <div>
+        <span class="eyebrow">HOW WE BUILD</span>
+        <h2>
+          Ideas need
+          <br />
+          <span class="serif-accent">principles.</span>
+        </h2>
+      </div>
+      <div class="editorial-list">
+        {principles.map(([title, text], i) => (
+          <article data-reveal>
+            <span class="mono">0{i + 1}</span>
+            <div>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </div>
+            <Icon name="plus" />
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="project-cta dark-section">
+    <div class="container" data-reveal>
+      <span class="eyebrow">A FIRST STEP, WITH INTENTION</span>
+      <h2>
+        See where
+        <br />
+        <span class="mint serif-accent">we’re starting.</span>
+      </h2>
+      <p>
+        ELEVEN is our first project and the place where we’re testing these
+        ideas.
+      </p>
+      <a class="button button-mint" href="/ventures">
+        Explore ELEVEN
+        <Icon name="diagonal" />
+      </a>
+    </div>
+  </section>
+</Layout>

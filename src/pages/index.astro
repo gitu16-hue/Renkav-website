@@ -1,0 +1,210 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import OrbitalArt from '../components/OrbitalArt.astro';
+import ContactBand from '../components/ContactBand.astro';
+const principles = [
+  {
+    icon: 'context',
+    title: 'Pick up where you left off.',
+    text: 'Use context you choose to keep so you don’t have to explain the whole project again.',
+    tag: 'CONTEXT THAT CONTINUES',
+  },
+  {
+    icon: 'models',
+    title: 'The right model for the job.',
+    text: 'The goal is one assistant experience that can work with different AI models.',
+    tag: 'INTELLIGENCE THAT ADAPTS',
+  },
+  {
+    icon: 'control',
+    title: 'Important decisions stay yours.',
+    text: 'Review sensitive actions before they happen and see what happened afterward.',
+    tag: 'CONTROL THAT’S VISIBLE',
+  },
+];
+---
+
+<Layout
+  title="RENKAV Technologies | AI Software in Development"
+  description="RENKAV Technologies is building AI software for ongoing digital work. Meet ELEVEN, our flagship project in development."
+>
+  <section class="home-hero dark-section">
+    <div class="container hero-main">
+      <div class="hero-copy">
+        <div class="eyebrow hero-eyebrow entry">
+          <span class="tiny-dot"></span> RENKAV TECHNOLOGIES
+        </div>
+        <h1 class="entry entry-1">
+          AI that helps
+          <br />
+          you{' '}
+          <span class="mint">
+            get work
+            <br class="desktop-break" /> done.
+          </span>
+        </h1>
+        <p class="hero-description entry entry-2">
+          We’re building software that helps people pick up where they left off,
+          plan their next steps, and stay in control of what AI does on their
+          behalf.
+        </p>
+        <div class="button-row entry entry-3">
+          <a href="/ventures" class="button button-mint">
+            Explore ELEVEN
+            <Icon name="diagonal" />
+          </a>
+          <a href="/contact" class="text-link light-link">
+            Get in touch
+            <Icon />
+          </a>
+        </div>
+      </div>
+      <div class="hero-visual entry entry-2">
+        <OrbitalArt />
+        <div class="hero-art-caption">
+          <span>LESS STARTING OVER.</span>
+          <span>MORE MOVING FORWARD.</span>
+        </div>
+      </div>
+    </div>
+    <div class="container hero-bottom">
+      <span>
+        Make the Next Matter<span class="mint">.</span>
+      </span>
+      <a href="#eleven" class="scroll-cue">
+        SCROLL TO EXPLORE{' '}
+        <span class="scroll-arrow" aria-hidden="true">
+          ↓
+        </span>
+      </a>
+      <span class="hero-index">01 — 05</span>
+    </div>
+  </section>
+  <section id="eleven" class="section feature-section">
+    <div class="container feature-grid">
+      <div class="eleven-panel" data-reveal>
+        <div class="panel-top">
+          <span class="mono">RENKAV / VENTURE 01</span>
+          <span class="status-badge">
+            <span class="tiny-dot"></span> In development
+          </span>
+        </div>
+        <div class="eleven-object" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <i></i>
+          <i></i>
+        </div>
+        <div class="eleven-panel-bottom">
+          <span class="eleven-wordmark">ELEVEN</span>
+          <span class="mono">
+            A NEW THREAD
+            <br />
+            OF INTELLIGENCE.
+          </span>
+        </div>
+      </div>
+      <div class="feature-copy" data-reveal>
+        <span class="eyebrow">OUR FIRST PROJECT · IN DEVELOPMENT</span>
+        <h2>
+          Meet <span class="serif-accent">ELEVEN.</span>
+        </h2>
+        <p>
+          Work moves forward.
+          <br />
+          Your AI should, too.
+        </p>
+        <p class="body-copy">
+          ELEVEN is an AI assistant in development. We’re designing it to pick
+          up ongoing work using context you’ve approved, work with different AI
+          models, and ask before taking actions that need your permission.
+        </p>
+        <a href="/ventures" class="text-link">
+          See what we’re building
+          <Icon name="diagonal" />
+        </a>
+        <div class="feature-footnote">
+          <span class="tiny-dot"></span> A prototype today. A more connected way
+          to work, tomorrow.
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section principles-section">
+    <div class="container">
+      <div class="section-heading" data-reveal>
+        <span class="eyebrow">BUILT AROUND THE WAY YOU WORK</span>
+        <div>
+          <h2>
+            What we’re
+            <br />
+            <span class="serif-accent">designing for.</span>
+          </h2>
+          <p>
+            Less friction between your ideas <br />
+            and what happens next.
+          </p>
+        </div>
+      </div>
+      <div class="principles-grid">
+        {principles.map((p, i) => (
+          <article
+            class="principle"
+            data-reveal
+            style={`--reveal-delay: ${i * 60}ms`}
+          >
+            <div class="principle-top">
+              <Icon name={p.icon} size={26} />
+              <span class="mono">0{i + 1}</span>
+            </div>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <span class="principle-tag mono">{p.tag}</span>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section founders-teaser">
+    <div class="container founders-teaser-grid">
+      <div data-reveal>
+        <span class="eyebrow">PEOPLE, BEFORE EVERYTHING</span>
+        <h2>
+          Small team.
+          <br />
+          <span class="serif-accent">A shared conviction.</span>
+        </h2>
+        <p>
+          Gitanshu Damade and Yashika Pawar are the founders behind RENKAV and
+          its first project, ELEVEN.
+        </p>
+        <a href="/leadership" class="text-link">
+          Meet the founders
+          <Icon name="diagonal" />
+        </a>
+      </div>
+      <div class="founder-mini-grid" data-reveal>
+        <a href="/leadership#gitanshu" class="founder-mini">
+          <span class="founder-initials" aria-hidden="true">
+            GD<span class="initials-orbit"></span>
+          </span>
+          <span>
+            Gitanshu Damade<small>Founder</small>
+          </span>
+          <Icon name="diagonal" size={17} />
+        </a>
+        <a href="/leadership#yashika" class="founder-mini">
+          <span class="founder-initials second" aria-hidden="true">
+            YP<span class="initials-orbit"></span>
+          </span>
+          <span>
+            Yashika Pawar<small>Co-founder</small>
+          </span>
+          <Icon name="diagonal" size={17} />
+        </a>
+      </div>
+    </div>
+  </section>
+  <ContactBand />
+</Layout>
