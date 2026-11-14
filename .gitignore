@@ -1,8 +1,9 @@
 node_modules/
-dist/
-.astro/
-.env
-.env.*
+.next/
+out/
+.env*
 !.env.example
-test-results/
-.vercel/
+*.log
+.DS_Store
+*.tsbuildinfo
+.vercel

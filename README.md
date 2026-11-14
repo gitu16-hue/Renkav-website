@@ -1,54 +1,57 @@
-# RENKAV website
+# RENKAV Technologies
 
-A five-page, statically generated Astro + TypeScript website based on the RENKAV design and content specification. Three.js renders the original orbital sculpture; the remaining interactions use native browser APIs and CSS. No external fonts, image services, analytics, or email backend are required.
+An upgraded Next.js company website with an original CSS 3D orbital sculpture, locally served variable typography, accessible navigation, and a privacy-conscious email-draft workflow.
 
-## Develop
+## Run
 
-Use the existing `/workspace/Renkav-website` checkout. Cloud tasks are isolated already; create a Git worktree only if explicitly requested.
-
-Requires Node.js 22.12+ (validated with Node.js 24) and npm.
+Use Node.js 22 or later and npm.
 
 ```sh
-cd /workspace/Renkav-website
 npm ci
 npm run dev
 ```
 
-The development server listens on port 4321. The published environment includes Node.js and Chromium. Astro telemetry is disabled by the package scripts.
-
-## Validate
+For production validation:
 
 ```sh
+npm run typecheck
 npm run build
-npm run test:e2e
+npm run test:smoke
+npm start
 ```
 
-`build` runs strict Astro/TypeScript diagnostics, then creates `dist/`. The browser suite starts a production preview when needed. It uses `/usr/bin/chromium` if available, otherwise the Playwright-managed browser. On other machines run `npx playwright install chromium`, or set `PLAYWRIGHT_CHROMIUM_EXECUTABLE` to the installed browser path.
+The smoke test briefly starts a production server on loopback port 31479 and stops it afterward. Ensure that port is free. The regular development/production site uses port 3000.
 
-The suite covers all five routes at 320, 390, 768, 1024, and 1440 px; automated WCAG checks; menu navigation and keyboard dismissal; email validation, URI encoding, and clipboard copying; 3D rendering and pause; sound preference persistence; reduced motion; WebGL fallback; and actual HTTP 404 behavior.
+## Design
 
-```sh
-npm run preview
-```
+- Original layered CSS 3D sculpture with metallic rings, shaded core, satellite details, perspective and restrained pointer tilt. No WebGL library, remote asset, or render loop.
+- Inter body text and Manrope display type, self-hosted through `next/font/local`; the two variable Latin font files are preloaded with font-display swap.
+- Dark ink, restrained mint, warm paper, editorial headings and coordinated spacing across six pages.
+- Finite entrance animation; no continuous ambient movement. OS reduced-motion settings and the footer's persistent Reduce motion setting disable animation and 3D tilt. Touch input does not drive tilt.
+- Cards and buttons have restrained interaction feedback. Content remains visible without animation or IntersectionObserver.
 
-Live servers must restart in a new cloud task; installed dependencies and generated files can be retained.
+## Pages
 
-## Site structure
+`/`, `/about`, `/ventures`, `/leadership`, `/contact` (plus `/privacy` draft route, custom 404 with routes to `/` and `/ventures`, and route error recovery).
 
-- `src/pages/`: Home, About, Ventures, Leadership, Contact, and 404.
-- `src/layouts/Layout.astro`: shared navigation, metadata, and footer.
-- `src/styles/global.css`: responsive layout and motion styles.
-- `src/scripts/site.ts`: navigation, click sounds, reveals, and the local email-draft form.
-- `src/scripts/orbit.ts`: lazily loaded procedural 3D artwork with visibly turning ring planes, pointer/scroll response, and cleanup.
-- `src/scripts/depth.ts`: scroll-driven assembly of the context, intelligence, and control layers; ELEVEN sculpture rotation; decorative portrait depth.
-- `src/scripts/motion.ts`: shared motion preference and controls. Reduced motion is the default when requested by the operating system; a visitor can explicitly enable it. CSS fallback artwork also animates when WebGL is unavailable.
+Company content follows the 13 November 2026 Design & Copy Handoff Specification: ELEVEN is presented as an AI assistant and Intelligence Operating System prototype in development, and leadership cards present Gitanshu Damade (Founder) and Yashika Pawar (Co-founder) with initials in place of unapproved portraits.
 
-The form generates a `mailto:` URI to `gitanshu@renkav.online`. It does not submit, store, or log visitor values. An installed email handler is needed to open the draft. A direct address and copy control provide a webmail fallback. Sound is generated only following an interaction, with a mute preference saved locally. Motion also has a saved pause preference, respects reduced-motion settings, and stops rendering offscreen or in a hidden tab. Without WebGL, animated CSS artwork remains visible. The header motion control pauses or enables all decorative motion, including the scroll scene and CSS fallback.
+## Security and privacy
 
-## Draft and release status
+- A per-request CSP nonce authorizes Next.js scripts; production disallows unsafe-eval, framing, plugins, external connections and native form submission.
+- `proxy.ts` forwards CSP to Next.js so framework scripts receive matching nonces. Documents are dynamically rendered and marked private/no-store. **Run with a Next.js-compatible server; do not convert this implementation to a static export or cache document HTML.**
+- Inline styles remain permitted because CSS transforms and framework-generated styles require them. Scripts use nonces, not unsafe-inline.
+- nosniff, no-referrer, restricted Permissions-Policy, same-origin opener policy, frame denial and noindex response headers are configured.
+- The form validates required fields, rejects whitespace-only names/messages, bounds lengths and percent-encodes mailto parameters. It does not post to a backend or claim delivery. Long URLs fall back to a copyable draft. Clipboard failures offer manual selection.
+- No application analytics, tracking cookies, third-party embeds, form storage or third-party font requests. Only a motion preference is persisted. Hosting logs and email-provider handling are separate; see `/privacy`.
+- Dependency lockfile included. React updated; a scoped minimatch override fixes the moderate development-tool advisory GHSA-g3hv-75wg-m249. Node 22+ supports its runtime requirements. Revisit this override when typescript-eslint adopts the patched version.
 
-The website remains a local draft: all pages have `noindex, nofollow` and `robots.txt` blocks indexing. No domain, DNS, email-routing, or hosting changes have been made. ELEVEN is explicitly presented as a prototype in development. Founder initials and confirmed names/roles are used without invented portraits or unapproved biographies.
+## Validation
 
-The monogram is an original draft treatment, not a claim of an approved or registered trademark. Confirm the brand treatment, copy, founder details, canonical hostname, and actual hosting/privacy practices before public launch. At that point configure absolute canonical/social URLs, a host-specific sitemap, a broadly supported PNG social image, and a privacy notice based on the actual services used. Remove draft indexing restrictions only for the approved public release.
+See `VALIDATION.md` for completed checks and remaining browser review. Source is formatted for maintainability. `npm run lint` remains available for contributors.
 
-Deploy the `dist/` directory only when authorized. Configure the chosen static host to serve generated directory routes and `404.html` with a 404 status (do not use an SPA catch-all that returns 200 for unknown routes).
+## Deployment handoff
+
+This delivery is source code, not a verified live deployment. No DNS or mail settings are changed. Use a Node-capable Next.js host or an explicitly tested compatible adapter. Configure HTTPS and HSTS at the host after validating domain/TLS behavior. Keep noindex until the company details, privacy terms, biographies and branding are approved for publication. Update metadataBase/Open Graph URLs if the intended public domain changes.
+
+Hosting-side controls, logs/retention, contact-email handling, backups, monitoring, browser accessibility review and a continuing patch process must be assessed for the selected deployment. Application hardening is not a penetration-test certification.
