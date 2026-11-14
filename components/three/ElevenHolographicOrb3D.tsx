@@ -282,13 +282,15 @@ function checkWebGL(): boolean {
 }
 
 export function ElevenHolographicOrb3D({
-  state,
+  state = "IDLE",
   bargeInSignal = 0,
   satellites = [],
+  showBadges = false,
 }: {
-  state: OrbRuntimeState;
+  state?: OrbRuntimeState;
   bargeInSignal?: number;
   satellites?: WorkerSatelliteSpec[];
+  showBadges?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [webglOk] = useState(() => checkWebGL());
@@ -337,17 +339,18 @@ export function ElevenHolographicOrb3D({
     const height = container.clientHeight || 520;
 
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2(0x000205, 0.042);
+    // Do not set scene.fog - it turns transparent areas into opaque black fog!
 
     const camera = new THREE.PerspectiveCamera(44, width / height, 0.1, 100);
     camera.position.set(0, 0.28, 7.9);
 
-    // Disable renderer antialiasing when EffectComposer post-processing is active (premium-3d-website best practice)
+    // Alpha enabled WebGL renderer for completely seamless background integration
     const renderer = new THREE.WebGLRenderer({
       antialias: false,
       powerPreference: "high-performance",
       alpha: true,
     });
+    renderer.setClearColor(0x000000, 0);
     renderer.setSize(width, height);
     // Mobile DPR clamped to 1 per 3d-web-experience skill
     const dpr = isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2);
@@ -382,13 +385,27 @@ export function ElevenHolographicOrb3D({
     }
 
     const composer = new EffectComposer(renderer);
-    composer.addPass(new RenderPass(scene, camera));
+    const renderPass = new RenderPass(scene, camera);
+    renderPass.clearColor = new THREE.Color(0x000000);
+    renderPass.clearAlpha = 0;
+    composer.addPass(renderPass);
     const bloomPass = new UnrealBloomPass(
       new THREE.Vector2(width, height),
       0.56,
       0.34,
       0.38
     );
+    // Ensure bloom pass fullscreen quad material is transparent so canvas is truly borderless & unboxed
+    try {
+      const bpAny = bloomPass as unknown as {
+        _basic?: THREE.MeshBasicMaterial;
+        compositeMaterial?: THREE.ShaderMaterial;
+      };
+      if (bpAny._basic) bpAny._basic.transparent = true;
+      if (bpAny.compositeMaterial) bpAny.compositeMaterial.transparent = true;
+    } catch {
+      // safe fallback
+    }
     composer.addPass(bloomPass);
 
     // 1. Living Cellular Core + Geodesic Wireframe
@@ -1024,20 +1041,17 @@ export function ElevenHolographicOrb3D({
   const cfg = ORB_STATE_CONFIGS[state];
 
   return (
-    <div className="relative flex h-full min-h-[380px] sm:min-h-[440px] w-full flex-col items-center justify-center">
-      {/* Loading indicator per 3d-web-experience HIGH validation check */}
+    <div className="relative flex h-full w-full items-center justify-center">
+      {/* Loading indicator */}
       {!loaded && (
-        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 rounded border border-el-border bg-el-bg/85 backdrop-blur-md">
-          <span className="h-6 w-6 rounded-full border-2 border-el-border-strong border-t-el-accent animate-spin" />
-          <span className="font-mono text-xs tracking-[0.14em] text-el-accent">
-            COMPILING GLSL SIMPLEX &amp; VOLUMETRIC SHADERS...
-          </span>
+        <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3">
+          <span className="h-7 w-7 rounded-full border-2 border-white/20 border-t-[#a2e5d0] animate-spin" />
         </div>
       )}
 
-      {/* WebGL Fallback per 3d-web-experience MEDIUM validation check */}
+      {/* WebGL Fallback */}
       {!webglOk ? (
-        <div className="flex h-full w-full flex-col items-center justify-center rounded border border-el-border bg-el-bg-raised p-8 text-center">
+        <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center">
           <div
             className="h-36 w-36 rounded-full border-2 animate-pulse"
             style={{
@@ -1045,12 +1059,6 @@ export function ElevenHolographicOrb3D({
               boxShadow: `0 0 40px ${cfg.hex}33`,
             }}
           />
-          <p className="mt-6 font-mono text-xs tracking-[0.14em] text-el-fg">
-            {cfg.badgeText}
-          </p>
-          <p className="mt-1 font-mono text-[11px] text-el-fg-muted">
-            WebGL hardware acceleration unavailable — static telemetry active
-          </p>
         </div>
       ) : (
         <div
@@ -1058,32 +1066,35 @@ export function ElevenHolographicOrb3D({
           onClick={() => {
             waveTriggerRef.current += 1;
           }}
-          title="Drag to orbit 360° · Click to send a harmonic pulse"
           className="h-full w-full cursor-grab active:cursor-grabbing"
         />
       )}
 
-      {/* Top-Right Authoritative State Pill */}
-      <div
-        className="pointer-events-none absolute top-3 right-3 flex items-center gap-2 rounded border bg-[#080a0f]/85 px-3 py-1.5 font-mono text-[10.5px] tracking-[0.12em] backdrop-blur-md transition-colors duration-300"
-        style={{
-          color: cfg.hex,
-          borderColor: `${cfg.hex}66`,
-          boxShadow: `0 0 16px ${cfg.hex}24`,
-        }}
-      >
-        <span
-          className="h-1.5 w-1.5 rounded-full animate-pulse"
-          style={{ backgroundColor: cfg.hex }}
-        />
-        <span>{cfg.badgeText}</span>
-      </div>
+      {/* Top-Right Authoritative State Pill (Optional) */}
+      {showBadges && (
+        <div
+          className="pointer-events-none absolute top-3 right-3 flex items-center gap-2 rounded border bg-[#080a0f]/85 px-3 py-1.5 font-mono text-[10.5px] tracking-[0.12em] backdrop-blur-md transition-colors duration-300"
+          style={{
+            color: cfg.hex,
+            borderColor: `${cfg.hex}66`,
+            boxShadow: `0 0 16px ${cfg.hex}24`,
+          }}
+        >
+          <span
+            className="h-1.5 w-1.5 rounded-full animate-pulse"
+            style={{ backgroundColor: cfg.hex }}
+          />
+          <span>{cfg.badgeText}</span>
+        </div>
+      )}
 
-      {/* Bottom Telemetry Caption */}
-      <div className="pointer-events-none absolute bottom-2 left-3 right-3 flex items-center justify-between font-mono text-[9.5px] tracking-[0.1em] text-el-fg-faint">
-        <span>GLSL SIMPLEX · 54K VOLUMETRIC GPU PARTICLES · 4 GYROS</span>
-        <span className="hidden sm:inline">DRAG TO ORBIT 360°</span>
-      </div>
+      {/* Bottom Telemetry Caption (Optional) */}
+      {showBadges && (
+        <div className="pointer-events-none absolute bottom-2 left-3 right-3 flex items-center justify-between font-mono text-[9.5px] tracking-[0.1em] text-el-fg-faint">
+          <span>GLSL SIMPLEX · 54K VOLUMETRIC GPU PARTICLES · 4 GYROS</span>
+          <span className="hidden sm:inline">DRAG TO ORBIT 360°</span>
+        </div>
+      )}
     </div>
   );
 }
