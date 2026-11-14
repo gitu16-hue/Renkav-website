@@ -683,3 +683,20 @@ html[data-motion='off'] [data-reveal].reveal-ready {
     transform: none;
   }
 }
+
+/* Keep camera movement separate from the hero entrance transform. */
+.hero-visual.entry {
+  animation-name: cinematic-fade;
+  transform-origin: 55% 45%;
+}
+@keyframes cinematic-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.continuity-visual {
+  transform-origin: center;
+}

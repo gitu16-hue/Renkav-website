@@ -1,5 +1,6 @@
 import { animationsEnabled, initMotionControls } from './motion';
 import './depth';
+import './cinematic';
 initMotionControls();
 const preference = {
   get(key: string) {
