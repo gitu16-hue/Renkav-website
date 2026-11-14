@@ -11,6 +11,7 @@ import {
 import { NetworkArt } from "@/components/network-art";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaBanner } from "@/components/cta-banner";
+import { showHolographicOrb } from "@/flags";
 
 export const metadata: Metadata = {
   title: "ELEVEN",
@@ -96,7 +97,8 @@ const faqs = [
 
 const elevenWebsiteUrl = process.env.NEXT_PUBLIC_ELEVEN_URL;
 
-export default function Ventures() {
+export default async function Ventures() {
+  const orbEnabled = await showHolographicOrb();
   return (
     <>
       <section className="masthead">
@@ -141,7 +143,7 @@ export default function Ventures() {
               )}
             </div>
           </div>
-          <NetworkArt compact />
+          <NetworkArt compact enabled={orbEnabled} />
         </div>
       </section>
 

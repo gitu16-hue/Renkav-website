@@ -20,6 +20,7 @@ import "./globals.css";
 import { MotionControl } from "@/components/motion-control";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { showThemeToggle } from "@/flags";
 export const dynamic = "force-dynamic";
 const siteUrl = "https://renkav.online";
 export const metadata: Metadata = {
@@ -46,11 +47,12 @@ export const viewport: Viewport = {
   initialScale: 1,
   themeColor: "#090d14",
 };
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const themeToggleEnabled = await showThemeToggle();
   return (
     <html
       lang="en"
@@ -67,7 +69,7 @@ export default function RootLayout({
         >
           Skip to main content
         </a>
-        <SiteHeader />
+        <SiteHeader showThemeToggle={themeToggleEnabled} />
         <main id="main" tabIndex={-1}>
           {children}
         </main>

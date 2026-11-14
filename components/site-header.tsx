@@ -12,7 +12,11 @@ const links = [
   ["/leadership", "Leadership"],
   ["/contact", "Contact"],
 ];
-export function SiteHeader() {
+export function SiteHeader({
+  showThemeToggle = true,
+}: {
+  showThemeToggle?: boolean;
+}) {
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   const header = useRef<HTMLElement>(null);
@@ -71,7 +75,7 @@ export function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <ThemeToggle />
+          {showThemeToggle && <ThemeToggle />}
           <Link
             className="btn btn-dark hidden! lg:inline-flex! !py-3"
             href="/contact"

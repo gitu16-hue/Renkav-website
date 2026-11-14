@@ -64,7 +64,13 @@ const ORB_HERO_STATES: {
 
 const CYCLE_INTERVAL_MS = 5000;
 
-export function NetworkArt({ compact = false }: { compact?: boolean }) {
+export function NetworkArt({
+  compact = false,
+  enabled = true,
+}: {
+  compact?: boolean;
+  enabled?: boolean;
+}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(true);
   const [activeState, setActiveState] = useState<OrbRuntimeState>("IDLE");
@@ -136,9 +142,18 @@ export function NetworkArt({ compact = false }: { compact?: boolean }) {
           className="pointer-events-none absolute inset-0 bg-grid-scifi opacity-60"
         />
 
-        {/* 3D Visualizer */}
+        {/* 3D Visualizer or Static Fallback */}
         <div className="relative h-full w-full">
-          <ElevenHolographicOrb3D state={activeState} />
+          {enabled ? (
+            <ElevenHolographicOrb3D state={activeState} />
+          ) : (
+            <div className="flex h-full w-full flex-col items-center justify-center p-8 text-center bg-[#090e15]">
+              <div className="h-32 w-32 rounded-full border-2 border-el-accent/40 shadow-[0_0_30px_rgba(162,229,208,0.2)] animate-pulse" />
+              <span className="mt-4 font-mono text-xs text-el-fg-faint uppercase tracking-widest">
+                STATIC CORE TELEMETRY // ACTIVE
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Corner registration markers */}

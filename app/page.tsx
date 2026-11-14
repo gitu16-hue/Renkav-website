@@ -10,6 +10,7 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { NetworkArt } from "@/components/network-art";
 import { CtaBanner } from "@/components/cta-banner";
+import { showHolographicOrb } from "@/flags";
 
 const principles = [
   {
@@ -38,7 +39,8 @@ const principles = [
   },
 ];
 
-export default function Home() {
+export default async function Home() {
+  const orbEnabled = await showHolographicOrb();
   return (
     <>
       <section className="hero relative overflow-hidden text-white">
@@ -80,7 +82,7 @@ export default function Home() {
             </p>
           </div>
           <div className="relative">
-            <NetworkArt />
+            <NetworkArt enabled={orbEnabled} />
           </div>
         </div>
       </section>

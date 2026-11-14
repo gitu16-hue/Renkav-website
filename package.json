@@ -11,8 +11,10 @@
     "test:smoke": "node scripts/smoke.mjs"
   },
   "dependencies": {
+    "@flags-sdk/vercel": "^1.6.0",
     "@fontsource-variable/inter": "^5.3.0",
     "@fontsource-variable/manrope": "^5.3.0",
+    "flags": "^4.4.0",
     "geist": "^1.9.2",
     "lucide-react": "^0.468.0",
     "next": "16.4.6",
