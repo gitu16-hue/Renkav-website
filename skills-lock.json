@@ -1,0 +1,35 @@
+{
+  "version": 2,
+  "skills": {
+    "friction-lifecycle": {
+      "source": "Etavioxy/friction-skills",
+      "sourceType": "github",
+      "skillPath": "skills/friction-lifecycle/SKILL.md",
+      "computedHash": "b12da16558680f3ef2cb2dbb6989195aa9de4243a3c5be87d36c8c042262e337"
+    },
+    "friction-log": {
+      "source": "aurorascharff/agent-friction-skill",
+      "sourceType": "github",
+      "skillPath": "SKILL.md",
+      "computedHash": "6fda8e4cbbfea58e048ad648a2e5e304e5743c6f06bb18365774f6c1a1d6595d"
+    },
+    "friction-problem-solver": {
+      "source": "Etavioxy/friction-skills",
+      "sourceType": "github",
+      "skillPath": "skills/friction-problem-solver/SKILL.md",
+      "computedHash": "abf191544ff08c2e18e3b56845fe5976c0439b419cd3a87038c150479782ef92"
+    },
+    "issue-lifecycle": {
+      "source": "Etavioxy/friction-skills",
+      "sourceType": "github",
+      "skillPath": "skills/issue-lifecycle/SKILL.md",
+      "computedHash": "fd26991201dd941718d83dd608cf13a3d8008a4db0b0bd7debe0eafe908a2caf"
+    },
+    "issue-worktree-sandbox": {
+      "source": "Etavioxy/friction-skills",
+      "sourceType": "github",
+      "skillPath": "skills/issue-worktree-sandbox/SKILL.md",
+      "computedHash": "153de569bbfa2d0af05fc64c74568b3709f3b0847cc4586cd89c0cd64b3b01c0"
+    }
+  }
+}
