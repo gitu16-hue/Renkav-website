@@ -102,27 +102,27 @@ export default async function Ventures() {
   return (
     <>
       <section className="masthead">
-        <div className="container-main relative z-10 grid lg:grid-cols-[1.12fr_.88fr] gap-12 items-center">
+        <div className="container-main relative z-10 grid lg:grid-cols-[1.12fr_.88fr] gap-12 lg:gap-16 items-center">
           <div>
             <div className="entry-1">
-              <p className="eyebrow text-[#a2e5d0] mb-6 flex items-center gap-2">
+              <p className="eyebrow text-[#a2e5d0] mb-5 sm:mb-6 flex items-center gap-2">
                 <span className="status-dot-lime" aria-hidden="true" />
                 <span>OUR FIRST PROJECT · PROTOTYPE IN DEVELOPMENT</span>
               </p>
             </div>
-            <h1 className="display entry-2 max-w-[820px]">
+            <h1 className="display entry-2 max-w-[840px] text-balance">
               ELEVEN.{" "}
               <span className="text-[#a2e5d0]">
                 One assistant for work that continues.
               </span>
             </h1>
-            <p className="entry-3 mt-7 text-[#c4d5dc] max-w-2xl text-lg leading-8">
+            <p className="entry-3 mt-6 sm:mt-7 text-[#c4d5dc] max-w-[64ch] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
               ELEVEN by RENKAV is a prototype for what we call an Intelligence
               Operating System. It’s an AI layer designed to connect
               conversations, project context and approved tools. It is not a
               replacement for Windows or your existing operating system.
             </p>
-            <div className="entry-4 mt-9 flex flex-col sm:flex-row flex-wrap gap-3.5">
+            <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap gap-3.5">
               <Link
                 href="/contact"
                 className="btn btn-light w-full sm:w-auto"
@@ -153,30 +153,30 @@ export default async function Ventures() {
             kicker="WORKED EXAMPLE"
             title="A realistic workflow"
           />
-          <div className="mt-10 bg-white border border-[#e2e8e3] rounded-xl p-7 md:p-10 shadow-sm">
-            <blockquote className="text-[20px] md:text-[23px] font-semibold text-[#0d141e] leading-snug tracking-tight border-l-4 border-[#08766c] pl-5">
+          <div className="mt-10 bg-white border border-[#e2e8e3] rounded-xl p-7 sm:p-9 md:p-11 shadow-sm">
+            <blockquote className="text-[20px] md:text-[24px] font-semibold text-[#0d141e] leading-[1.35] tracking-tight border-l-4 border-[#08766c] pl-5 text-pretty">
               “Pick up yesterday’s partnership proposal. Check my approved
               notes, tell me what’s missing, and draft a follow-up.”
             </blockquote>
-            <p className="bodycopy mt-6 max-w-3xl text-[16px]">
+            <p className="bodycopy mt-5 sm:mt-6 max-w-[64ch] text-[16px] md:text-[17px] text-pretty">
               ELEVEN would use the notes you allow, flag anything it can’t
               verify, and prepare a draft for review. It would not send the
               email without the required approval.
             </p>
-            <ol className="mt-8 grid md:grid-cols-3 gap-4 list-none p-0">
+            <ol className="mt-8 grid md:grid-cols-3 gap-5 list-none p-0">
               {workflowSteps.map((item) => (
                 <li
                   key={item.step}
-                  className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 flex flex-col justify-between"
+                  className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 sm:p-7 flex flex-col justify-between"
                 >
                   <div>
-                    <span className="mono text-xs font-bold uppercase tracking-widest text-[#08766c]">
+                    <span className="mono tabular-nums text-xs font-bold uppercase tracking-widest text-[#08766c]">
                       Step {item.step}
                     </span>
-                    <h3 className="mt-2 text-lg font-bold text-[#0d141e]">
+                    <h3 className="mt-2 text-lg font-bold text-[#0d141e] tracking-tight text-balance">
                       {item.title}
                     </h3>
-                    <p className="mt-2 text-sm text-[#566978] leading-6">
+                    <p className="mt-2 text-sm text-[#566978] leading-relaxed text-pretty">
                       {item.detail}
                     </p>
                   </div>
@@ -197,19 +197,21 @@ export default async function Ventures() {
             kicker="WHAT WE ARE BUILDING"
             title="Development priorities"
           />
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
             {priorities.map((item) => (
-              <div key={item.title} className="soft-card p-8">
+              <div key={item.title} className="soft-card p-7 sm:p-8 lg:p-9">
                 <item.icon
                   color="#08766c"
                   size={26}
                   strokeWidth={1.6}
                   aria-hidden="true"
                 />
-                <h3 className="mt-7 mb-2 text-[20px] font-bold text-[#0d141e]">
+                <h3 className="mt-6 mb-2 text-[20px] font-bold text-[#0d141e] tracking-tight text-balance">
                   {item.title}
                 </h3>
-                <p className="bodycopy text-[15px]">{item.description}</p>
+                <p className="bodycopy text-[15px] sm:text-[16px] text-pretty">
+                  {item.description}
+                </p>
               </div>
             ))}
           </div>
@@ -222,13 +224,15 @@ export default async function Ventures() {
             kicker="QUESTIONS & ANSWERS"
             title="Frequently asked questions"
           />
-          <div className="mt-10 grid md:grid-cols-2 gap-5">
+          <div className="mt-10 grid md:grid-cols-2 gap-6">
             {faqs.map((faq) => (
-              <div key={faq.question} className="soft-card p-7 md:p-8">
-                <h3 className="text-[19px] font-bold text-[#0d141e]">
+              <div key={faq.question} className="soft-card p-7 sm:p-8">
+                <h3 className="text-[19px] sm:text-[20px] font-bold text-[#0d141e] tracking-tight text-balance">
                   {faq.question}
                 </h3>
-                <p className="bodycopy mt-3 text-[15px]">{faq.answer}</p>
+                <p className="bodycopy mt-3 text-[15px] sm:text-[16px] text-pretty">
+                  {faq.answer}
+                </p>
               </div>
             ))}
           </div>

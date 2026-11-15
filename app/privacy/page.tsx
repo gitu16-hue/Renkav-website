@@ -8,14 +8,14 @@ export default function Privacy() {
     <>
       <section className="masthead">
         <div className="container-main">
-          <p className="eyebrow text-[#9fe4cd] mb-7">PRIVACY BY DESIGN</p>
-          <h1 className="display">Clear about your data.</h1>
+          <p className="eyebrow text-[#9fe4cd] mb-5 sm:mb-6">PRIVACY BY DESIGN</p>
+          <h1 className="display text-balance">Clear about your data.</h1>
         </div>
       </section>
       <section className="section-pad">
-        <div className="container-main max-w-3xl! space-y-8 bodycopy">
+        <div className="container-main max-w-3xl! space-y-8 bodycopy text-pretty">
           <div>
-            <h2 className="subheading text-[#12243d] mb-4">
+            <h2 className="subheading text-[#12243d] mb-4 text-balance">
               Your inquiry stays with you
             </h2>
             <p>

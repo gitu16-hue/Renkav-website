@@ -32,13 +32,15 @@ export default function Contact() {
       <section className="masthead">
         <div className="container-main relative z-10">
           <div className="entry-1">
-            <p className="eyebrow text-[#a2e5d0] mb-6 flex items-center gap-2">
+            <p className="eyebrow text-[#a2e5d0] mb-5 sm:mb-6 flex items-center gap-2">
               <span className="status-dot" aria-hidden="true" />
               <span>CONTACT RENKAV</span>
             </p>
           </div>
-          <h1 className="display entry-2 max-w-[820px]">Let’s talk.</h1>
-          <p className="entry-3 mt-7 text-[#c4d5dc] max-w-2xl text-lg leading-8">
+          <h1 className="display entry-2 max-w-[820px] text-balance">
+            Let’s talk.
+          </h1>
+          <p className="entry-3 mt-6 sm:mt-7 text-[#c4d5dc] max-w-[62ch] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
             Get in touch about ELEVEN, a potential partnership, or a general
             business inquiry.
           </p>
@@ -48,8 +50,10 @@ export default function Contact() {
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid lg:grid-cols-[.88fr_1.12fr] gap-12 lg:gap-16 items-start">
           <div>
-            <p className="eyebrow text-[#08766c] mb-4">DIRECT CONTACT</p>
-            <h2 className="subheading text-[#0d141e]">Reach us by email.</h2>
+            <p className="eyebrow text-[#08766c] mb-3 sm:mb-4">DIRECT CONTACT</p>
+            <h2 className="subheading text-[#0d141e] text-balance">
+              Reach us by email.
+            </h2>
             <a
               href="mailto:gitanshu@renkav.online"
               className="mt-6 inline-flex items-center gap-3.5 p-4 rounded-xl bg-white border border-[#e2e8e3] hover:border-[#08766c] transition-colors group shadow-sm"

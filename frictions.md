@@ -42,3 +42,17 @@
 解决：将其重构为命名变量赋值：`const config = { ... }; export default config;`。
 
 结论：`npm run lint` 退出码为 0，实现 0 error 0 warning 彻底零噪音。
+
+## 字体缩放、间距层级与动效质感提升 — resolved
+
+触发：全站排版在大屏与移动端存在 clamp 计算不够精确、段落末行孤字（orphan）、入场动画含 filter: blur 导致重绘抗锯齿模糊以及按钮缺少物理按压反馈的问题。
+
+调查：依据引入的 `better-typography`（Jakub Krehel）与 `improve-animations`（Emil Kowalski）设计工程规范，识别出四大优化项：
+1. 入场动画 `@keyframes el-rise` 移除 `filter: blur()`，改用纯 GPU 硬件加速的 `translate3d(0, 14px, 0)` 与 `opacity`；
+2. 按钮增加 `:active { transform: scale(0.982) translateY(0); }` 实现瞬时触觉反馈；卡片 `:hover` 提供微抬升与多层柔光阴影；
+3. 标题与副标题引入 `text-wrap: balance`，长正文与卡片描述引入 `text-wrap: pretty` 彻底消除孤字；
+4. 步骤序号、统计指标应用 `tabular-nums`，主容器与垂直节段间距采用响应式流体 clamp。
+
+解决：在 `app/globals.css`、`app/page.tsx`、`app/ventures/page.tsx`、`app/about/page.tsx`、`app/leadership/page.tsx`、`app/contact/page.tsx`、`components/section-heading.tsx` 与 `components/cta-banner.tsx` 中全面落地上述微动效与排版规约。
+
+结论：Typecheck、ESLint（0 告警）、Production Build、Smoke Tests（7/7 PASS）与浏览器子 Agent 视觉巡检全部 100% 通过。全站动效顺滑无卡顿，排版沉稳极简。

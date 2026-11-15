@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+
 export function SectionHeading({
   kicker,
   title,
@@ -11,18 +12,26 @@ export function SectionHeading({
   light?: boolean;
 }) {
   return (
-    <div className="max-w-[720px]">
+    <div className="max-w-[760px]">
       <p
-        className={`eyebrow mb-6 ${light ? "text-[#a2e5d0]" : "text-[#08766c]"}`}
+        className={`eyebrow mb-4 sm:mb-5 ${
+          light ? "text-[#a2e5d0]" : "text-[#08766c]"
+        }`}
       >
         {kicker}
       </p>
-      <h2 className={`heading ${light ? "text-white" : "text-[#0d141e]"}`}>
+      <h2
+        className={`heading text-balance ${
+          light ? "text-white" : "text-[#0d141e]"
+        }`}
+      >
         {title}
       </h2>
       {description && (
         <p
-          className={`mt-6 text-[16px] leading-8 ${light ? "text-[#c4d5dc]" : "text-[#566978]"}`}
+          className={`mt-4 sm:mt-5 text-[16px] md:text-[17px] leading-[1.7] text-pretty max-w-[65ch] ${
+            light ? "text-[#c4d5dc]" : "text-[#566978]"
+          }`}
         >
           {description}
         </p>

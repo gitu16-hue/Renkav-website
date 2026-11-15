@@ -1,6 +1,12 @@
 {
   "version": 2,
   "skills": {
+    "better-typography": {
+      "source": "jakubkrehel/skills",
+      "sourceType": "github",
+      "skillPath": "skills/better-typography/SKILL.md",
+      "computedHash": "85b6c26d65e0bcf11fb97f03ec91c057d5adc5d87bdffdee2eb14e0fac59c0a8"
+    },
     "friction-lifecycle": {
       "source": "Etavioxy/friction-skills",
       "sourceType": "github",
@@ -18,6 +24,12 @@
       "sourceType": "github",
       "skillPath": "skills/friction-problem-solver/SKILL.md",
       "computedHash": "abf191544ff08c2e18e3b56845fe5976c0439b419cd3a87038c150479782ef92"
+    },
+    "improve-animations": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/improve-animations/SKILL.md",
+      "computedHash": "5c33add82a79754bec0d7ee3376525e24e77b34575d5ae29d0c204f730356eab"
     },
     "issue-lifecycle": {
       "source": "Etavioxy/friction-skills",

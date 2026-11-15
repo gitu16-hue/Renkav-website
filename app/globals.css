@@ -51,8 +51,10 @@
   --font-geist: var(--font-geist-sans), "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
   --font-technical: var(--font-geist-mono), "Geist Mono", "SF Mono", monospace;
 
-  /* Timing */
+  /* Timing & Motion Tokens (Emil Kowalski animation standards) */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-base: 280ms;
 }
 
@@ -90,6 +92,7 @@ body {
   font-family: var(--font-body);
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 ::selection {
@@ -106,14 +109,25 @@ h3,
   font-family: var(--font-display);
   text-wrap: balance;
   letter-spacing: -0.04em;
+  text-underline-position: from-font;
 }
 
 p {
   overflow-wrap: break-word;
+  text-wrap: pretty;
 }
 
 .mono {
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+.measure-prose {
+  max-width: 65ch;
 }
 
 /* Atmospheric tactile grain */
@@ -128,56 +142,63 @@ p {
 }
 
 .container-main {
-  width: min(1190px, calc(100% - 44px));
+  width: min(1200px, calc(100% - 48px));
   margin-inline: auto;
 }
 
+@media (max-width: 640px) {
+  .container-main {
+    width: calc(100% - 36px);
+  }
+}
+
 .eyebrow {
-  font-size: 11px;
-  letter-spacing: 0.2em;
+  font-size: 0.72rem; /* 11.5px */
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   font-weight: 700;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
 .display {
-  font-size: clamp(3.1rem, 6vw, 6.1rem);
+  font-size: clamp(2.6rem, 2rem + 3vw, 5.5rem);
   font-weight: 700;
-  letter-spacing: -0.055em;
-  line-height: 1.05;
+  letter-spacing: -0.045em;
+  line-height: 1.06;
 }
 
 .heading {
-  font-size: clamp(2.35rem, 4.2vw, 4.2rem);
+  font-size: clamp(2rem, 1.6rem + 1.6vw, 3.6rem);
   font-weight: 700;
-  letter-spacing: -0.045em;
-  line-height: 1.1;
+  letter-spacing: -0.035em;
+  line-height: 1.14;
 }
 
 .subheading {
-  font-size: clamp(1.75rem, 2.8vw, 2.85rem);
+  font-size: clamp(1.35rem, 1.2rem + 0.8vw, 2.2rem);
   font-weight: 650;
-  letter-spacing: -0.035em;
-  line-height: 1.18;
+  letter-spacing: -0.025em;
+  line-height: 1.24;
 }
 
 .bodycopy {
-  font-size: 16px;
-  line-height: 1.8;
+  font-size: clamp(1rem, 0.98rem + 0.15vw, 1.0625rem);
+  line-height: 1.68;
   color: var(--muted);
+  text-wrap: pretty;
 }
 
-/* Classic micro-motion primitives */
+/* Classic micro-motion primitives (Emil Kowalski: hardware-accelerated, zero composite blur) */
 @keyframes el-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
-    filter: blur(6px);
+    transform: translate3d(0, 14px, 0);
   }
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
-    filter: blur(0);
   }
 }
 
@@ -223,21 +244,21 @@ p {
   background-size: 40px 40px;
 }
 
-/* Staggered entrance animations */
+/* Staggered entrance animations (Emil Kowalski: sub-850ms cascade, hardware-accelerated) */
 .entry-1 {
-  animation: el-rise 0.8s var(--ease-out-expo) 0.05s both;
+  animation: el-rise 0.65s var(--ease-out-expo) 0.04s both;
 }
 .entry-2 {
-  animation: el-rise 0.85s var(--ease-out-expo) 0.16s both;
+  animation: el-rise 0.7s var(--ease-out-expo) 0.12s both;
 }
 .entry-3 {
-  animation: el-rise 0.9s var(--ease-out-expo) 0.28s both;
+  animation: el-rise 0.75s var(--ease-out-expo) 0.2s both;
 }
 .entry-4 {
-  animation: el-rise 0.95s var(--ease-out-expo) 0.4s both;
+  animation: el-rise 0.8s var(--ease-out-expo) 0.28s both;
 }
 .reveal-in {
-  animation: el-rise 0.75s var(--ease-out-expo) both;
+  animation: el-rise 0.65s var(--ease-out-expo) both;
 }
 
 .status-dot {
@@ -284,36 +305,37 @@ p {
   transform-origin: left center;
 }
 
-/* Buttons */
+/* Buttons (Tactile click feedback per Emil Kowalski) */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding: 14px 22px;
+  padding: 13px 22px;
   min-height: 48px;
   border-radius: 10px;
   font-size: 13px;
   font-weight: 650;
+  letter-spacing: -0.01em;
   text-decoration: none;
   transition:
-    transform 0.22s var(--ease-out-expo),
-    background 0.22s ease,
-    color 0.22s ease,
-    border-color 0.22s ease,
-    box-shadow 0.22s ease;
+    transform 0.2s var(--ease-out-expo),
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 .btn:hover {
   transform: translateY(-2px);
 }
 .btn:active {
-  transform: translateY(0);
+  transform: scale(0.982) translateY(0);
 }
 .btn svg {
-  transition: transform 0.2s var(--ease-out-expo);
+  transition: transform 0.22s var(--ease-out-expo);
 }
 .btn:hover svg {
-  transform: translate(2px, -2px);
+  transform: translate(3px, -3px);
 }
 .btn-light {
   background: #a2e5d0;
@@ -359,6 +381,7 @@ p {
   text-transform: uppercase;
   font-weight: 700;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
 }
 
 .soft-card {
@@ -367,14 +390,14 @@ p {
   border-radius: 14px;
   box-shadow: 0 2px 10px rgba(9, 14, 21, 0.03);
   transition:
-    transform 0.25s var(--ease-out-expo),
-    box-shadow 0.25s var(--ease-out-expo),
-    border-color 0.25s ease;
+    transform 0.28s var(--ease-out-expo),
+    box-shadow 0.28s var(--ease-out-expo),
+    border-color 0.24s ease;
 }
 @media (hover: hover) {
   .soft-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px rgba(9, 14, 21, 0.06);
+    transform: translateY(-3px);
+    box-shadow: 0 16px 36px -8px rgba(9, 14, 21, 0.08);
     border-color: #9eccba;
   }
 }
@@ -433,7 +456,7 @@ p {
 }
 
 .masthead {
-  padding-block: 104px 96px;
+  padding-block: clamp(84px, 10vw, 120px) clamp(72px, 8vw, 104px);
   background: #090e15;
   color: #ffffff;
   position: relative;
@@ -444,7 +467,7 @@ p {
 }
 
 .section-pad {
-  padding-block: 100px;
+  padding-block: clamp(72px, 8vw, 116px);
 }
 
 .footer-link {
@@ -987,4 +1010,16 @@ html.dark .btn-dark:hover {
   background: #ffffff;
   color: #090e15;
   box-shadow: 0 4px 20px rgba(162, 229, 208, 0.38);
+}
+
+/* Reduced Motion Compliance (Emil Kowalski accessibility rule) */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

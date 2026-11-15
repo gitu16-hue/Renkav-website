@@ -45,24 +45,24 @@ export default async function Home() {
     <>
       <section className="hero relative overflow-hidden text-white">
         <div className="absolute inset-0 grid-pattern opacity-35" />
-        <div className="container-main relative grid lg:grid-cols-[1.12fr_.88fr] gap-12 lg:gap-12 items-center pt-16 pb-20 lg:pt-[96px] lg:pb-[112px]">
+        <div className="container-main relative grid lg:grid-cols-[1.12fr_.88fr] gap-12 lg:gap-16 items-center pt-16 pb-20 lg:pt-[104px] lg:pb-[120px]">
           <div>
             <div className="entry-1">
-              <p className="eyebrow text-[#a2e5d0] mb-6 flex items-center gap-2.5">
+              <p className="eyebrow text-[#a2e5d0] mb-5 sm:mb-6 flex items-center gap-2.5">
                 <span className="status-dot" aria-hidden="true" />
                 <span>RENKAV TECHNOLOGIES</span>
               </p>
             </div>
-            <h1 className="display hero-title entry-2 max-w-[770px]">
+            <h1 className="display hero-title entry-2 max-w-[780px]">
               AI that helps you{" "}
               <span className="text-[#a2e5d0]">get work done.</span>
             </h1>
-            <p className="entry-3 mt-7 max-w-[580px] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.8]">
+            <p className="entry-3 mt-6 sm:mt-7 max-w-[62ch] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
               We’re building software that helps people pick up where they left
               off, plan their next steps, and stay in control of what AI does on
               their behalf.
             </p>
-            <div className="entry-4 mt-9 flex flex-col sm:flex-row flex-wrap gap-3.5">
+            <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap gap-3.5">
               <Link
                 href="/ventures"
                 className="btn btn-light w-full sm:w-auto"
@@ -76,7 +76,7 @@ export default async function Home() {
                 Get in touch <ArrowRight size={17} aria-hidden="true" />
               </Link>
             </div>
-            <p className="entry-4 mt-12 pt-6 border-t border-white/10 text-[#a2e5d0] uppercase tracking-[.22em] text-[11px] font-bold mono flex items-center gap-2">
+            <p className="entry-4 mt-10 sm:mt-12 pt-6 border-t border-white/10 text-[#a2e5d0] uppercase tracking-[.22em] text-[11px] font-bold mono flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#a2e5d0]/60" />
               <span>Make the Next Matter.</span>
             </p>
@@ -90,14 +90,14 @@ export default async function Home() {
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-1 lg:order-2">
-            <div className="tag mb-6 border-[#a2e5d0]/50 text-[#08766c] bg-[#eef7f3]">
+            <div className="tag mb-5 sm:mb-6 border-[#a2e5d0]/50 text-[#08766c] bg-[#eef7f3]">
               <span className="status-dot-lime mr-1" aria-hidden="true" />
               <span>OUR FIRST PROJECT · IN DEVELOPMENT</span>
             </div>
-            <h2 className="heading text-[#0d141e]">
+            <h2 className="heading text-[#0d141e] text-balance">
               Meet <span className="text-[#08766c]">ELEVEN.</span>
             </h2>
-            <p className="bodycopy mt-6 text-[16px] md:text-[17px]">
+            <p className="bodycopy mt-5 sm:mt-6 text-[16px] md:text-[17px] max-w-[62ch] text-pretty">
               ELEVEN is an AI assistant in development. We’re designing it to
               pick up ongoing work using context you’ve approved, work with
               different AI models, and ask before taking actions that need your
@@ -151,15 +151,15 @@ export default async function Home() {
             kicker="PRODUCT PRINCIPLES"
             title="What we’re designing for"
           />
-          <div className="mt-12 grid lg:grid-cols-3 gap-5">
+          <div className="mt-12 grid lg:grid-cols-3 gap-6 lg:gap-8">
             {principles.map((p) => (
               <div
                 key={p.num}
-                className="soft-card p-7 md:p-8 flex flex-col justify-between"
+                className="soft-card p-7 sm:p-8 lg:p-9 flex flex-col justify-between"
               >
                 <div>
                   <div className="flex items-center justify-between mb-8">
-                    <span className="mono text-[12px] font-bold tracking-widest text-[#566978]">
+                    <span className="mono tabular-nums text-[12px] font-bold tracking-widest text-[#566978]">
                       {p.num} / 03
                     </span>
                     <p.icon
@@ -169,10 +169,12 @@ export default async function Home() {
                       aria-hidden="true"
                     />
                   </div>
-                  <h3 className="text-[21px] font-bold tracking-tight text-[#0d141e] mb-3">
+                  <h3 className="text-[20px] sm:text-[22px] font-bold tracking-tight text-[#0d141e] mb-3 text-balance">
                     {p.title}
                   </h3>
-                  <p className="bodycopy text-[15px]">{p.description}</p>
+                  <p className="bodycopy text-[15px] sm:text-[16px] text-pretty">
+                    {p.description}
+                  </p>
                 </div>
                 <div className="mt-8 pt-4 border-t border-[#f0f4f1]">
                   <span className="mono text-[10px] font-bold tracking-widest text-[#08766c] uppercase">
@@ -188,11 +190,11 @@ export default async function Home() {
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid md:grid-cols-[1.15fr_.85fr] gap-10 items-center">
           <div>
-            <p className="eyebrow text-[#08766c] mb-5">FOUNDING TEAM</p>
-            <h2 className="heading text-[#0d141e]">
+            <p className="eyebrow text-[#08766c] mb-4 sm:mb-5">FOUNDING TEAM</p>
+            <h2 className="heading text-[#0d141e] text-balance">
               Meet the people building RENKAV.
             </h2>
-            <p className="bodycopy mt-5 max-w-2xl">
+            <p className="bodycopy mt-4 sm:mt-5 max-w-[62ch] text-pretty">
               Gitanshu Damade and Yashika Pawar are the founders behind RENKAV
               and its first project, ELEVEN.
             </p>
