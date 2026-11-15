@@ -11,6 +11,7 @@ import {
 import { NetworkArt } from "@/components/network-art";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaBanner } from "@/components/cta-banner";
+import { Card3DTilt } from "@/components/card-3d-tilt";
 import { showHolographicOrb } from "@/flags";
 
 export const metadata: Metadata = {
@@ -160,41 +161,45 @@ export default async function Ventures() {
             kicker="WORKED EXAMPLE"
             title="A realistic workflow"
           />
-          <div className="mt-10 bg-white border border-[#e2e8e3] rounded-xl p-7 sm:p-9 md:p-11 shadow-sm scroll-reveal">
-            <blockquote className="text-[20px] md:text-[24px] font-semibold text-[#0d141e] leading-[1.35] tracking-tight border-l-4 border-[#08766c] pl-5 text-pretty">
-              “Pick up yesterday’s partnership proposal. Check my approved
-              notes, tell me what’s missing, and draft a follow-up.”
-            </blockquote>
-            <p className="bodycopy mt-5 sm:mt-6 max-w-[64ch] text-[16px] md:text-[17px] text-pretty">
-              ELEVEN would use the notes you allow, flag anything it can’t
-              verify, and prepare a draft for review. It would not send the
-              email without the required approval.
-            </p>
-            <ol className="mt-8 grid md:grid-cols-3 gap-5 list-none p-0">
-              {workflowSteps.map((item, idx) => (
-                <li
-                  key={item.step}
-                  className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 sm:p-7 flex flex-col justify-between scroll-reveal"
-                  data-delay={String(idx + 1)}
-                >
-                  <div>
-                    <span className="mono tabular-nums text-xs font-bold uppercase tracking-widest text-[#08766c]">
-                      Step {item.step}
-                    </span>
-                    <h3 className="mt-2 text-lg font-bold text-[#0d141e] tracking-tight text-balance">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-sm text-[#566978] leading-relaxed text-pretty">
-                      {item.detail}
-                    </p>
-                  </div>
-                </li>
-              ))}
-            </ol>
-            <p className="mt-6 pt-5 border-t border-[#e2e8e3] text-xs font-semibold text-[#566978] mono">
-              Illustrative workflow. The full experience is not being announced
-              as available today.
-            </p>
+          <div className="mt-10 scroll-reveal">
+            <Card3DTilt maxTilt={4} glare={false}>
+              <div className="bg-white border border-[#e2e8e3] rounded-xl p-7 sm:p-9 md:p-11 shadow-sm">
+                <blockquote className="text-[20px] md:text-[24px] font-semibold text-[#0d141e] leading-[1.35] tracking-tight border-l-4 border-[#08766c] pl-5 text-pretty">
+                  “Pick up yesterday’s partnership proposal. Check my approved
+                  notes, tell me what’s missing, and draft a follow-up.”
+                </blockquote>
+                <p className="bodycopy mt-5 sm:mt-6 max-w-[64ch] text-[16px] md:text-[17px] text-pretty">
+                  ELEVEN would use the notes you allow, flag anything it can’t
+                  verify, and prepare a draft for review. It would not send the
+                  email without the required approval.
+                </p>
+                <ol className="mt-8 grid md:grid-cols-3 gap-5 list-none p-0">
+                  {workflowSteps.map((item, idx) => (
+                    <li
+                      key={item.step}
+                      className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 sm:p-7 flex flex-col justify-between scroll-reveal"
+                      data-delay={String(idx + 1)}
+                    >
+                      <div>
+                        <span className="mono tabular-nums text-xs font-bold uppercase tracking-widest text-[#08766c]">
+                          Step {item.step}
+                        </span>
+                        <h3 className="mt-2 text-lg font-bold text-[#0d141e] tracking-tight text-balance">
+                          {item.title}
+                        </h3>
+                        <p className="mt-2 text-sm text-[#566978] leading-relaxed text-pretty">
+                          {item.detail}
+                        </p>
+                      </div>
+                    </li>
+                  ))}
+                </ol>
+                <p className="mt-6 pt-5 border-t border-[#e2e8e3] text-xs font-semibold text-[#566978] mono">
+                  Illustrative workflow. The full experience is not being announced
+                  as available today.
+                </p>
+              </div>
+            </Card3DTilt>
           </div>
         </div>
       </section>

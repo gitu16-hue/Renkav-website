@@ -103,3 +103,27 @@
    - 全面支持 `prefers-reduced-motion` 与 `data-reduce-motion="true"`，点击无障碍减弱动效时秒级降级。
 
 结论：TypeScript Typecheck (0 error)、ESLint (0 error 0 warning)、Next.js Production Build、Smoke Tests (7/7 PASS) 与浏览器子 Agent 视口滚动审查全部 100% 验证通过。
+
+
+## Microdose Studio 签名动效系统全量落地 — resolved
+
+触发：依据对 Microdose Studio 的前端逆向工程报告，为 RENKAV / ELEVEN 注入现代高阶物理动效与动量交互系统。
+
+调查：
+1. 深入分析 Microdose Studio 的四大核心交互：
+   - 英雄区可变字重临近波纹交互（Variable Font Proximity Wave）：基于 Geist Variable Font，光标悬停时字符升至 780 字重，并向左右各 3 字符呈 70%、40%、15% 衰减辐射；
+   - 无限动量旋转轮播（Infinite Momentum Reel）：双组卡片无缝平移、拖拽动量惯性衰减（基于 16ms 内 0.95 衰减因子）与触控 10px 轴向锁定；
+   - 滚动填充宣言（Scroll-Filled Manifesto）：字级透明度由低对比微淡过渡为高亮薄荷绿与纯白，随视口进度即时擦除/显色；
+   - 深度透视 3D 悬浮倾斜（3D Depth Perspective Stage）：跟随光标位置实时计算 `rotateX/Y` 与动态反光高光；
+2. 识别与解决工程卡点：
+   - `scripts/smoke.mjs` 测试校验 SSR 原生文本 `html.includes("AI that helps you")`，避免在服务端渲染单字 `<span>` 切割导致测试失败，采用 SSR 原生连续文本 + 客户端水合后升级交互字跨的策略；
+   - 遵循 React 19 规范，使用 `useSyncExternalStore` 接入媒体查询 `(hover: hover) and (pointer: fine)`，杜绝 `useEffect` 同步 `setState` 触发的级联重绘警告。
+
+解决：
+1. 实现 `components/interactive-hero-title.tsx`（英雄区可变字重悬停波浪动效）；
+2. 实现 `components/infinite-reel.tsx`（ELEVEN 六大核心子系统无限动量轮播轨道）；
+3. 实现 `components/scroll-manifesto.tsx`（全站哲学宣言滚动动态填色与进度追踪）；
+4. 实现 `components/card-3d-tilt.tsx`（原型卡片与功能卡片的物理 3D 深度透视倾斜）；
+5. 在 `app/globals.css` 中升级按钮内发光高光（inset highlight）与亮/暗双主题深度适配。
+
+结论：TypeScript (0 error)、ESLint (0 error 0 warning)、Next.js Build、Smoke Suite (7/7 PASS) 与自动化浏览器子 Agent 交互巡检 100% 验证通过。

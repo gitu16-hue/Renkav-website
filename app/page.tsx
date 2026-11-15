@@ -10,6 +10,10 @@ import {
 import { SectionHeading } from "@/components/section-heading";
 import { NetworkArt } from "@/components/network-art";
 import { CtaBanner } from "@/components/cta-banner";
+import { InteractiveHeroTitle } from "@/components/interactive-hero-title";
+import { InfiniteCapabilitiesReel } from "@/components/infinite-reel";
+import { ScrollManifesto } from "@/components/scroll-manifesto";
+import { Card3DTilt } from "@/components/card-3d-tilt";
 import { showHolographicOrb } from "@/flags";
 
 const principles = [
@@ -53,19 +57,7 @@ export default async function Home() {
                 <span>RENKAV TECHNOLOGIES</span>
               </p>
             </div>
-            <h1 className="display hero-title entry-2 max-w-[780px]">
-              <span className="font-reveal-line">
-                <span className="font-reveal-inner">AI that helps you</span>
-              </span>{" "}
-              <span className="font-reveal-line">
-                <span
-                  className="font-reveal-inner text-[#a2e5d0]"
-                  style={{ animationDelay: "0.18s" }}
-                >
-                  get work done.
-                </span>
-              </span>
-            </h1>
+            <InteractiveHeroTitle />
             <p className="entry-3 mt-6 sm:mt-7 max-w-[62ch] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
               We’re building software that helps people pick up where they left
               off, plan their next steps, and stay in control of what AI does on
@@ -96,6 +88,12 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Microdose Studio-inspired Infinite Momentum Reel of Core Capabilities */}
+      <InfiniteCapabilitiesReel />
+
+      {/* Microdose Studio-inspired Scroll-Filled Manifesto */}
+      <ScrollManifesto />
+
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-1 lg:order-2 scroll-reveal">
@@ -123,33 +121,35 @@ export default async function Home() {
             </div>
           </div>
           <div className="relative order-2 lg:order-1 scroll-reveal" data-delay="1">
-            <div
-              className="bg-[#0b1017] rounded-xl p-8 md:p-12 min-h-[380px] md:min-h-[440px] overflow-hidden relative border border-[#1a2533] shadow-2xl"
-              aria-hidden="true"
-            >
-              <div className="absolute inset-0 grid-pattern opacity-20" />
-              <div className="absolute -right-20 -bottom-20 w-[420px] h-[420px] rounded-full border border-[#a2e5d0]/20" />
-              <div className="absolute right-0 bottom-0 w-[300px] h-[300px] rounded-full border border-[#b8f36b]/15" />
-              <div className="absolute right-[50px] bottom-[45px] w-[200px] h-[200px] rounded-full border border-[#a2e5d0]/30" />
-              
-              <div className="relative z-10 flex items-center justify-between">
-                <span className="eyebrow text-[#a2e5d0] flex items-center gap-2">
-                  <span className="status-dot" /> RENKAV / VENTURE 01
-                </span>
-                <span className="mono text-[10px] text-[#b8f36b] uppercase tracking-wider px-2 py-0.5 rounded-full border border-[#b8f36b]/30 bg-[#b8f36b]/10">
-                  Prototype
-                </span>
-              </div>
+            <Card3DTilt maxTilt={6}>
+              <div
+                className="bg-[#0b1017] rounded-xl p-8 md:p-12 min-h-[380px] md:min-h-[440px] overflow-hidden relative border border-[#1a2533] shadow-2xl"
+                aria-hidden="true"
+              >
+                <div className="absolute inset-0 grid-pattern opacity-20" />
+                <div className="absolute -right-20 -bottom-20 w-[420px] h-[420px] rounded-full border border-[#a2e5d0]/20" />
+                <div className="absolute right-0 bottom-0 w-[300px] h-[300px] rounded-full border border-[#b8f36b]/15" />
+                <div className="absolute right-[50px] bottom-[45px] w-[200px] h-[200px] rounded-full border border-[#a2e5d0]/30" />
+                
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="eyebrow text-[#a2e5d0] flex items-center gap-2">
+                    <span className="status-dot" /> RENKAV / VENTURE 01
+                  </span>
+                  <span className="mono text-[10px] text-[#b8f36b] uppercase tracking-wider px-2 py-0.5 rounded-full border border-[#b8f36b]/30 bg-[#b8f36b]/10">
+                    Prototype
+                  </span>
+                </div>
 
-              <div className="absolute bottom-10 left-8 md:left-12 z-10">
-                <span className="block text-white text-[clamp(3.8rem,7vw,6.4rem)] font-bold tracking-[-.06em] leading-none">
-                  ELEVEN<span className="text-[#b8f36b]">.</span>
-                </span>
-                <p className="mt-3 text-[#98abb5] uppercase tracking-[.22em] text-[10px] font-bold mono">
-                  Intelligence Operating System Prototype
-                </p>
+                <div className="absolute bottom-10 left-8 md:left-12 z-10">
+                  <span className="block text-white text-[clamp(3.8rem,7vw,6.4rem)] font-bold tracking-[-.06em] leading-none">
+                    ELEVEN<span className="text-[#b8f36b]">.</span>
+                  </span>
+                  <p className="mt-3 text-[#98abb5] uppercase tracking-[.22em] text-[10px] font-bold mono">
+                    Intelligence Operating System Prototype
+                  </p>
+                </div>
               </div>
-            </div>
+            </Card3DTilt>
           </div>
         </div>
       </section>
