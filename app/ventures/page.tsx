@@ -12,6 +12,7 @@ import { NetworkArt } from "@/components/network-art";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaBanner } from "@/components/cta-banner";
 import { Card3DTilt } from "@/components/card-3d-tilt";
+import { DepthSpatialStage } from "@/components/depth-spatial-stage";
 import { showHolographicOrb } from "@/flags";
 
 export const metadata: Metadata = {
@@ -234,6 +235,9 @@ export default async function Ventures() {
           </div>
         </div>
       </section>
+
+      {/* Microdose Studio-inspired 3D Depth Spatial Architecture Stage */}
+      <DepthSpatialStage />
 
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main">

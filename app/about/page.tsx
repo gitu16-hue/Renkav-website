@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Eye, Target, Workflow, ShieldCheck, FileSearch } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { CtaBanner } from "@/components/cta-banner";
+import { Card3DTilt } from "@/components/card-3d-tilt";
 
 export const metadata: Metadata = {
   title: "About",
@@ -83,21 +84,25 @@ export default function About() {
               </h2>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-8 sm:p-10 md:p-12 border border-[#e2e8e3] shadow-sm flex flex-col justify-between scroll-reveal" data-delay="1">
-            <div>
-              <Eye
-                size={30}
-                color="#08766c"
-                strokeWidth={1.6}
-                aria-hidden="true"
-              />
-              <p className="eyebrow text-[#08766c] mt-7 mb-4">Our vision</p>
-              <h2 className="subheading text-[#0d141e] text-balance">
-                An assistant that keeps the thread of your work across
-                conversations, models and approved tools, while you decide what it
-                remembers and what it can do.
-              </h2>
-            </div>
+          <div className="scroll-reveal" data-delay="1">
+            <Card3DTilt maxTilt={5}>
+              <div className="bg-white rounded-xl p-8 sm:p-10 md:p-12 border border-[#e2e8e3] shadow-sm flex flex-col justify-between h-full">
+                <div>
+                  <Eye
+                    size={30}
+                    color="#08766c"
+                    strokeWidth={1.6}
+                    aria-hidden="true"
+                  />
+                  <p className="eyebrow text-[#08766c] mt-7 mb-4">Our vision</p>
+                  <h2 className="subheading text-[#0d141e] text-balance">
+                    An assistant that keeps the thread of your work across
+                    conversations, models and approved tools, while you decide what it
+                    remembers and what it can do.
+                  </h2>
+                </div>
+              </div>
+            </Card3DTilt>
           </div>
         </div>
       </section>

@@ -1220,6 +1220,67 @@ html:not(.dark) .scroll-manifesto {
   color: #0d141e !important;
 }
 
+/* Light Mode Overrides for 3D Depth Spatial Stage & Labs Lens */
+html:not(.dark) .depth-spatial-section {
+  background-color: #f4f8f6 !important;
+  border-color: #e2e8e3 !important;
+  color: #0d141e !important;
+}
+html:not(.dark) .depth-spatial-section h2,
+html:not(.dark) .depth-spatial-section h3 {
+  color: #0d141e !important;
+}
+html:not(.dark) .depth-spatial-section .text-white {
+  color: #0d141e !important;
+}
+html:not(.dark) .depth-spatial-section .bg-\[\#080d14\]\/70 {
+  background-color: #ffffff !important;
+  border-color: #e2e8e3 !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05) !important;
+}
+html:not(.dark) .depth-spatial-section .bg-\[\#0c1420\]\/90 {
+  background-color: #ffffff !important;
+  border-color: #e2e8e3 !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.07) !important;
+}
+html:not(.dark) .depth-spatial-section .text-\[\#c4d5dc\],
+html:not(.dark) .depth-spatial-section .text-\[\#9eb3be\] {
+  color: #425a66 !important;
+}
+
+html:not(.dark) .labs-spatial-lens {
+  background-color: #ffffff !important;
+  border-color: #e2e8e3 !important;
+  color: #0d141e !important;
+}
+html:not(.dark) .labs-spatial-lens h2,
+html:not(.dark) .labs-spatial-lens h3 {
+  color: #0d141e !important;
+}
+html:not(.dark) .labs-spatial-lens .text-white {
+  color: #0d141e !important;
+}
+html:not(.dark) .labs-spatial-lens .bg-\[\#0c1420\]\/85 {
+  background-color: #f8faf7 !important;
+  border-color: #e2e8e3 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04) !important;
+}
+html:not(.dark) .labs-spatial-lens .text-\[\#c4d5dc\],
+html:not(.dark) .labs-spatial-lens .text-\[\#9eb3be\] {
+  color: #425a66 !important;
+}
+
+/* Reduced Motion Compliance (Emil Kowalski accessibility rule) */
+html[data-reduce-motion="true"] .depth-spatial-section div,
+html[data-reduce-motion="true"] .labs-spatial-lens div,
+@media (prefers-reduced-motion: reduce) {
+  .depth-spatial-section div,
+  .labs-spatial-lens div {
+    transform: none !important;
+    perspective: none !important;
+  }
+}
+
 /* Reduced Motion Compliance (Emil Kowalski accessibility rule) */
 html[data-reduce-motion="true"] .scroll-reveal,
 html[data-reduce-motion="true"] .entry-1,

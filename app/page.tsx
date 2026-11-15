@@ -14,6 +14,7 @@ import { InteractiveHeroTitle } from "@/components/interactive-hero-title";
 import { InfiniteCapabilitiesReel } from "@/components/infinite-reel";
 import { ScrollManifesto } from "@/components/scroll-manifesto";
 import { Card3DTilt } from "@/components/card-3d-tilt";
+import { LabsSpatialLens } from "@/components/labs-spatial-lens";
 import { showHolographicOrb } from "@/flags";
 
 const principles = [
@@ -196,6 +197,9 @@ export default async function Home() {
           </div>
         </div>
       </section>
+
+      {/* Microdose Studio-inspired Labs Spatial Lens Interactive Research Showcase */}
+      <LabsSpatialLens />
 
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid md:grid-cols-[1.15fr_.85fr] gap-10 items-center">

@@ -127,3 +127,29 @@
 5. 在 `app/globals.css` 中升级按钮内发光高光（inset highlight）与亮/暗双主题深度适配。
 
 结论：TypeScript (0 error)、ESLint (0 error 0 warning)、Next.js Build、Smoke Suite (7/7 PASS) 与自动化浏览器子 Agent 交互巡检 100% 验证通过。
+
+## 网站 3D 深度空间交互特性全量落地 (3D Depth Spatial Architecture Stage & Labs Spatial Lens) — resolved
+
+触发：用户要求为网站增补完整的 3D 空间交互特性（`also add websites 3d features`）。
+
+调查：
+依据 Microdose Studio 前端逆向报告中的两大高级 3D 空间架构模式：
+1. **多平面 3D 空间深度透视舞台（Depth Collage / `more-dosing-depth-collage`）**：
+   - 依赖 CSS 3D 透视舞台（`perspective: 1200px; transform-style: preserve-3d`），在真实 Z 轴上布置多层独立建筑平面（Z: -120px ~ +120px）；
+   - 光标移动时通过弹簧插值阻尼（lerp 0.08）实时驱动舞台物理旋转（`rotateX/rotateY`），各层因 Z 轴深度不同产生极具真实感的空间物理视差；
+   - 支持视口模式切换："Exploded 3D"（最大立体爆炸分解透视）、"Isometric"（45度轴测投影）与 "Stack"（紧凑扁平层叠）；
+   - 悬停任意平面可触发向前浮出（`translateZ(+45px)`）并联动更新右侧原子化遥测与加密规范面板。
+2. **实验室 3D 空间透镜交互陈列室（Labs Spatial Lens / `labs-lens.min.js` & `labs-gallery`）**：
+   - 建立支持动量拖拽惯性物理衰减（0.95 衰减因子）与触控 10px 轴向锁定的空间实验画布；
+   - 包含 ELEVEN 六大内核实验原型卡片（本地持久化记忆、确定性加密证明、多模型仲裁、16kHz 本地 VAD、自愈 DAG 沙箱、Ring-0 治理）；
+   - 点击卡片触发平滑弹簧缩放的无障碍 3D 蓝图检查弹窗（Dialog Lightbox），支持 `Escape` 键闭合与焦点回归。
+3. **全站 3D 卡片触觉倾斜扩展（Card3DTilt）**：
+   - 在 `/about`（愿景卡片）与 `/leadership`（创始人履历卡片）全量接入 3D 物理倾斜与光斑跟随。
+
+解决：
+1. 编写并接入 `components/depth-spatial-stage.tsx` 于 `/ventures` 页面；
+2. 编写并接入 `components/labs-spatial-lens.tsx` 于首页核心原则下方；
+3. 更新 `app/about/page.tsx` 与 `app/leadership/page.tsx`，以 `Card3DTilt` 封装重点卡片；
+4. 更新 `app/globals.css` 完善亮暗双模式下的 3D 舞台对比度映射与 `prefers-reduced-motion` 降级支持。
+
+结论：Typecheck (0 error)、ESLint (0 error 0 warning)、Production Build、Smoke Suite (7/7 PASS) 与自动化浏览器子 Agent 多模式 3D 视觉巡检（Exploded 3D、Isometric、Blueprint Dialog）全部 100% 验证通过。

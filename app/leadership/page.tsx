@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { UserRound } from "lucide-react";
 import { CtaBanner } from "@/components/cta-banner";
+import { Card3DTilt } from "@/components/card-3d-tilt";
 
 export const metadata: Metadata = {
   title: "Leadership",
@@ -50,38 +51,42 @@ export default function Leadership() {
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
             {team.map((t, idx) => (
-              <article
-                className="soft-card overflow-hidden flex flex-col scroll-reveal"
-                data-delay={String(idx + 1)}
+              <div
                 key={t.name}
+                className="scroll-reveal h-full"
+                data-delay={String(idx + 1)}
               >
-                <div
-                  className="portrait h-[280px] md:h-[320px] flex items-center justify-center relative overflow-hidden"
-                  aria-hidden="true"
-                >
-                  <div className="founder-avatar w-36 h-36 rounded-full border border-[#b4d0c7] flex items-center justify-center bg-[#d9eae4] relative">
-                    <span className="mono tabular-nums text-5xl font-bold tracking-tighter text-[#0d141e]">
-                      {t.initials}
-                    </span>
-                  </div>
-                  <div className="absolute bottom-6 right-7 text-[#4f8176]/60">
-                    <UserRound size={26} strokeWidth={1.3} />
-                  </div>
-                </div>
-                <div className="p-8 sm:p-9 md:p-10 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h2 className="text-[23px] sm:text-[25px] tracking-tight font-bold text-[#0d141e] text-balance">
-                      {t.name}{" "}
-                      <span className="text-[#08766c] font-semibold text-lg">
-                        · {t.role}
-                      </span>
-                    </h2>
-                    <p className="bodycopy mt-4 text-[15px] sm:text-[16px] text-pretty">
-                      {t.bio}
-                    </p>
-                  </div>
-                </div>
-              </article>
+                <Card3DTilt maxTilt={5}>
+                  <article className="soft-card overflow-hidden flex flex-col h-full">
+                    <div
+                      className="portrait h-[280px] md:h-[320px] flex items-center justify-center relative overflow-hidden"
+                      aria-hidden="true"
+                    >
+                      <div className="founder-avatar w-36 h-36 rounded-full border border-[#b4d0c7] flex items-center justify-center bg-[#d9eae4] relative">
+                        <span className="mono tabular-nums text-5xl font-bold tracking-tighter text-[#0d141e]">
+                          {t.initials}
+                        </span>
+                      </div>
+                      <div className="absolute bottom-6 right-7 text-[#4f8176]/60">
+                        <UserRound size={26} strokeWidth={1.3} />
+                      </div>
+                    </div>
+                    <div className="p-8 sm:p-9 md:p-10 flex-1 flex flex-col justify-between">
+                      <div>
+                        <h2 className="text-[23px] sm:text-[25px] tracking-tight font-bold text-[#0d141e] text-balance">
+                          {t.name}{" "}
+                          <span className="text-[#08766c] font-semibold text-lg">
+                            · {t.role}
+                          </span>
+                        </h2>
+                        <p className="bodycopy mt-4 text-[15px] sm:text-[16px] text-pretty">
+                          {t.bio}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                </Card3DTilt>
+              </div>
             ))}
           </div>
         </div>
