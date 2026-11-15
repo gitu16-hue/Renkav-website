@@ -54,8 +54,17 @@ export default async function Home() {
               </p>
             </div>
             <h1 className="display hero-title entry-2 max-w-[780px]">
-              AI that helps you{" "}
-              <span className="text-[#a2e5d0]">get work done.</span>
+              <span className="font-reveal-line">
+                <span className="font-reveal-inner">AI that helps you</span>
+              </span>{" "}
+              <span className="font-reveal-line">
+                <span
+                  className="font-reveal-inner text-[#a2e5d0]"
+                  style={{ animationDelay: "0.18s" }}
+                >
+                  get work done.
+                </span>
+              </span>
             </h1>
             <p className="entry-3 mt-6 sm:mt-7 max-w-[62ch] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
               We’re building software that helps people pick up where they left
@@ -89,7 +98,7 @@ export default async function Home() {
 
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-2 scroll-reveal">
             <div className="tag mb-5 sm:mb-6 border-[#a2e5d0]/50 text-[#08766c] bg-[#eef7f3]">
               <span className="status-dot-lime mr-1" aria-hidden="true" />
               <span>OUR FIRST PROJECT · IN DEVELOPMENT</span>
@@ -113,7 +122,7 @@ export default async function Home() {
               </span>
             </div>
           </div>
-          <div className="relative order-2 lg:order-1">
+          <div className="relative order-2 lg:order-1 scroll-reveal" data-delay="1">
             <div
               className="bg-[#0b1017] rounded-xl p-8 md:p-12 min-h-[380px] md:min-h-[440px] overflow-hidden relative border border-[#1a2533] shadow-2xl"
               aria-hidden="true"
@@ -152,10 +161,11 @@ export default async function Home() {
             title="What we’re designing for"
           />
           <div className="mt-12 grid lg:grid-cols-3 gap-6 lg:gap-8">
-            {principles.map((p) => (
+            {principles.map((p, idx) => (
               <div
                 key={p.num}
-                className="soft-card p-7 sm:p-8 lg:p-9 flex flex-col justify-between"
+                className="soft-card p-7 sm:p-8 lg:p-9 flex flex-col justify-between scroll-reveal"
+                data-delay={String(idx + 1)}
               >
                 <div>
                   <div className="flex items-center justify-between mb-8">

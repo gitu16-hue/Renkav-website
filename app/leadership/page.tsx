@@ -35,7 +35,9 @@ export default function Leadership() {
             </p>
           </div>
           <h1 className="display entry-2 max-w-[820px] text-balance">
-            The founders behind RENKAV.
+            <span className="font-reveal-line">
+              <span className="font-reveal-inner">The founders behind RENKAV.</span>
+            </span>
           </h1>
           <p className="entry-3 mt-6 sm:mt-7 text-[#c4d5dc] max-w-[62ch] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
             RENKAV is being built by Gitanshu Damade and Yashika Pawar. Their
@@ -47,9 +49,10 @@ export default function Leadership() {
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main">
           <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            {team.map((t) => (
+            {team.map((t, idx) => (
               <article
-                className="soft-card overflow-hidden flex flex-col"
+                className="soft-card overflow-hidden flex flex-col scroll-reveal"
+                data-delay={String(idx + 1)}
                 key={t.name}
               >
                 <div

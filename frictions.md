@@ -81,3 +81,25 @@
 6. 在 `app/layout.tsx` 配合 CSP Nonce 注入 head 同步脚本，并在 `components/theme-toggle.tsx` 增加 `renkav-theme-change` 事件同步，彻底消除 FOUC。
 
 结论：TypeScript Typecheck (0 error)、ESLint (0 error 0 warning)、Next.js Production Build、Smoke Suite (7/7 PASS) 与子 Agent 浏览器审查全部 100% 通过。暗色与亮色模式均满足 WCAG AA 对比度要求。
+
+
+## 字体展现动效与全站滚动显现系统缺失 — resolved
+
+触发：用户指出网页缺乏字体展现动效（font appearance animation）以及向下滚动时的页面元素显现动效（scrolling down animation）。
+
+调查：
+1. 经审查，原 `entry-1` 至 `entry-4` 仅有 14px 微小位移，且无文字逐行显现（text reveal / masked emergence）；标题文字缺乏高品质物理动势；
+2. 原 `MotionControl` 中虽然配置了 `IntersectionObserver`，但未在 CSS 中为目标元素定义初始状态（默认 `opacity: 1` 和 `transform: none`），导致用户向下滚动时所有卡片和正文已全量呈现，完全看不到滚动显现动效；
+3. 且原先仅观察了极少数类名，核心原型卡片、多列步骤、发展路线卡片、常见问题、CTA Banner 及副标题均未接入。
+
+解决：
+1. **字体展现动效（Font Appearance Animation）**：
+   - 引入排版级遮罩显现系统：`.font-reveal-line`（`overflow: hidden`）配合 `.font-reveal-inner`（`@keyframes font-slide-up`），实现自基线升起并具动量缓动的动效；
+   - 在全站各页面 Masthead（首页、/ventures、/about、/leadership、/contact、/privacy）落地多层级时间差阶梯动效（0.05s 状态点、0.14s 标题行一、0.22s 高亮行二、0.28s 描述段、0.40s 按钮弹性进入）；
+2. **滚动显现动效（Scroll-Down Reveal System）**：
+   - 在 `app/globals.css` 中定义 `.scroll-reveal` 与 `.scroll-reveal.revealed`，利用 GPU 硬件加速的 `transform: translate3d(0, 28px, 0)`、`opacity` 与 Apple 级贝塞尔曲线 `cubic-bezier(0.16, 1, 0.3, 1)`；
+   - 提供 `data-delay="1"` 至 `"4"` 阶梯属性，使网格卡片在滚动到视口时呈优雅序列逐一展开；
+   - 重构 `components/motion-control.tsx`：利用视口初次挂载检测避免首屏空白，通过 `rootMargin: "0px 0px -40px 0px"` 确保用户向下滚动时卡片与标题平滑浮现；
+   - 全面支持 `prefers-reduced-motion` 与 `data-reduce-motion="true"`，点击无障碍减弱动效时秒级降级。
+
+结论：TypeScript Typecheck (0 error)、ESLint (0 error 0 warning)、Next.js Production Build、Smoke Tests (7/7 PASS) 与浏览器子 Agent 视口滚动审查全部 100% 验证通过。

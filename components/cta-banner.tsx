@@ -16,7 +16,7 @@ export function CtaBanner({
 }) {
   return (
     <section className="cta-banner bg-[#eaf2ee] border-t border-[#e2e8e3] py-16 sm:py-20 md:py-24">
-      <div className="container-main flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12">
+      <div className="container-main scroll-reveal flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12">
         <div className="max-w-[780px]">
           <p className="eyebrow text-[#08766c] mb-3 sm:mb-4 flex items-center gap-2">
             <span className="status-dot" aria-hidden="true" />

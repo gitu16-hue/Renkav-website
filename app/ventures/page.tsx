@@ -111,9 +111,16 @@ export default async function Ventures() {
               </p>
             </div>
             <h1 className="display entry-2 max-w-[840px] text-balance">
-              ELEVEN.{" "}
-              <span className="text-[#a2e5d0]">
-                One assistant for work that continues.
+              <span className="font-reveal-line">
+                <span className="font-reveal-inner">ELEVEN.</span>
+              </span>{" "}
+              <span className="font-reveal-line">
+                <span
+                  className="font-reveal-inner text-[#a2e5d0]"
+                  style={{ animationDelay: "0.18s" }}
+                >
+                  One assistant for work that continues.
+                </span>
               </span>
             </h1>
             <p className="entry-3 mt-6 sm:mt-7 text-[#c4d5dc] max-w-[64ch] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
@@ -153,7 +160,7 @@ export default async function Ventures() {
             kicker="WORKED EXAMPLE"
             title="A realistic workflow"
           />
-          <div className="mt-10 bg-white border border-[#e2e8e3] rounded-xl p-7 sm:p-9 md:p-11 shadow-sm">
+          <div className="mt-10 bg-white border border-[#e2e8e3] rounded-xl p-7 sm:p-9 md:p-11 shadow-sm scroll-reveal">
             <blockquote className="text-[20px] md:text-[24px] font-semibold text-[#0d141e] leading-[1.35] tracking-tight border-l-4 border-[#08766c] pl-5 text-pretty">
               “Pick up yesterday’s partnership proposal. Check my approved
               notes, tell me what’s missing, and draft a follow-up.”
@@ -164,10 +171,11 @@ export default async function Ventures() {
               email without the required approval.
             </p>
             <ol className="mt-8 grid md:grid-cols-3 gap-5 list-none p-0">
-              {workflowSteps.map((item) => (
+              {workflowSteps.map((item, idx) => (
                 <li
                   key={item.step}
-                  className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 sm:p-7 flex flex-col justify-between"
+                  className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 sm:p-7 flex flex-col justify-between scroll-reveal"
+                  data-delay={String(idx + 1)}
                 >
                   <div>
                     <span className="mono tabular-nums text-xs font-bold uppercase tracking-widest text-[#08766c]">
@@ -198,8 +206,12 @@ export default async function Ventures() {
             title="Development priorities"
           />
           <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {priorities.map((item) => (
-              <div key={item.title} className="soft-card p-7 sm:p-8 lg:p-9">
+            {priorities.map((item, idx) => (
+              <div
+                key={item.title}
+                className="soft-card p-7 sm:p-8 lg:p-9 scroll-reveal"
+                data-delay={String((idx % 3) + 1)}
+              >
                 <item.icon
                   color="#08766c"
                   size={26}
@@ -225,8 +237,12 @@ export default async function Ventures() {
             title="Frequently asked questions"
           />
           <div className="mt-10 grid md:grid-cols-2 gap-6">
-            {faqs.map((faq) => (
-              <div key={faq.question} className="soft-card p-7 sm:p-8">
+            {faqs.map((faq, idx) => (
+              <div
+                key={faq.question}
+                className="soft-card p-7 sm:p-8 scroll-reveal"
+                data-delay={String((idx % 2) + 1)}
+              >
                 <h3 className="text-[19px] sm:text-[20px] font-bold text-[#0d141e] tracking-tight text-balance">
                   {faq.question}
                 </h3>

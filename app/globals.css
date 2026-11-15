@@ -194,11 +194,47 @@ p {
 @keyframes el-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 14px, 0);
+    transform: translate3d(0, 18px, 0);
   }
   to {
     opacity: 1;
     transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes font-slide-up {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 110%, 0);
+  }
+  25% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes font-rise {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes font-rise-scale {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 20px, 0) scale(0.965);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -244,21 +280,64 @@ p {
   background-size: 40px 40px;
 }
 
-/* Staggered entrance animations (Emil Kowalski: sub-850ms cascade, hardware-accelerated) */
+/* Kinetic Font Appearance (Emil Kowalski / Design Engineering Standards) */
+.font-reveal-line {
+  display: block;
+  overflow: hidden;
+  line-height: inherit;
+  padding-bottom: 0.05em;
+}
+
+.font-reveal-inner {
+  display: block;
+  animation: font-slide-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  will-change: transform, opacity;
+}
+
+/* Staggered entrance animations */
 .entry-1 {
-  animation: el-rise 0.65s var(--ease-out-expo) 0.04s both;
+  animation: font-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
 }
 .entry-2 {
-  animation: el-rise 0.7s var(--ease-out-expo) 0.12s both;
+  animation: font-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
 }
 .entry-3 {
-  animation: el-rise 0.75s var(--ease-out-expo) 0.2s both;
+  animation: font-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
 }
 .entry-4 {
-  animation: el-rise 0.8s var(--ease-out-expo) 0.28s both;
+  animation: font-rise-scale 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
 }
 .reveal-in {
-  animation: el-rise 0.65s var(--ease-out-expo) both;
+  opacity: 1 !important;
+  transform: translate3d(0, 0, 0) !important;
+}
+
+/* Kinetic Scroll Reveal System (triggers smoothly when scrolling down) */
+html:not([data-reduce-motion="true"]) .scroll-reveal {
+  opacity: 0;
+  transform: translate3d(0, 28px, 0);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+html:not([data-reduce-motion="true"]) .scroll-reveal.revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Staggered scroll delay modifiers */
+html:not([data-reduce-motion="true"]) .scroll-reveal[data-delay="1"] {
+  transition-delay: 0.09s;
+}
+html:not([data-reduce-motion="true"]) .scroll-reveal[data-delay="2"] {
+  transition-delay: 0.18s;
+}
+html:not([data-reduce-motion="true"]) .scroll-reveal[data-delay="3"] {
+  transition-delay: 0.27s;
+}
+html:not([data-reduce-motion="true"]) .scroll-reveal[data-delay="4"] {
+  transition-delay: 0.36s;
 }
 
 .status-dot {
@@ -1101,7 +1180,24 @@ html.dark .btn-dark:hover {
 }
 
 /* Reduced Motion Compliance (Emil Kowalski accessibility rule) */
+html[data-reduce-motion="true"] .scroll-reveal,
+html[data-reduce-motion="true"] .entry-1,
+html[data-reduce-motion="true"] .entry-2,
+html[data-reduce-motion="true"] .entry-3,
+html[data-reduce-motion="true"] .entry-4,
+html[data-reduce-motion="true"] .font-reveal-inner,
 @media (prefers-reduced-motion: reduce) {
+  .scroll-reveal,
+  .entry-1,
+  .entry-2,
+  .entry-3,
+  .entry-4,
+  .font-reveal-inner {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
   *,
   *::before,
   *::after {

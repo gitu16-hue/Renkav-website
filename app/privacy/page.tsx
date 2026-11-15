@@ -8,13 +8,17 @@ export default function Privacy() {
     <>
       <section className="masthead">
         <div className="container-main">
-          <p className="eyebrow text-[#9fe4cd] mb-5 sm:mb-6">PRIVACY BY DESIGN</p>
-          <h1 className="display text-balance">Clear about your data.</h1>
+          <p className="eyebrow text-[#9fe4cd] mb-5 sm:mb-6 entry-1">PRIVACY BY DESIGN</p>
+          <h1 className="display text-balance entry-2">
+            <span className="font-reveal-line">
+              <span className="font-reveal-inner">Clear about your data.</span>
+            </span>
+          </h1>
         </div>
       </section>
       <section className="section-pad">
         <div className="container-main max-w-3xl! space-y-8 bodycopy text-pretty">
-          <div>
+          <div className="scroll-reveal">
             <h2 className="subheading text-[#12243d] mb-4 text-balance">
               Your inquiry stays with you
             </h2>
@@ -27,7 +31,7 @@ export default function Privacy() {
               “Copy draft.”
             </p>
           </div>
-          <div>
+          <div className="scroll-reveal" data-delay="1">
             <h2 className="subheading text-[#12243d] mb-4">
               A minimal website
             </h2>
@@ -39,7 +43,7 @@ export default function Privacy() {
               through your browser’s site-data settings.
             </p>
           </div>
-          <div>
+          <div className="scroll-reveal" data-delay="2">
             <h2 className="subheading text-[#12243d] mb-4">
               Hosting and email
             </h2>
@@ -52,7 +56,7 @@ export default function Privacy() {
               before public launch.
             </p>
           </div>
-          <div>
+          <div className="scroll-reveal" data-delay="3">
             <h2 className="subheading text-[#12243d] mb-4">Questions?</h2>
             <p>
               Contact{" "}

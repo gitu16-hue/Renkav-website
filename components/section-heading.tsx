@@ -12,7 +12,7 @@ export function SectionHeading({
   light?: boolean;
 }) {
   return (
-    <div className="max-w-[760px]">
+    <div className="max-w-[760px] scroll-reveal">
       <p
         className={`eyebrow mb-4 sm:mb-5 ${
           light ? "text-[#a2e5d0]" : "text-[#08766c]"

@@ -42,7 +42,9 @@ export default function About() {
             </p>
           </div>
           <h1 className="display entry-2 max-w-[850px] text-balance">
-            Why we started RENKAV.
+            <span className="font-reveal-line">
+              <span className="font-reveal-inner">Why we started RENKAV.</span>
+            </span>
           </h1>
           <p className="entry-3 mt-6 sm:mt-7 text-[#c4d5dc] max-w-[62ch] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
             We want working with AI to feel less like starting over every time.
@@ -66,7 +68,7 @@ export default function About() {
 
       <section className="section-pad bg-[#eef4f0]">
         <div className="container-main grid md:grid-cols-2 gap-6 lg:gap-8">
-          <div className="bg-[#0b1017] text-white rounded-xl p-8 sm:p-10 md:p-12 border border-[#1b2533] shadow-lg flex flex-col justify-between">
+          <div className="bg-[#0b1017] text-white rounded-xl p-8 sm:p-10 md:p-12 border border-[#1b2533] shadow-lg flex flex-col justify-between scroll-reveal">
             <div>
               <Target
                 size={30}
@@ -81,7 +83,7 @@ export default function About() {
               </h2>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-8 sm:p-10 md:p-12 border border-[#e2e8e3] shadow-sm flex flex-col justify-between">
+          <div className="bg-white rounded-xl p-8 sm:p-10 md:p-12 border border-[#e2e8e3] shadow-sm flex flex-col justify-between scroll-reveal" data-delay="1">
             <div>
               <Eye
                 size={30}
@@ -107,8 +109,12 @@ export default function About() {
             title="How we approach the work."
           />
           <div className="grid lg:grid-cols-3 gap-6 lg:gap-8 mt-12">
-            {principles.map((p) => (
-              <div className="soft-card p-7 sm:p-8 lg:p-9" key={p.title}>
+            {principles.map((p, idx) => (
+              <div
+                className="soft-card p-7 sm:p-8 lg:p-9 scroll-reveal"
+                data-delay={String(idx + 1)}
+                key={p.title}
+              >
                 <p.icon
                   color="#08766c"
                   size={28}

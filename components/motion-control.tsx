@@ -32,24 +32,42 @@ export function MotionControl() {
       paused ||
       matchMedia("(prefers-reduced-motion: reduce)").matches ||
       !("IntersectionObserver" in window)
-    )
+    ) {
+      document.querySelectorAll(".scroll-reveal").forEach((el) => {
+        el.classList.add("revealed");
+      });
       return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("reveal-in");
+            entry.target.classList.add("revealed");
             observer.unobserve(entry.target);
           }
         });
       },
-      { threshold: 0.12 },
+      {
+        rootMargin: "0px 0px -40px 0px",
+        threshold: 0.08,
+      },
     );
-    document
-      .querySelectorAll(
-        ".section-pad .soft-card, .section-pad .heading, .section-pad .subheading",
-      )
-      .forEach((el) => observer.observe(el));
+
+    const targets = document.querySelectorAll(
+      ".scroll-reveal, .soft-card, .section-pad h2, .section-pad .subheading, .cta-banner"
+    );
+
+    targets.forEach((el) => {
+      el.classList.add("scroll-reveal");
+      const rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        el.classList.add("revealed");
+      } else {
+        observer.observe(el);
+      }
+    });
+
     return () => observer.disconnect();
   }, [path, paused]);
   function toggle() {

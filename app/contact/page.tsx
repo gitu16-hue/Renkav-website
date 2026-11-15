@@ -38,7 +38,9 @@ export default function Contact() {
             </p>
           </div>
           <h1 className="display entry-2 max-w-[820px] text-balance">
-            Let’s talk.
+            <span className="font-reveal-line">
+              <span className="font-reveal-inner">Let’s talk.</span>
+            </span>
           </h1>
           <p className="entry-3 mt-6 sm:mt-7 text-[#c4d5dc] max-w-[62ch] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
             Get in touch about ELEVEN, a potential partnership, or a general
@@ -49,7 +51,7 @@ export default function Contact() {
 
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid lg:grid-cols-[.88fr_1.12fr] gap-12 lg:gap-16 items-start">
-          <div>
+          <div className="scroll-reveal">
             <p className="eyebrow text-[#08766c] mb-3 sm:mb-4">DIRECT CONTACT</p>
             <h2 className="subheading text-[#0d141e] text-balance">
               Reach us by email.
