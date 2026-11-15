@@ -863,6 +863,7 @@ html[data-theme="dark"] .site-header,
 html.dark .site-header {
   background: rgba(9, 14, 21, 0.92);
   border-bottom: 1px solid rgba(162, 229, 208, 0.15);
+  color: #f8faf7;
 }
 
 html[data-theme="dark"] .nav-link,
@@ -886,6 +887,7 @@ html[data-theme="dark"] .mobile-navigation,
 html.dark .mobile-navigation {
   background: #090e15;
   border-color: rgba(162, 229, 208, 0.16);
+  color: #f8faf7;
 }
 
 html[data-theme="dark"] .mobile-navigation .nav-link[aria-current="page"],
@@ -894,38 +896,106 @@ html.dark .mobile-navigation .nav-link[aria-current="page"] {
   color: var(--mint);
 }
 
+/* Atmospheric dark background mappings */
 html[data-theme="dark"] .bg-\[\#f8faf7\],
-html.dark .bg-\[\#f8faf7\] {
-  background-color: #0d141e !important;
+html.dark .bg-\[\#f8faf7\],
+html[data-theme="dark"] .bg-\[\#eaf2ee\],
+html.dark .bg-\[\#eaf2ee\],
+html[data-theme="dark"] .bg-\[\#eef4f0\],
+html.dark .bg-\[\#eef4f0\],
+html[data-theme="dark"] .cta-banner,
+html.dark .cta-banner {
+  background-color: #0c131c !important;
 }
 
 html[data-theme="dark"] .bg-white,
-html.dark .bg-white {
+html.dark .bg-white,
+html[data-theme="dark"] .bg-\[\#edf5f0\],
+html.dark .bg-\[\#edf5f0\] {
   background-color: #111823 !important;
 }
 
+html[data-theme="dark"] .bg-\[\#eef7f3\],
+html.dark .bg-\[\#eef7f3\],
+html[data-theme="dark"] .bg-\[\#d9eae4\],
+html.dark .bg-\[\#d9eae4\],
+html[data-theme="dark"] .founder-avatar,
+html.dark .founder-avatar {
+  background-color: #162230 !important;
+}
+
+/* Text & heading contrast in dark mode */
 html[data-theme="dark"] .text-\[\#0d141e\],
-html.dark .text-\[\#0d141e\] {
+html.dark .text-\[\#0d141e\],
+html[data-theme="dark"] .text-\[\#12243d\],
+html.dark .text-\[\#12243d\] {
   color: #f8faf7 !important;
 }
 
-html[data-theme="dark"] .border-\[\#e2e8e3\],
-html.dark .border-\[\#e2e8e3\] {
-  border-color: rgba(162, 229, 208, 0.15) !important;
-}
-
 html[data-theme="dark"] .text-\[\#566978\],
-html.dark .text-\[\#566978\] {
-  color: #92a4b3 !important;
+html.dark .text-\[\#566978\],
+html[data-theme="dark"] .text-\[\#425a66\],
+html.dark .text-\[\#425a66\],
+html[data-theme="dark"] .text-\[\#526477\],
+html.dark .text-\[\#526477\],
+html[data-theme="dark"] .text-\[\#334e59\],
+html.dark .text-\[\#334e59\],
+html[data-theme="dark"] .bodycopy,
+html.dark .bodycopy {
+  color: #9eb3be !important;
 }
 
+html[data-theme="dark"] .bodycopy a,
+html.dark .bodycopy a {
+  color: #a2e5d0 !important;
+}
+
+html[data-theme="dark"] .bodycopy a:hover,
+html.dark .bodycopy a:hover {
+  color: #ffffff !important;
+}
+
+html[data-theme="dark"] .text-\[\#08766c\],
+html.dark .text-\[\#08766c\] {
+  color: #a2e5d0 !important;
+}
+
+html[data-theme="dark"] .portrait .text-\[\#4f8176\]\/60,
+html.dark .portrait .text-\[\#4f8176\]\/60 {
+  color: rgba(162, 229, 208, 0.45) !important;
+}
+
+/* Dynamic stroke color for Lucide icons in dark mode */
+html[data-theme="dark"] svg[stroke="#08766c"],
+html.dark svg[stroke="#08766c"] {
+  stroke: #a2e5d0 !important;
+}
+
+/* Borders in dark mode */
+html[data-theme="dark"] .border-\[\#e2e8e3\],
+html.dark .border-\[\#e2e8e3\],
 html[data-theme="dark"] .border-\[\#cfe0d7\],
 html[data-theme="dark"] .border-\[\#d8e5de\],
 html[data-theme="dark"] .border-\[\#d0dcd4\],
+html[data-theme="dark"] .border-\[\#c6d6cc\],
+html[data-theme="dark"] .border-\[\#b4d0c7\],
+html[data-theme="dark"] .border-\[\#f0f4f1\],
+html[data-theme="dark"] .border-\[\#d4e3dc\],
+html[data-theme="dark"] .border-\[\#e2e9e6\],
 html.dark .border-\[\#cfe0d7\],
 html.dark .border-\[\#d8e5de\],
-html.dark .border-\[\#d0dcd4\] {
-  border-color: rgba(162, 229, 208, 0.18) !important;
+html.dark .border-\[\#d0dcd4\],
+html.dark .border-\[\#c6d6cc\],
+html.dark .border-\[\#b4d0c7\],
+html.dark .border-\[\#f0f4f1\],
+html.dark .border-\[\#d4e3dc\],
+html.dark .border-\[\#e2e9e6\] {
+  border-color: rgba(162, 229, 208, 0.16) !important;
+}
+
+html[data-theme="dark"] .border-\[\#08766c\],
+html.dark .border-\[\#08766c\] {
+  border-color: #a2e5d0 !important;
 }
 
 html[data-theme="dark"] .tag,
@@ -960,6 +1030,12 @@ html.dark textarea {
   border-color: rgba(162, 229, 208, 0.2);
 }
 
+html[data-theme="dark"] option,
+html.dark option {
+  background-color: #111823;
+  color: #f8faf7;
+}
+
 html[data-theme="dark"] input:hover,
 html[data-theme="dark"] select:hover,
 html[data-theme="dark"] textarea:hover,
@@ -982,6 +1058,18 @@ html.dark textarea:focus {
 html[data-theme="dark"] .field-hint,
 html.dark .field-hint {
   color: #92a4b3;
+}
+
+html[data-theme="dark"] .field-error,
+html.dark .field-error {
+  color: #f87171 !important;
+}
+
+html[data-theme="dark"] .status-box,
+html.dark .status-box {
+  background-color: #0d2621 !important;
+  border-color: #a2e5d0 !important;
+  color: #a2e5d0 !important;
 }
 
 html[data-theme="dark"] .btn-outline,

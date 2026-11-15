@@ -1,13 +1,18 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { Moon, Sun } from "lucide-react";
 
 const THEME_KEY = "renkav-theme";
+const THEME_CHANGE_EVENT = "renkav-theme-change";
 
 function subscribe(callback: () => void) {
   window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  window.addEventListener(THEME_CHANGE_EVENT, callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener(THEME_CHANGE_EVENT, callback);
+  };
 }
 
 function getSnapshot(): "dark" | "light" {
@@ -27,17 +32,30 @@ export function ThemeToggle() {
   const theme = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot);
   const isDark = theme === "dark";
 
+  // Ensure DOM element classes and dataset accurately reflect the state on client mount
+  useEffect(() => {
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      document.documentElement.dataset.theme = "dark";
+    } else {
+      document.documentElement.classList.remove("dark");
+      document.documentElement.dataset.theme = "light";
+    }
+  }, [theme]);
+
   const toggleTheme = () => {
     const next = isDark ? "light" : "dark";
     try {
       localStorage.setItem(THEME_KEY, next);
-      document.documentElement.dataset.theme = next;
       if (next === "dark") {
         document.documentElement.classList.add("dark");
+        document.documentElement.dataset.theme = "dark";
       } else {
         document.documentElement.classList.remove("dark");
+        document.documentElement.dataset.theme = "light";
       }
-      // Notify other components/listeners
+      // Notify listeners in this window and across tabs
+      window.dispatchEvent(new CustomEvent(THEME_CHANGE_EVENT, { detail: next }));
       window.dispatchEvent(new Event("storage"));
     } catch {}
   };

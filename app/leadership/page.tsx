@@ -56,7 +56,7 @@ export default function Leadership() {
                   className="portrait h-[280px] md:h-[320px] flex items-center justify-center relative overflow-hidden"
                   aria-hidden="true"
                 >
-                  <div className="w-36 h-36 rounded-full border border-[#b4d0c7] flex items-center justify-center bg-[#d9eae4] relative">
+                  <div className="founder-avatar w-36 h-36 rounded-full border border-[#b4d0c7] flex items-center justify-center bg-[#d9eae4] relative">
                     <span className="mono tabular-nums text-5xl font-bold tracking-tighter text-[#0d141e]">
                       {t.initials}
                     </span>

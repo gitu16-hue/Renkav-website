@@ -56,3 +56,28 @@
 解决：在 `app/globals.css`、`app/page.tsx`、`app/ventures/page.tsx`、`app/about/page.tsx`、`app/leadership/page.tsx`、`app/contact/page.tsx`、`components/section-heading.tsx` 与 `components/cta-banner.tsx` 中全面落地上述微动效与排版规约。
 
 结论：Typecheck、ESLint（0 告警）、Production Build、Smoke Tests（7/7 PASS）与浏览器子 Agent 视觉巡检全部 100% 通过。全站动效顺滑无卡顿，排版沉稳极简。
+
+
+## 暗色模式 (Dark Mode) 对比度缺陷与主题水合闪烁 — resolved
+
+触发：用户反馈暗色模式下存在严重对比度错误（提供 `CtaBanner` 截图：浅薄荷色背景 `#eaf2ee` 上渲染纯白色文字 `#ffffff`，对比度趋近 0:1 致全然无法阅读），并要求排查全站其他暗色模式缺陷并从 GitHub 获取官方 UI/UX 与网站构建技能。
+
+调查：
+1. 借助 `npx skills add vercel-labs/agent-skills@web-design-guidelines` 与 `nextlevelbuilder/ui-ux-pro-max-skill@ui-ux-pro-max` 引入官方 Web Design Guidelines 与 UI/UX Pro Max 对比度规范；
+2. `CtaBanner` 使用了 `bg-[#eaf2ee]`，而 CSS 内部 `.text-[#0d141e]` 被翻转为白色 `#f8faf7`，但背景缺少暗色配对，导致白字浅底；
+3. 经全面排查，识别出其他潜在对比度缺陷：
+   - `/privacy` 中的副标题 `text-[#12243d]`（深蓝黑）在暗色背景下对比度极低；
+   - `/leadership` 中创始人姓名缩写头像圆圈 `bg-[#d9eae4]`（浅海泡绿）在暗色下文字翻转为白色导致白字浅底；
+   - `/about` 中 "Our vision" 卡片 `bg-[#eef4f0]` 缺少暗色适配；
+   - `/contact` 中的警示框 `bg-[#edf5f0]`、`border-[#d4e3dc]` 与 `text-[#334e59]` 未进行暗色转换；
+   - `components/theme-toggle.tsx` 在 SSR 时缺少 client storage 同步，并且缺少 head 阻塞脚本，刷新时存在 FOUC（水合闪烁）。
+
+解决：
+1. 在 `app/globals.css` 中将 `.cta-banner`、`.bg-[#eaf2ee]`、`.bg-[#eef4f0]`、`.bg-[#edf5f0]` 及 `.bg-[#f8faf7]` 统一映射为 `#0c131c` / `#111823`；
+2. 将 `.text-[#0d141e]`、`.text-[#12243d]` 统一映射为 `#f8faf7`；
+3. 将副文本 `.text-[#566978]`、`.text-[#425a66]`、`.text-[#526477]`、`.text-[#334e59]` 统一映射为 `#9eb3be`；
+4. 将细节框与头像圆圈 `.founder-avatar`、`.bg-[#d9eae4]`、`.bg-[#eef7f3]` 映射为 `#162230`；
+5. 将全站 Lucide SVG 图标 `svg[stroke="#08766c"]` 与 `.text-[#08766c]` 动态翻转为 `#a2e5d0` 发光薄荷绿；
+6. 在 `app/layout.tsx` 配合 CSP Nonce 注入 head 同步脚本，并在 `components/theme-toggle.tsx` 增加 `renkav-theme-change` 事件同步，彻底消除 FOUC。
+
+结论：TypeScript Typecheck (0 error)、ESLint (0 error 0 warning)、Next.js Production Build、Smoke Suite (7/7 PASS) 与子 Agent 浏览器审查全部 100% 通过。暗色与亮色模式均满足 WCAG AA 对比度要求。
