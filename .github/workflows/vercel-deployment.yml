@@ -3,33 +3,44 @@ name: Vercel Deploy & Verification
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
+  workflow_dispatch:
 
 jobs:
   deploy:
     name: Deploy to Vercel
     runs-on: ubuntu-latest
-    # Only runs when VERCEL_TOKEN secret is configured
-    if: secrets.VERCEL_TOKEN != ''
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Check Secrets
+        id: verify
+        run: |
+          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "VERCEL_TOKEN secret not found. Skipping deployment."
+            echo "configured=false" >> $GITHUB_OUTPUT
+          else
+            echo "configured=true" >> $GITHUB_OUTPUT
+          fi
+
       - name: Setup Node.js 22
+        if: steps.verify.outputs.configured == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: "npm"
 
       - name: Install Dependencies
+        if: steps.verify.outputs.configured == 'true'
         run: npm ci
 
       - name: Install Vercel CLI
+        if: steps.verify.outputs.configured == 'true'
         run: npm install --global vercel@latest
 
       - name: Pull Vercel Environment Configuration
+        if: steps.verify.outputs.configured == 'true'
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
             vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
@@ -41,6 +52,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Build Project Artifacts
+        if: steps.verify.outputs.configured == 'true'
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
             vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
@@ -52,6 +64,7 @@ jobs:
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 
       - name: Deploy Artifacts to Vercel
+        if: steps.verify.outputs.configured == 'true'
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
             vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
