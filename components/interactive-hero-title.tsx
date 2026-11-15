@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef, useState, useCallback, useEffect, useSyncExternalStore } from "react";
+import React, { useRef, useState, useCallback, useSyncExternalStore } from "react";
 
 interface InteractiveHeroTitleProps {
   className?: string;
@@ -23,6 +23,10 @@ function getFinePointerServerSnapshot() {
   return false;
 }
 
+const emptySubscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 /**
  * Microdose Studio-inspired Interactive Hero Typography:
  * - Variable font weight interpolation (Geist variable font 400 -> 750)
@@ -35,16 +39,16 @@ export function InteractiveHeroTitle({ className = "" }: InteractiveHeroTitlePro
   const containerRef = useRef<HTMLHeadingElement>(null);
   const [hoveredLine, setHoveredLine] = useState<number | null>(null);
   const [hoveredCharIndex, setHoveredCharIndex] = useState<number | null>(null);
-  const [isMounted, setIsMounted] = useState(false);
+  const isMounted = useSyncExternalStore(
+    emptySubscribe,
+    getClientSnapshot,
+    getServerSnapshot
+  );
   const isFinePointer = useSyncExternalStore(
     subscribeFinePointer,
     getFinePointerSnapshot,
     getFinePointerServerSnapshot
   );
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   const handlePointerLeave = useCallback(() => {
     setHoveredLine(null);
