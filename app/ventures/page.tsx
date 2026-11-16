@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import {
   ArrowUpRight,
   Mic,
@@ -13,6 +12,10 @@ import { SectionHeading } from "@/components/section-heading";
 import { CtaBanner } from "@/components/cta-banner";
 import { Card3DTilt } from "@/components/card-3d-tilt";
 import { DepthSpatialStage } from "@/components/depth-spatial-stage";
+import { CanvasParticleField } from "@/components/canvas-particle-field";
+import { PagePillNav } from "@/components/page-pill-nav";
+import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
+import { RollButton } from "@/components/roll-button";
 import { showHolographicOrb } from "@/flags";
 
 export const metadata: Metadata = {
@@ -103,7 +106,11 @@ export default async function Ventures() {
   const orbEnabled = await showHolographicOrb();
   return (
     <>
-      <section className="masthead">
+      <PagePillNav />
+
+      <section className="masthead relative overflow-hidden bg-[#050505] text-white">
+        <div className="absolute inset-0 grid-pattern opacity-25 pointer-events-none" />
+        <CanvasParticleField />
         <div className="container-main relative z-10 grid lg:grid-cols-[1.12fr_.88fr] gap-12 lg:gap-16 items-center">
           <div>
             <div className="entry-1">
@@ -112,7 +119,7 @@ export default async function Ventures() {
                 <span>OUR FIRST PROJECT · PROTOTYPE IN DEVELOPMENT</span>
               </p>
             </div>
-            <h1 className="display entry-2 max-w-[840px] text-balance">
+            <h1 className="display entry-2 max-w-[840px] text-balance text-white">
               <span className="font-reveal-line">
                 <span className="font-reveal-inner">ELEVEN.</span>
               </span>{" "}
@@ -131,20 +138,20 @@ export default async function Ventures() {
               conversations, project context and approved tools. It is not a
               replacement for Windows or your existing operating system.
             </p>
-            <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap gap-3.5">
-              <Link
+            <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap gap-4">
+              <RollButton
                 href="/contact"
-                className="btn btn-light w-full sm:w-auto"
+                variant="light"
+                icon={<ArrowUpRight size={17} aria-hidden="true" />}
               >
-                Discuss a use case{" "}
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
+                Discuss a use case
+              </RollButton>
               {elevenWebsiteUrl && (
                 <a
                   href={elevenWebsiteUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="btn border border-white/20 text-white hover:bg-white/10 w-full sm:w-auto"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/15 px-6 py-3.5 text-sm font-semibold text-white transition-all"
                 >
                   Visit the ELEVEN website{" "}
                   <ArrowUpRight size={17} aria-hidden="true" />
@@ -156,7 +163,9 @@ export default async function Ventures() {
         </div>
       </section>
 
-      <section className="section-pad bg-[#f8faf7]">
+      <DiagonalMarqueeRibbon />
+
+      <section className="section-pad bg-[#050505] text-white border-t border-white/10">
         <div className="container-main">
           <SectionHeading
             kicker="WORKED EXAMPLE"
@@ -164,12 +173,12 @@ export default async function Ventures() {
           />
           <div className="mt-10 scroll-reveal">
             <Card3DTilt maxTilt={4} glare={false}>
-              <div className="bg-white border border-[#e2e8e3] rounded-xl p-7 sm:p-9 md:p-11 shadow-sm">
-                <blockquote className="text-[20px] md:text-[24px] font-semibold text-[#0d141e] leading-[1.35] tracking-tight border-l-4 border-[#08766c] pl-5 text-pretty">
+              <div className="bg-[#090d14] border border-white/12 rounded-3xl p-7 sm:p-10 md:p-12 shadow-2xl">
+                <blockquote className="text-[20px] md:text-[25px] font-semibold text-white leading-[1.4] tracking-tight border-l-4 border-[#a2e5d0] pl-5 text-pretty">
                   “Pick up yesterday’s partnership proposal. Check my approved
                   notes, tell me what’s missing, and draft a follow-up.”
                 </blockquote>
-                <p className="bodycopy mt-5 sm:mt-6 max-w-[64ch] text-[16px] md:text-[17px] text-pretty">
+                <p className="mt-5 sm:mt-6 max-w-[64ch] text-[16px] md:text-[17px] text-[#c4d5dc] leading-[1.7] text-pretty">
                   ELEVEN would use the notes you allow, flag anything it can’t
                   verify, and prepare a draft for review. It would not send the
                   email without the required approval.
@@ -178,24 +187,24 @@ export default async function Ventures() {
                   {workflowSteps.map((item, idx) => (
                     <li
                       key={item.step}
-                      className="bg-[#f8faf7] border border-[#e2e8e3] rounded-lg p-6 sm:p-7 flex flex-col justify-between scroll-reveal"
+                      className="bg-white/[0.03] border border-white/10 rounded-2xl p-6 sm:p-7 flex flex-col justify-between scroll-reveal hover:border-[#a2e5d0]/40 transition-colors"
                       data-delay={String(idx + 1)}
                     >
                       <div>
-                        <span className="mono tabular-nums text-xs font-bold uppercase tracking-widest text-[#08766c]">
+                        <span className="mono tabular-nums text-xs font-bold uppercase tracking-widest text-[#a2e5d0]">
                           Step {item.step}
                         </span>
-                        <h3 className="mt-2 text-lg font-bold text-[#0d141e] tracking-tight text-balance">
+                        <h3 className="mt-2.5 text-lg font-bold text-white tracking-tight text-balance">
                           {item.title}
                         </h3>
-                        <p className="mt-2 text-sm text-[#566978] leading-relaxed text-pretty">
+                        <p className="mt-2 text-sm text-[#9eb3be] leading-relaxed text-pretty">
                           {item.detail}
                         </p>
                       </div>
                     </li>
                   ))}
                 </ol>
-                <p className="mt-6 pt-5 border-t border-[#e2e8e3] text-xs font-semibold text-[#566978] mono">
+                <p className="mt-6 pt-5 border-t border-white/10 text-xs font-semibold text-[#768a98] mono">
                   Illustrative workflow. The full experience is not being announced
                   as available today.
                 </p>
@@ -205,7 +214,7 @@ export default async function Ventures() {
         </div>
       </section>
 
-      <section className="section-pad bg-white border-y border-[#e2e8e3]">
+      <section className="section-pad bg-[#070b11] text-white border-y border-white/10">
         <div className="container-main">
           <SectionHeading
             kicker="WHAT WE ARE BUILDING"
@@ -215,31 +224,37 @@ export default async function Ventures() {
             {priorities.map((item, idx) => (
               <div
                 key={item.title}
-                className="soft-card p-7 sm:p-8 lg:p-9 scroll-reveal"
+                className="scroll-reveal h-full"
                 data-delay={String((idx % 3) + 1)}
               >
-                <item.icon
-                  color="#08766c"
-                  size={26}
-                  strokeWidth={1.6}
-                  aria-hidden="true"
-                />
-                <h3 className="mt-6 mb-2 text-[20px] font-bold text-[#0d141e] tracking-tight text-balance">
-                  {item.title}
-                </h3>
-                <p className="bodycopy text-[15px] sm:text-[16px] text-pretty">
-                  {item.description}
-                </p>
+                <Card3DTilt maxTilt={5}>
+                  <div className="rounded-3xl p-7 sm:p-8 lg:p-9 border border-white/10 bg-[#0b1017] h-full flex flex-col justify-between">
+                    <div>
+                      <item.icon
+                        color="#a2e5d0"
+                        size={26}
+                        strokeWidth={1.6}
+                        aria-hidden="true"
+                      />
+                      <h3 className="mt-6 mb-2 text-[20px] font-bold text-white tracking-tight text-balance">
+                        {item.title}
+                      </h3>
+                      <p className="text-[15px] sm:text-[16px] text-[#9eb3be] leading-relaxed text-pretty">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                </Card3DTilt>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Microdose Studio-inspired 3D Depth Spatial Architecture Stage */}
+      {/* Microdose & Made to Disrupt 3D Depth Spatial Architecture Stage */}
       <DepthSpatialStage />
 
-      <section className="section-pad bg-[#f8faf7]">
+      <section className="section-pad bg-[#050505] text-white">
         <div className="container-main">
           <SectionHeading
             kicker="QUESTIONS & ANSWERS"
@@ -249,13 +264,13 @@ export default async function Ventures() {
             {faqs.map((faq, idx) => (
               <div
                 key={faq.question}
-                className="soft-card p-7 sm:p-8 scroll-reveal"
+                className="rounded-2xl p-7 sm:p-8 border border-white/10 bg-[#0a0f16] scroll-reveal hover:border-[#a2e5d0]/40 transition-colors"
                 data-delay={String((idx % 2) + 1)}
               >
-                <h3 className="text-[19px] sm:text-[20px] font-bold text-[#0d141e] tracking-tight text-balance">
+                <h3 className="text-[19px] sm:text-[20px] font-bold text-white tracking-tight text-balance">
                   {faq.question}
                 </h3>
-                <p className="bodycopy mt-3 text-[15px] sm:text-[16px] text-pretty">
+                <p className="mt-3 text-[15px] sm:text-[16px] text-[#9eb3be] leading-relaxed text-pretty">
                   {faq.answer}
                 </p>
               </div>

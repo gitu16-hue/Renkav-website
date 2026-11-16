@@ -49,26 +49,37 @@ export function MotionControl() {
         });
       },
       {
-        rootMargin: "0px 0px -40px 0px",
-        threshold: 0.08,
+        rootMargin: "0px 0px 120px 0px",
+        threshold: 0.01,
       },
     );
 
-    const targets = document.querySelectorAll(
-      ".scroll-reveal, .soft-card, .section-pad h2, .section-pad .subheading, .cta-banner"
-    );
+    const scanAndObserve = () => {
+      const targets = document.querySelectorAll(
+        ".scroll-reveal, .soft-card, .section-pad h2, .section-pad .subheading, .cta-banner"
+      );
 
-    targets.forEach((el) => {
-      el.classList.add("scroll-reveal");
-      const rect = el.getBoundingClientRect();
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        el.classList.add("revealed");
-      } else {
-        observer.observe(el);
-      }
-    });
+      targets.forEach((el) => {
+        el.classList.add("scroll-reveal");
+        if (el.classList.contains("revealed")) return;
+        const rect = el.getBoundingClientRect();
+        if (rect.top < window.innerHeight + 120) {
+          el.classList.add("revealed");
+        } else {
+          observer.observe(el);
+        }
+      });
+    };
 
-    return () => observer.disconnect();
+    scanAndObserve();
+    const timer = window.setTimeout(scanAndObserve, 120);
+    window.addEventListener("scroll", scanAndObserve, { passive: true });
+
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("scroll", scanAndObserve);
+      observer.disconnect();
+    };
   }, [path, paused]);
   function toggle() {
     sessionPreference = !paused;

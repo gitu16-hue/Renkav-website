@@ -15,7 +15,9 @@ import { InfiniteCapabilitiesReel } from "@/components/infinite-reel";
 import { ScrollManifesto } from "@/components/scroll-manifesto";
 import { Card3DTilt } from "@/components/card-3d-tilt";
 import { LabsSpatialLens } from "@/components/labs-spatial-lens";
-import { CanvasParticleField } from "@/components/canvas-particle-field";
+import { HeroOrbitStage } from "@/components/hero-orbit-stage";
+import { ScrollSpiral3D } from "@/components/scroll-spiral-3d";
+import { RollButton } from "@/components/roll-button";
 import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 import { StickyFeatureStack } from "@/components/sticky-feature-stack";
 import { showHolographicOrb } from "@/flags";
@@ -51,47 +53,54 @@ export default async function Home() {
   const orbEnabled = await showHolographicOrb();
   return (
     <>
-      <section className="hero relative overflow-hidden text-white bg-[#050505]">
-        <div className="absolute inset-0 grid-pattern opacity-35" />
-        <CanvasParticleField />
-        <div className="container-main relative grid lg:grid-cols-[1.12fr_.88fr] gap-12 lg:gap-16 items-center pt-16 pb-20 lg:pt-[104px] lg:pb-[120px]">
-          <div>
-            <div className="entry-1">
-              <p className="eyebrow text-[#a2e5d0] mb-5 sm:mb-6 flex items-center gap-2.5">
-                <span className="status-dot" aria-hidden="true" />
-                <span>RENKAV TECHNOLOGIES</span>
-              </p>
-            </div>
-            <InteractiveHeroTitle />
-            <p className="entry-3 mt-6 sm:mt-7 max-w-[62ch] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.7] text-pretty">
-              We’re building software that helps people pick up where they left
-              off, plan their next steps, and stay in control of what AI does on
-              their behalf.
-            </p>
-            <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap gap-3.5">
-              <Link
-                href="/ventures"
-                className="btn btn-light w-full sm:w-auto"
-              >
-                Explore ELEVEN <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
-              <Link
-                href="/contact"
-                className="btn border border-white/20 text-white hover:bg-white/10 w-full sm:w-auto"
-              >
-                Get in touch <ArrowRight size={17} aria-hidden="true" />
-              </Link>
-            </div>
-            <p className="entry-4 mt-10 sm:mt-12 pt-6 border-t border-white/10 text-[#a2e5d0] uppercase tracking-[.22em] text-[11px] font-bold mono flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#a2e5d0]/60" />
-              <span>Make the Next Matter.</span>
-            </p>
-          </div>
-          <div className="relative">
+      <HeroOrbitStage>
+        <div className="relative flex flex-col items-center text-center max-w-[820px] mx-auto">
+          {/* Authoritative 3D WebGL Holographic Orb layered smoothly behind/inside central orbital hub */}
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-55 -z-10">
             <NetworkArt enabled={orbEnabled} />
           </div>
+
+          <div className="entry-1">
+            <p className="eyebrow text-[#a2e5d0] mb-5 sm:mb-6 flex items-center justify-center gap-2.5 bg-black/40 border border-white/10 px-4 py-1.5 rounded-full backdrop-blur-md">
+              <span className="status-dot" aria-hidden="true" />
+              <span>RENKAV TECHNOLOGIES</span>
+            </p>
+          </div>
+
+          <InteractiveHeroTitle className="text-center" />
+
+          <p className="entry-3 mt-6 sm:mt-7 max-w-[58ch] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.7] text-pretty mx-auto">
+            We’re building software that helps people pick up where they left
+            off, plan their next steps, and stay in control of what AI does on
+            their behalf.
+          </p>
+
+          <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
+            <RollButton
+              href="/ventures"
+              variant="light"
+              icon={<ArrowUpRight size={17} aria-hidden="true" />}
+            >
+              Explore ELEVEN
+            </RollButton>
+            <RollButton
+              href="/contact"
+              variant="glass"
+              icon={<ArrowRight size={17} aria-hidden="true" />}
+            >
+              Get in touch
+            </RollButton>
+          </div>
+
+          <p className="entry-4 mt-10 sm:mt-12 pt-5 border-t border-white/10 text-[#a2e5d0] uppercase tracking-[.22em] text-[11px] font-bold mono flex items-center justify-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#a2e5d0]/60" />
+            <span>Make the Next Matter.</span>
+          </p>
         </div>
-      </section>
+      </HeroOrbitStage>
+
+      {/* Made to Disrupt-inspired Scroll-Driven 3D Spiral Helix Carousel (#ss3d) */}
+      <ScrollSpiral3D />
 
       {/* Made to Disrupt-inspired Diagonal Kinetic Marquee Ribbons */}
       <DiagonalMarqueeRibbon />

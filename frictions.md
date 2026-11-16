@@ -177,3 +177,26 @@
 5. 更新 `app/globals.css`：注入对角线跑马灯硬件加速动画 `@keyframes marquee-fast` 与 `@keyframes marquee-reverse`。
 
 结论：TypeScript (0 error)、ESLint (0 error 0 warning)、Turbopack 生产编译 (3.9s)、自动化端到端冒烟测试 (7/7 PASS) 与自动化浏览器子 Agent (1440x900) 视觉巡检全部 100% 验证通过。全站完美呈现 Made to Disrupt 的高奢暗黑张力与顺滑物理动效。
+
+## Made to Disrupt 首页旋转轨道、3D 螺旋卷轴与全站一致化改造 — resolved
+
+触发：用户反馈首页未直观看到旋转动画，并要求深入重新审查 `madetodisrupt.com` 全部页面，将相同的动画体验与设计语言统一落地到 RENKAV 所有页面（`/`, `/about`, `/ventures`, `/leadership`, `/contact`, `/privacy`）。
+
+调查：
+1. 对 `madetodisrupt.com` 进行二次深度巡检与全站点地图排查，捕获此前遗漏的核心交互：
+   - **首页围绕式旋转轨道与 8 张漂浮 3D 卡片（`.poc-tilt-section` + `#pocOrbitCanvas` + `.poc-edge-img`）**：围绕核心标题布置椭圆轨道画布及 8 张围绕中心不断缓慢环绕漂浮（外加鼠标 3D 视差倾斜）的立体卡片；
+   - **首屏下方滚动驱动 3D 圆柱螺旋画廊（`#ss3d`）**：利用 `230vh` 粘性容器结合圆柱三角函数（`sin/cos/rotateY`）随着滚动平滑螺旋推进并景深淡入 4 张主题体验卡；
+   - **全站 `/ Menu` 全屏抽屉导航 & 滚动翻转文字按钮（`.roll-btn`） & 内页粘性胶囊导航栏（Sticky Pill Subnav）**。
+2. 视觉截图 QA 自检精准捕获并解决了 3 个视觉缺陷：
+   - 首帧（t=0s）渲染时 `HeroOrbitStage` 内卡片未带初始行内偏移，导致加载首帧瞬时重叠于居中标题之上 &rarr; 通过在 JSX 首屏内联写入严格椭圆轨道初始坐标彻底消除闪聚；
+   - `RollButton` 的白色高亮按钮因使用 Tailwind `bg-white` 而被暗黑模式全局映射 `.bg-white { background-color: #111823 !important }` 覆写导致黑字暗底对比失效 &rarr; 切换为专用高白值 `#fafafa` 及高光边框规避全局映射；
+   - 客户端路由跳转至内页后 `MotionControl` 的 `.scroll-reveal` 元素偶发保持 `opacity: 0` &rarr; 将触发范围优化至 `rootMargin: "0px 0px 120px 0px"`, `threshold: 0.01` 并附加延迟重扫及滚动兜底监听器。
+
+解决：
+1. 实现 `components/hero-orbit-stage.tsx`（椭圆星轨画布 + 8 张 3D 环绕旋转漂浮卡，并内聚核心 WebGL 全息球与文字）；
+2. 实现 `components/scroll-spiral-3d.tsx`（`#ss3d` 滚动驱动 3D 螺旋圆柱旋转卡组，覆盖 ELEVEN、Vision、Team 与 Contact 四大通道）；
+3. 实现 `components/roll-button.tsx` 与 `components/page-pill-nav.tsx`，并升级 `components/site-header.tsx` 增加全屏黑曜石 `/ Menu` 抽屉；
+4. 全面改造 `/about`、`/ventures`、`/leadership`、`/contact`、`/privacy`，全站统一采用胶囊副导航、Canvas 星尘画布、倾斜跑马带与 3xl 黑曜石质感卡片；
+5. 修复上述 3 个视觉与对比度缺陷后再次通过全链路测试验证。
+
+结论：TypeScript (0 error)、ESLint (0 error 0 warning)、Next.js Production Build、Smoke Suite (7/7 PASS) 与浏览器子 Agent 视觉巡检全部 100% 通过。全站所有路由均已具备一致的 Made to Disrupt 旋转动画、3D 螺旋及高奢暗黑美学体验。
