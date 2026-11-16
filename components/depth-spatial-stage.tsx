@@ -1,478 +1,409 @@
 "use client";
 
-import React, {
-  useRef,
-  useState,
-  useCallback,
-  useEffect,
-  useSyncExternalStore,
-} from "react";
-import {
-  Layers,
-  Cpu,
-  ShieldAlert,
-  Radio,
-  Sparkles,
-  Maximize2,
-  Sliders,
-  ChevronRight,
-} from "lucide-react";
+import React, { useEffect, useRef, useState } from "react";
+import { Layers, Cpu, ShieldAlert, Radio } from "lucide-react";
+import { CanvasParticleField } from "./canvas-particle-field";
 
 export interface SpatialPlane {
   id: string;
+  shortLabel: string;
   name: string;
   tag: string;
-  zBase: number;
   icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
   color: string;
-  borderColor: string;
-  glowColor: string;
+  bgGradient: string;
   badge: string;
   summary: string;
   metrics: { label: string; value: string }[];
-  tags: string[];
 }
 
 const SPATIAL_PLANES: SpatialPlane[] = [
   {
     id: "layer-memory",
+    shortLabel: "01 MEMORY",
     name: "01. Sovereign Memory Fabric",
     tag: "PERSISTENT CONTEXT",
-    zBase: -120,
     icon: Layers,
-    color: "#08766c",
-    borderColor: "rgba(8, 118, 108, 0.45)",
-    glowColor: "rgba(8, 118, 108, 0.25)",
+    color: "#a2e5d0",
+    bgGradient:
+      "radial-gradient(circle at 20% 20%, rgba(162, 229, 208, 0.28) 0%, rgba(10, 16, 24, 0.96) 65%)",
     badge: "Ring-3 · Zero Leak",
     summary:
-      "Hybrid vector + relational contextual memory stored exclusively in your local enclave. Context follows your project across sessions without cloud indexing.",
+      "Hybrid vector + relational contextual memory stored exclusively in your local enclave across sessions.",
     metrics: [
       { label: "Retrieval", value: "<1.4ms" },
-      { label: "Enclave", value: "Local AES-GCM" },
-      { label: "Indexing", value: "HNSW Dense Graph" },
+      { label: "Enclave", value: "AES-GCM" },
+      { label: "Indexing", value: "HNSW Graph" },
     ],
-    tags: ["Local Persistence", "Cross-Session", "Contextual Enclave"],
   },
   {
     id: "layer-arbiter",
-    name: "02. Multi-Model Arbitration Engine",
+    shortLabel: "02 ARBITER",
+    name: "02. Multi-Model Arbitration",
     tag: "DYNAMIC INFERENCE",
-    zBase: -40,
     icon: Cpu,
     color: "#00d8ff",
-    borderColor: "rgba(0, 216, 255, 0.45)",
-    glowColor: "rgba(0, 216, 255, 0.22)",
+    bgGradient:
+      "radial-gradient(circle at 80% 30%, rgba(0, 216, 255, 0.28) 0%, rgba(10, 14, 22, 0.96) 65%)",
     badge: "Heterogeneous Routing",
     summary:
-      "Routes prompts dynamically across frontier models (Claude 3.7 Sonnet, GPT-4o, Gemini 2.0 Flash) based on reasoning depth, token economics, and response latency.",
+      "Routes prompts dynamically across Claude, GPT, and Gemini based on reasoning depth and latency.",
     metrics: [
       { label: "Latency delta", value: "3.2x faster" },
-      { label: "Fallback", value: "Zero-token drop" },
-      { label: "Arbitration", value: "DAG cost solver" },
+      { label: "Fallback", value: "Zero-drop" },
+      { label: "Arbitration", value: "DAG Solver" },
     ],
-    tags: ["Claude 3.7", "GPT-4o", "Gemini 2.0", "Cost Optimizer"],
   },
   {
     id: "layer-authority",
-    name: "03. Deterministic Ring-0 Authority Gate",
+    shortLabel: "03 AUTHORITY",
+    name: "03. Deterministic Ring-0 Gate",
     tag: "HUMAN-GOVERNED DISPATCH",
-    zBase: 40,
     icon: ShieldAlert,
     color: "#b8f36b",
-    borderColor: "rgba(184, 243, 107, 0.5)",
-    glowColor: "rgba(184, 243, 107, 0.22)",
-    badge: "Deterministic Cryptography",
+    bgGradient:
+      "radial-gradient(circle at 50% 80%, rgba(184, 243, 107, 0.24) 0%, rgba(12, 16, 20, 0.96) 65%)",
+    badge: "Explicit Consent",
     summary:
-      "Strict policy gate intercepting all tool calls, code execution, and system mutations. Requires explicit user consent before files, terminal, or network are touched.",
+      "Strict policy gate intercepting tool calls and mutations until approved by explicit user consent.",
     metrics: [
-      { label: "Gate enforcement", value: "100% Ring-0" },
+      { label: "Enforcement", value: "100% Ring-0" },
       { label: "Audit trail", value: "HMAC Signed" },
-      { label: "State mutation", value: "Atomic Rollback" },
+      { label: "Rollback", value: "Atomic" },
     ],
-    tags: ["Explicit Consent", "Cryptographic Audit", "Atomic Rollback"],
   },
   {
     id: "layer-telemetry",
-    name: "04. Real-time Cognitive Telemetry",
+    shortLabel: "04 TELEMETRY",
+    name: "04. Real-time Cognitive Pipe",
     tag: "AMBIENT AWARENESS",
-    zBase: 120,
     icon: Radio,
-    color: "#a2e5d0",
-    borderColor: "rgba(162, 229, 208, 0.55)",
-    glowColor: "rgba(162, 229, 208, 0.28)",
+    color: "#e5c07b",
+    bgGradient:
+      "radial-gradient(circle at 30% 70%, rgba(229, 192, 123, 0.24) 0%, rgba(12, 12, 16, 0.96) 65%)",
     badge: "16kHz VAD Sync",
     summary:
-      "Bi-directional cognitive streaming pipe syncing voice activity detection, streaming token deltas, and live agent execution telemetry to the holographic visualizer.",
+      "Bi-directional streaming pipe syncing voice detection, token deltas, and live telemetry to the orb.",
     metrics: [
       { label: "VAD latency", value: "12ms" },
-      { label: "Stream pipe", value: "Binary WebSockets" },
+      { label: "Stream pipe", value: "Binary WS" },
       { label: "Sync clock", value: "60 FPS" },
     ],
-    tags: ["Live Stream", "Holographic Pipe", "VAD Perception"],
   },
 ];
 
-type ViewMode = "exploded" | "isometric" | "compact";
-
-function subscribeFinePointer(callback: () => void) {
-  const mq = window.matchMedia("(hover: hover) and (pointer: fine)");
-  mq.addEventListener("change", callback);
-  return () => mq.removeEventListener("change", callback);
-}
-
-function getFinePointerSnapshot() {
-  return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-}
-
-function getFinePointerServerSnapshot() {
-  return false;
-}
-
-const emptySubscribe = () => () => {};
-const getClientSnapshot = () => true;
-const getServerSnapshot = () => false;
-
+/**
+ * Scroll-Driven & Continuous-Motion 3D Spiral Helix Stage for ELEVEN's 4 Spatial Planes
+ * - Matches the exact cylindrical spiral mechanics and starfield atmosphere of ScrollSpiral3D
+ */
 export function DepthSpatialStage() {
+  const containerRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>("exploded");
-  const [activePlaneId, setActivePlaneId] = useState<string | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollProgressRef = useRef(0);
+  const activePlaneOverrideRef = useRef<number | null>(null);
+  const [activeIndexDisplay, setActiveIndexDisplay] = useState(0);
+  const mouseTargetRef = useRef({ x: 0, y: 0 });
+  const mouseCurrentRef = useRef({ x: 0, y: 0 });
+  const [reduceMotion, setReduceMotion] = useState(false);
 
-  const isMounted = useSyncExternalStore(
-    emptySubscribe,
-    getClientSnapshot,
-    getServerSnapshot
-  );
-  const isFinePointer = useSyncExternalStore(
-    subscribeFinePointer,
-    getFinePointerSnapshot,
-    getFinePointerServerSnapshot
-  );
-
-  // Target and current spring rotation
-  const rotTargetRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const rotCurrentRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
-  const [rotation, setRotation] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
-
-  const handlePointerMove = useCallback(
-    (e: React.PointerEvent<HTMLDivElement>) => {
-      if (!isFinePointer || viewMode === "compact") return;
-      const el = stageRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const nx = (e.clientX - rect.left) / rect.width - 0.5; // -0.5 to 0.5
-      const ny = (e.clientY - rect.top) / rect.height - 0.5; // -0.5 to 0.5
-
-      const maxTilt = viewMode === "isometric" ? 18 : 12;
-      rotTargetRef.current = {
-        x: -ny * maxTilt,
-        y: nx * maxTilt,
-      };
-    },
-    [isFinePointer, viewMode]
-  );
-
-  const handlePointerLeave = useCallback(() => {
-    rotTargetRef.current = { x: 0, y: 0 };
+  useEffect(() => {
+    const checkMotion = () => {
+      const pref = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const attr =
+        document.documentElement.getAttribute("data-reduce-motion") === "true";
+      setReduceMotion(pref || attr);
+    };
+    checkMotion();
+    const obs = new MutationObserver(checkMotion);
+    obs.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-reduce-motion"],
+    });
+    return () => obs.disconnect();
   }, []);
 
-  // Smooth lerp loop
   useEffect(() => {
-    if (!isMounted || !isFinePointer) return;
+    if (reduceMotion) return;
+
+    const handleScroll = () => {
+      const container = containerRef.current;
+      if (!container) return;
+      const rect = container.getBoundingClientRect();
+      const totalScroll = rect.height - window.innerHeight;
+      if (totalScroll <= 0) return;
+
+      const nextProg = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
+      // Clear manual button click override when user scrolls significantly
+      if (Math.abs(nextProg - scrollProgressRef.current) > 0.015) {
+        activePlaneOverrideRef.current = null;
+      }
+      scrollProgressRef.current = nextProg;
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+    handleScroll();
 
     let animId: number;
-    const loop = () => {
-      const cur = rotCurrentRef.current;
-      const tgt = rotTargetRef.current;
+    let smoothedIndex = 0;
+    const start = performance.now();
 
-      const baseIsoX = viewMode === "isometric" ? 14 : 0;
-      const baseIsoY = viewMode === "isometric" ? -20 : 0;
+    const loop = (now: number) => {
+      const t = (now - start) * 0.001;
+      const mc = mouseCurrentRef.current;
+      const mt = mouseTargetRef.current;
+      mc.x += (mt.x - mc.x) * 0.07;
+      mc.y += (mt.y - mc.y) * 0.07;
 
-      cur.x += (tgt.x + baseIsoX - cur.x) * 0.08;
-      cur.y += (tgt.y + baseIsoY - cur.y) * 0.08;
+      const isMobile = window.innerWidth < 768;
+      const radiusX = isMobile ? 160 : 320;
+      const depthZ = isMobile ? 220 : 380;
+      const helixY = isMobile ? 55 : 95;
 
-      setRotation({ x: cur.x, y: cur.y });
+      const targetBaseIndex =
+        activePlaneOverrideRef.current !== null
+          ? activePlaneOverrideRef.current
+          : scrollProgressRef.current * (SPATIAL_PLANES.length - 1);
+
+      smoothedIndex += (targetBaseIndex - smoothedIndex) * 0.1;
+
+      const rounded = Math.round(smoothedIndex);
+      setActiveIndexDisplay((prev) => (prev !== rounded ? rounded : prev));
+
+      const continuousPhase = Math.sin(t * 0.55) * 0.14;
+      const activeIndex = smoothedIndex + continuousPhase;
+
+      SPATIAL_PLANES.forEach((_, idx) => {
+        const el = cardRefs.current[idx];
+        if (!el) return;
+
+        const offset = idx - activeIndex;
+        const angle = offset * 0.92;
+
+        const floatY = Math.sin(t * 0.9 + idx * 1.3) * 10;
+        const tx = Math.sin(angle) * radiusX + mc.x * 24;
+        const ty = offset * helixY + floatY + mc.y * 16;
+        const tz = (Math.cos(angle) - 1) * depthZ;
+        const ry = angle * -34 + mc.x * 10;
+        const rx = offset * 6 - mc.y * 8;
+        const scale = Math.max(0.68, 1 - Math.abs(offset) * 0.14);
+        const opacity = Math.max(0.24, 1 - Math.abs(offset) * 0.34);
+        const zIndex = Math.round(100 - Math.abs(offset) * 20);
+
+        el.style.transform = `translate3d(calc(-50% + ${tx.toFixed(1)}px), calc(-50% + ${ty.toFixed(1)}px), ${tz.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) rotateX(${rx.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        el.style.opacity = String(opacity);
+        el.style.zIndex = String(zIndex);
+      });
+
       animId = requestAnimationFrame(loop);
     };
 
     animId = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(animId);
-  }, [isMounted, isFinePointer, viewMode]);
 
-  const activePlane =
-    SPATIAL_PLANES.find((p) => p.id === activePlaneId) || SPATIAL_PLANES[0];
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [reduceMotion]);
 
-  return (
-    <section className="depth-spatial-section relative py-20 sm:py-24 md:py-28 overflow-hidden bg-[#0a0f16] text-white border-y border-[#182333]">
-      {/* Background ambient depth glow */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-30"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 50% 40%, rgba(162, 229, 208, 0.12) 0%, rgba(0, 216, 255, 0.05) 45%, transparent 75%)",
-        }}
-      />
-      <div className="absolute inset-0 grid-pattern opacity-15" />
+  const handleSelectPlane = (idx: number) => {
+    activePlaneOverrideRef.current = idx;
+    setActiveIndexDisplay(idx);
+  };
 
-      <div className="container-main relative z-10">
-        {/* Header and Spatial Controls */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 sm:mb-16">
-          <div>
-            <div className="tag mb-4 border-[#a2e5d0]/40 text-[#a2e5d0] bg-[#a2e5d0]/10">
-              <span className="status-dot" aria-hidden="true" />
-              <span>3D PERSPECTIVE ARCHITECTURE · MULTI-PLANE STAGE</span>
-            </div>
-            <h2 className="heading text-white text-balance">
+  if (reduceMotion) {
+    return (
+      <section className="py-20 bg-[#050505] text-white border-y border-white/10">
+        <div className="container-main">
+          <div className="mb-10">
+            <span className="eyebrow text-[#a2e5d0]">
+              3D PERSPECTIVE ARCHITECTURE
+            </span>
+            <h2 className="heading text-white mt-2">
               The four spatial planes of ELEVEN.
             </h2>
-            <p className="bodycopy mt-3 text-[#9eb3be] max-w-[62ch] text-pretty">
-              Inspect the decoupled architectural layers. Hover each plane to
-              isolate its cryptographic governance, multi-model routing, and
-              enclave context.
-            </p>
           </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {SPATIAL_PLANES.map((plane) => (
+              <div
+                key={plane.id}
+                className="rounded-3xl p-8 border border-white/12 flex flex-col justify-between min-h-[260px]"
+                style={{ background: plane.bgGradient }}
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <span
+                    className="mono text-xs font-bold uppercase tracking-widest"
+                    style={{ color: plane.color }}
+                  >
+                    {plane.tag}
+                  </span>
+                  <span className="mono text-[10px] text-white/60 border border-white/15 px-2.5 py-0.5 rounded-full">
+                    {plane.badge}
+                  </span>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-white">{plane.name}</h3>
+                  <p className="text-white/75 mt-2 text-sm">{plane.summary}</p>
+                </div>
+                <div className="grid grid-cols-3 gap-2 pt-4 mt-4 border-t border-white/10">
+                  {plane.metrics.map((m) => (
+                    <div key={m.label}>
+                      <span className="text-[10px] text-white/50 mono block">
+                        {m.label}
+                      </span>
+                      <span
+                        className="text-xs font-mono font-bold block"
+                        style={{ color: plane.color }}
+                      >
+                        {m.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
-          {/* Perspective Viewport Mode Switcher */}
-          <div className="flex items-center gap-1.5 p-1 rounded-lg border border-white/10 bg-[#0d1520]/80 backdrop-blur-md self-start md:self-end">
-            <button
-              type="button"
-              onClick={() => setViewMode("exploded")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-medium transition-all ${
-                viewMode === "exploded"
-                  ? "bg-[#a2e5d0] text-[#090e15] shadow-[0_0_12px_rgba(162,229,208,0.35)]"
-                  : "text-[#9eb3be] hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <Maximize2 size={13} aria-hidden="true" />
-              <span>Exploded 3D</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("isometric")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-medium transition-all ${
-                viewMode === "isometric"
-                  ? "bg-[#a2e5d0] text-[#090e15] shadow-[0_0_12px_rgba(162,229,208,0.35)]"
-                  : "text-[#9eb3be] hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <Sliders size={13} aria-hidden="true" />
-              <span>Isometric</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => setViewMode("compact")}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded text-xs font-mono font-medium transition-all ${
-                viewMode === "compact"
-                  ? "bg-[#a2e5d0] text-[#090e15] shadow-[0_0_12px_rgba(162,229,208,0.35)]"
-                  : "text-[#9eb3be] hover:text-white hover:bg-white/5"
-              }`}
-            >
-              <Layers size={13} aria-hidden="true" />
-              <span>Stack</span>
-            </button>
+  return (
+    <section
+      ref={containerRef}
+      onPointerMove={(e) => {
+        const rect = stageRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        mouseTargetRef.current = {
+          x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+          y: ((e.clientY - rect.top) / rect.height - 0.5) * 2,
+        };
+      }}
+      onPointerLeave={() => {
+        mouseTargetRef.current = { x: 0, y: 0 };
+      }}
+      className="relative bg-[#050505] text-white border-y border-white/10"
+      style={{ height: "230vh" }}
+    >
+      {/* Sticky Full-Viewport 3D Cylindrical Spiral Stage */}
+      <div
+        ref={stageRef}
+        className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
+        style={{ perspective: "1400px" }}
+      >
+        <CanvasParticleField />
+
+        {/* Giant Atmospheric Backdrop Watermark */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-5 select-none">
+          <span
+            className="text-[clamp(5rem,18vw,20rem)] font-black tracking-tighter uppercase text-transparent"
+            style={{
+              WebkitTextStroke: "2px #ffffff",
+              fontFamily: "var(--font-display)",
+            }}
+          >
+            ELEVEN
+          </span>
+        </div>
+
+        {/* Top Header & Quick Layer Selector Pills */}
+        <div className="absolute top-6 sm:top-8 left-0 right-0 z-30 flex flex-col items-center gap-3 px-4 text-center">
+          <span className="mono text-[10.5px] font-bold tracking-[0.22em] text-[#a2e5d0] uppercase bg-white/5 border border-white/10 px-4 py-1.5 rounded-full backdrop-blur-md">
+            SCROLL TO ROTATE ARCHITECTURE · 4 SPATIAL PLANES
+          </span>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {SPATIAL_PLANES.map((plane, idx) => {
+              const isActive = activeIndexDisplay === idx;
+              return (
+                <button
+                  key={plane.id}
+                  type="button"
+                  onClick={() => handleSelectPlane(idx)}
+                  className={`px-3 py-1 rounded-full mono text-[10px] font-bold tracking-wider uppercase transition-all cursor-pointer border ${
+                    isActive
+                      ? "bg-[#a2e5d0] text-[#050505] border-[#a2e5d0] shadow-[0_0_16px_rgba(162,229,208,0.4)]"
+                      : "bg-black/50 text-white/70 border-white/15 hover:text-white hover:border-white/35"
+                  }`}
+                >
+                  {plane.shortLabel}
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* 3D Spatial Interactive Stage */}
-        <div className="grid lg:grid-cols-[1.2fr_.8fr] gap-10 lg:gap-14 items-center">
-          <div
-            ref={stageRef}
-            onPointerMove={handlePointerMove}
-            onPointerLeave={handlePointerLeave}
-            className="relative min-h-[460px] sm:min-h-[520px] lg:min-h-[580px] w-full flex items-center justify-center p-4 rounded-2xl border border-white/10 bg-[#080d14]/70 backdrop-blur-sm select-none"
-            style={{
-              perspective: "1200px",
-              perspectiveOrigin: "50% 50%",
-            }}
-          >
-            {/* Stage rotation container with hardware acceleration */}
+        {/* 3D Orbiting Planes Track */}
+        <div
+          className="relative w-full h-full"
+          style={{ transformStyle: "preserve-3d" }}
+        >
+          {SPATIAL_PLANES.map((plane, idx) => (
             <div
-              className="relative w-full max-w-[500px] h-[340px] sm:h-[380px] transition-transform duration-100 ease-out"
+              key={plane.id}
+              ref={(el) => {
+                cardRefs.current[idx] = el;
+              }}
+              onClick={() => handleSelectPlane(idx)}
+              className="group cursor-pointer absolute top-1/2 left-1/2 w-[315px] sm:w-[440px] md:w-[490px] min-h-[260px] sm:min-h-[320px] rounded-[24px] sm:rounded-[28px] p-7 sm:p-9 border border-white/15 shadow-[0_30px_80px_rgba(0,0,0,0.85)] backdrop-blur-xl flex flex-col justify-between transition-colors duration-300 hover:border-white/40"
               style={{
+                background: plane.bgGradient,
                 transformStyle: "preserve-3d",
-                transform: `rotateX(${rotation.x}deg) rotateY(${rotation.y}deg)`,
+                willChange: "transform, opacity",
               }}
             >
-              {SPATIAL_PLANES.map((plane, idx) => {
-                const isHovered = activePlaneId === plane.id;
-                const isAnyHovered = activePlaneId !== null;
-
-                // Calculate Z-translation based on mode
-                let zPos = 0;
-                let yOffset = 0;
-                let scaleVal = 1;
-
-                if (viewMode === "exploded") {
-                  zPos = plane.zBase * 1.35;
-                  yOffset = (idx - 1.5) * 26;
-                } else if (viewMode === "isometric") {
-                  zPos = plane.zBase * 0.9;
-                  yOffset = (idx - 1.5) * 44;
-                  scaleVal = 0.96;
-                } else {
-                  // Compact stack
-                  zPos = idx * 16;
-                  yOffset = (idx - 1.5) * 14;
-                  scaleVal = 1 - (3 - idx) * 0.03;
-                }
-
-                if (isHovered) {
-                  zPos += 45;
-                }
-
-                const opacity =
-                  isAnyHovered && !isHovered ? 0.45 : isHovered ? 1 : 0.92;
-
-                return (
+              {/* Card Top Row */}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2.5">
                   <div
-                    key={plane.id}
-                    onMouseEnter={() => setActivePlaneId(plane.id)}
-                    onClick={() => setActivePlaneId(plane.id)}
-                    className="absolute inset-0 rounded-xl p-6 sm:p-7 flex flex-col justify-between cursor-pointer transition-all duration-300 ease-out border shadow-2xl"
-                    style={{
-                      transformStyle: "preserve-3d",
-                      transform: `translate3d(0, ${yOffset}px, ${zPos}px) scale(${scaleVal})`,
-                      backgroundColor: isHovered
-                        ? "#111a26"
-                        : "rgba(13, 20, 30, 0.88)",
-                      borderColor: isHovered ? plane.color : plane.borderColor,
-                      boxShadow: isHovered
-                        ? `0 20px 50px ${plane.glowColor}, inset 0 1px 0 rgba(255,255,255,0.18)`
-                        : `0 10px 30px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.06)`,
-                      opacity,
-                      backdropFilter: "blur(12px)",
-                    }}
+                    className="h-9 w-9 rounded-xl flex items-center justify-center border border-white/15 bg-black/50 transition-transform duration-300 group-hover:scale-110"
+                    style={{ color: plane.color }}
                   >
-                    {/* Plane Header */}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className="h-9 w-9 rounded-lg flex items-center justify-center border transition-colors duration-200"
-                          style={{
-                            backgroundColor: `${plane.color}1a`,
-                            borderColor: `${plane.color}55`,
-                            color: plane.color,
-                          }}
-                        >
-                          <plane.icon size={19} strokeWidth={1.8} />
-                        </div>
-                        <div>
-                          <span className="mono text-[10px] font-bold tracking-widest uppercase block text-[#9eb3be]">
-                            {plane.tag}
-                          </span>
-                          <h3 className="text-base sm:text-lg font-bold tracking-tight text-white">
-                            {plane.name}
-                          </h3>
-                        </div>
-                      </div>
-                      <span
-                        className="mono text-[9.5px] uppercase tracking-wider px-2 py-0.5 rounded border"
-                        style={{
-                          color: plane.color,
-                          borderColor: `${plane.color}40`,
-                          backgroundColor: `${plane.color}15`,
-                        }}
-                      >
-                        {plane.badge}
-                      </span>
-                    </div>
-
-                    {/* Plane Micro-Metrics Preview */}
-                    <div className="mt-4 grid grid-cols-3 gap-2.5 pt-3 border-t border-white/10">
-                      {plane.metrics.map((m) => (
-                        <div key={m.label}>
-                          <span className="text-[10px] text-[#768a98] mono block">
-                            {m.label}
-                          </span>
-                          <span
-                            className="text-xs sm:text-[13px] font-mono font-semibold block mt-0.5"
-                            style={{ color: isHovered ? plane.color : "#ffffff" }}
-                          >
-                            {m.value}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Plane Footer Tags */}
-                    <div className="mt-4 flex items-center justify-between">
-                      <div className="flex items-center gap-1.5 flex-wrap">
-                        {plane.tags.map((t) => (
-                          <span
-                            key={t}
-                            className="text-[10px] text-[#9eb3be] bg-white/5 border border-white/5 px-2 py-0.5 rounded-full mono"
-                          >
-                            {t}
-                          </span>
-                        ))}
-                      </div>
-                      <span
-                        className="text-xs font-mono font-medium flex items-center gap-1 transition-transform"
-                        style={{
-                          color: plane.color,
-                          transform: isHovered ? "translateX(3px)" : "none",
-                        }}
-                      >
-                        Details <ChevronRight size={13} />
-                      </span>
-                    </div>
+                    <plane.icon size={18} strokeWidth={1.8} />
                   </div>
-                );
-              })}
-            </div>
-
-            {/* Bottom 3D instruction pill */}
-            <div className="pointer-events-none absolute bottom-3 left-4 right-4 flex items-center justify-between text-[11px] font-mono text-[#768a98]">
-              <span className="flex items-center gap-1.5">
-                <Sparkles size={12} className="text-[#a2e5d0]" /> Move cursor to rotate 3D perspective
-              </span>
-              <span className="hidden sm:inline">CSS Perspective: 1200px</span>
-            </div>
-          </div>
-
-          {/* Active Plane Inspection Card */}
-          <div className="rounded-2xl p-7 sm:p-9 border border-[#1d2a3a] bg-[#0c1420]/90 backdrop-blur-md relative overflow-hidden shadow-2xl">
-            <div
-              className="absolute -right-16 -top-16 w-44 h-44 rounded-full blur-3xl pointer-events-none"
-              style={{ backgroundColor: `${activePlane.color}22` }}
-            />
-
-            <div className="flex items-center gap-2 mb-4">
-              <span
-                className="w-2 h-2 rounded-full animate-pulse"
-                style={{ backgroundColor: activePlane.color }}
-              />
-              <span className="mono text-xs font-bold uppercase tracking-widest text-[#9eb3be]">
-                ACTIVE TELEMETRY INSPECTION
-              </span>
-            </div>
-
-            <h3 className="text-2xl font-bold tracking-tight text-white mb-2">
-              {activePlane.name}
-            </h3>
-
-            <p className="text-[#c4d5dc] text-[15px] sm:text-[16px] leading-relaxed mb-6">
-              {activePlane.summary}
-            </p>
-
-            <div className="space-y-3 pt-5 border-t border-white/10">
-              <span className="mono text-[11px] font-bold text-[#768a98] uppercase tracking-wider block">
-                Deterministic Specifications
-              </span>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {activePlane.metrics.map((m) => (
-                  <div
-                    key={m.label}
-                    className="p-3 rounded-lg border border-white/10 bg-white/5"
+                  <span
+                    className="mono text-[10px] font-bold tracking-widest uppercase"
+                    style={{ color: plane.color }}
                   >
-                    <span className="text-[11px] text-[#9eb3be] mono block">
+                    {plane.tag}
+                  </span>
+                </div>
+                <span
+                  className="mono text-[9.5px] uppercase tracking-wider px-2.5 py-1 rounded-full border"
+                  style={{
+                    color: plane.color,
+                    borderColor: `${plane.color}40`,
+                    backgroundColor: `${plane.color}15`,
+                  }}
+                >
+                  {plane.badge}
+                </span>
+              </div>
+
+              {/* Card Body */}
+              <div className="my-5">
+                <h3
+                  className="text-xl sm:text-2xl md:text-[28px] font-black tracking-tight text-white leading-tight"
+                  style={{ fontFamily: "var(--font-display)" }}
+                >
+                  {plane.name}
+                </h3>
+                <p className="text-[#c4d5dc] mt-2 text-xs sm:text-sm leading-relaxed">
+                  {plane.summary}
+                </p>
+              </div>
+
+              {/* Card Bottom Telemetry Specs */}
+              <div className="grid grid-cols-3 gap-2 pt-4 border-t border-white/10">
+                {plane.metrics.map((m) => (
+                  <div key={m.label}>
+                    <span className="text-[9.5px] text-white/50 mono block uppercase">
                       {m.label}
                     </span>
                     <span
-                      className="text-base font-bold font-mono block mt-1"
-                      style={{ color: activePlane.color }}
+                      className="text-xs sm:text-sm font-mono font-bold block mt-0.5"
+                      style={{ color: plane.color }}
                     >
                       {m.value}
                     </span>
@@ -480,19 +411,7 @@ export function DepthSpatialStage() {
                 ))}
               </div>
             </div>
-
-            <div className="mt-8 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-[#768a98] mono">Enclave Status:</span>
-                <span className="text-xs mono font-bold text-[#a2e5d0] bg-[#a2e5d0]/10 border border-[#a2e5d0]/30 px-2 py-0.5 rounded">
-                  VERIFIED ONLINE
-                </span>
-              </div>
-              <span className="mono text-xs text-[#768a98]">
-                Layer Z-Index: {activePlane.zBase}px
-              </span>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </section>
