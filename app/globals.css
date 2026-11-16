@@ -273,6 +273,35 @@ p {
   }
 }
 
+/* Made to Disrupt-inspired Kinetic Marquee Ribbons */
+@keyframes marquee-fast {
+  0% {
+    transform: translate3d(0%, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marquee-reverse {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0%, 0, 0);
+  }
+}
+
+.animate-marquee-fast {
+  animation: marquee-fast 20s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee-reverse {
+  animation: marquee-reverse 24s linear infinite;
+  will-change: transform;
+}
+
 .bg-grid-scifi {
   background-image: 
     linear-gradient(to right, rgba(162, 229, 208, 0.08) 1px, transparent 1px),
@@ -1271,9 +1300,15 @@ html:not(.dark) .labs-spatial-lens .text-\[\#9eb3be\] {
 }
 
 /* Reduced Motion Compliance (Emil Kowalski accessibility rule) */
+html[data-reduce-motion="true"] .animate-marquee-fast,
+html[data-reduce-motion="true"] .animate-marquee-reverse,
 html[data-reduce-motion="true"] .depth-spatial-section div,
 html[data-reduce-motion="true"] .labs-spatial-lens div,
 @media (prefers-reduced-motion: reduce) {
+  .animate-marquee-fast,
+  .animate-marquee-reverse {
+    animation: none !important;
+  }
   .depth-spatial-section div,
   .labs-spatial-lens div {
     transform: none !important;

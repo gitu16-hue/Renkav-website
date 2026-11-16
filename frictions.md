@@ -153,3 +153,27 @@
 4. 更新 `app/globals.css` 完善亮暗双模式下的 3D 舞台对比度映射与 `prefers-reduced-motion` 降级支持。
 
 结论：Typecheck (0 error)、ESLint (0 error 0 warning)、Production Build、Smoke Suite (7/7 PASS) 与自动化浏览器子 Agent 多模式 3D 视觉巡检（Exploded 3D、Isometric、Blueprint Dialog）全部 100% 验证通过。
+
+## Made to Disrupt (madetodisrupt.com) 逆向工程与高奢暗黑重构 — resolved
+
+触发：用户提供 `https://madetodisrupt.com/`，要求对其前端与交互架构进行完整逆向工程，并将 RENKAV 的视觉 UI/UX、动效与排版依其高奢黑曜石（Obsidian Black）暗黑美学进行深度重构，同时完整保留 RENKAV 与 ELEVEN 的内核内容。
+
+调查：
+1. 深入分析 `madetodisrupt.com` 的核心设计与动效特征：
+   - **深空星尘粒子星系画布（Canvas Particle Field）**：Hero 背景采用轻量 60fps HTML5 Canvas 渲染微弱漂移与闪烁的星尘粒子；
+   - **倾斜对角线动力学跑马带（Diagonal Marquee Ribbons）**：横跨视口的 `-3deg` 倾斜双层无缝跑马灯，上层高反差纯白缎带配黑色粗体大字，下层深黑黑曜石缎带配薄荷绿光芒；
+   - **"OUR EDGE /" 巨幅轮廓排版与视差卡片堆叠（Sticky Feature Stacking Cards）**：背景布置超大视差空心轮廓文字，结合滚动文字动态填充；五大核心支柱卡片（Pillar 01~05）采用粘性定位（`position: sticky`），随滚动逐渐覆盖前层并附带深度阴影；
+   - **极简高对比卡片容器**：采用黑曜石色调（`#000000`, `#050505`, `#0a0a0a`）、精致极细磨砂发光边缘（`1px solid rgba(255,255,255,0.1)`）与大圆角（24px~32px）。
+2. 保留与兼容性核查：
+   - 保证严格符合 CSP 规范与全站唯一的 `<h1>` 标签标准；
+   - 保持 Next.js 16 App Router SSR 水合一致性与 `scripts/smoke.mjs` 测试（7/7 PASS）；
+   - 保留 RENKAV 的全部文本、路线图以及创始人（Gitanshu Damade & Yashika Pawar）资料。
+
+解决：
+1. 编写 `components/canvas-particle-field.tsx`：实现轻量级 60fps 星尘粒子漂移与透明度呼吸动效，支持后台标签页自动休眠以节省 GPU；
+2. 编写 `components/diagonal-marquee-ribbon.tsx`：实现 `-3deg` 倾斜的双层极速硬件加速无限循环跑马灯，适配 `prefers-reduced-motion`；
+3. 编写 `components/sticky-feature-stack.tsx`：实现 "OUR EDGE /" 巨幅空心背景排版、滚动字级透明度擦色填充，以及 5 张渐进堆叠的 ELEVEN 黑曜石物理特性卡片；
+4. 更新 `app/page.tsx`：将星尘画布、倾斜跑马灯与层叠卡片无缝整合至首页叙事骨架；
+5. 更新 `app/globals.css`：注入对角线跑马灯硬件加速动画 `@keyframes marquee-fast` 与 `@keyframes marquee-reverse`。
+
+结论：TypeScript (0 error)、ESLint (0 error 0 warning)、Turbopack 生产编译 (3.9s)、自动化端到端冒烟测试 (7/7 PASS) 与自动化浏览器子 Agent (1440x900) 视觉巡检全部 100% 验证通过。全站完美呈现 Made to Disrupt 的高奢暗黑张力与顺滑物理动效。

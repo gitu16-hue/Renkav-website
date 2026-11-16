@@ -15,6 +15,9 @@ import { InfiniteCapabilitiesReel } from "@/components/infinite-reel";
 import { ScrollManifesto } from "@/components/scroll-manifesto";
 import { Card3DTilt } from "@/components/card-3d-tilt";
 import { LabsSpatialLens } from "@/components/labs-spatial-lens";
+import { CanvasParticleField } from "@/components/canvas-particle-field";
+import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
+import { StickyFeatureStack } from "@/components/sticky-feature-stack";
 import { showHolographicOrb } from "@/flags";
 
 const principles = [
@@ -48,8 +51,9 @@ export default async function Home() {
   const orbEnabled = await showHolographicOrb();
   return (
     <>
-      <section className="hero relative overflow-hidden text-white">
+      <section className="hero relative overflow-hidden text-white bg-[#050505]">
         <div className="absolute inset-0 grid-pattern opacity-35" />
+        <CanvasParticleField />
         <div className="container-main relative grid lg:grid-cols-[1.12fr_.88fr] gap-12 lg:gap-16 items-center pt-16 pb-20 lg:pt-[104px] lg:pb-[120px]">
           <div>
             <div className="entry-1">
@@ -89,11 +93,17 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Microdose Studio-inspired Infinite Momentum Reel of Core Capabilities */}
-      <InfiniteCapabilitiesReel />
+      {/* Made to Disrupt-inspired Diagonal Kinetic Marquee Ribbons */}
+      <DiagonalMarqueeRibbon />
 
-      {/* Microdose Studio-inspired Scroll-Filled Manifesto */}
+      {/* Scroll-Filled Manifesto */}
       <ScrollManifesto />
+
+      {/* Made to Disrupt-inspired Sticky Stacking Feature Pillar Cards */}
+      <StickyFeatureStack />
+
+      {/* Infinite Momentum Capabilities Reel */}
+      <InfiniteCapabilitiesReel />
 
       <section className="section-pad bg-[#f8faf7]">
         <div className="container-main grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
