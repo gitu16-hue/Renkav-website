@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Cpu, Database, ShieldCheck, Mic, RefreshCw, Lock, Layers, Sparkles } from "lucide-react";
+import { Cpu, Database, ShieldCheck, Compass, Globe, Lock, Layers, Sparkles } from "lucide-react";
 
 interface OrbitCardSpec {
   id: string;
@@ -22,8 +22,8 @@ interface OrbitCardSpec {
 const ORBIT_CARDS: OrbitCardSpec[] = [
   {
     id: "orb-card-1",
-    label: "MEMORY ENCLAVE",
-    sublabel: "HNSW · Zero Leak",
+    label: "VENTURE STUDIO",
+    sublabel: "Applied AI Software",
     baseAngle: -2.45,
     radiusX: 43,
     radiusY: 40,
@@ -32,28 +32,28 @@ const ORBIT_CARDS: OrbitCardSpec[] = [
     height: 124,
     accent: "#a2e5d0",
     gradient: "radial-gradient(circle at 80% 70%, rgba(162, 229, 208, 0.35), rgba(10, 16, 24, 0.95) 68%)",
-    icon: Database,
+    icon: Compass,
     tiltDeg: -6,
   },
   {
     id: "orb-card-2",
-    label: "16kHz VAD",
-    sublabel: "14ms Barge-in",
+    label: "RESEARCH LAB",
+    sublabel: "Human-AI Design",
     baseAngle: -1.85,
     radiusX: 30,
     radiusY: 45,
     zDepth: -40,
-    width: 120,
+    width: 132,
     height: 150,
     accent: "#00d8ff",
     gradient: "radial-gradient(circle at 50% 25%, rgba(0, 216, 255, 0.32), rgba(10, 14, 22, 0.96) 72%)",
-    icon: Mic,
+    icon: Globe,
     tiltDeg: 4,
   },
   {
     id: "orb-card-3",
-    label: "ELEVEN CORE",
-    sublabel: "Cognitive Layer",
+    label: "VENTURE 01",
+    sublabel: "Project ELEVEN",
     baseAngle: -1.1,
     radiusX: 25,
     radiusY: 44,
@@ -67,8 +67,8 @@ const ORBIT_CARDS: OrbitCardSpec[] = [
   },
   {
     id: "orb-card-4",
-    label: "MODEL ARBITER",
-    sublabel: "Claude · GPT · Gemini",
+    label: "MODEL AGNOSTIC",
+    sublabel: "Right Model per Task",
     baseAngle: -0.45,
     radiusX: 44,
     radiusY: 38,
@@ -82,8 +82,8 @@ const ORBIT_CARDS: OrbitCardSpec[] = [
   },
   {
     id: "orb-card-5",
-    label: "RING-0 GATE",
-    sublabel: "Pre-Dispatch Auth",
+    label: "HUMAN CONTROL",
+    sublabel: "Visible Consent",
     baseAngle: 0.25,
     radiusX: 45,
     radiusY: 16,
@@ -97,8 +97,8 @@ const ORBIT_CARDS: OrbitCardSpec[] = [
   },
   {
     id: "orb-card-6",
-    label: "ATOMIC DAG",
-    sublabel: "42ms Rollback",
+    label: "PORTABLE CONTEXT",
+    sublabel: "Never Start Over",
     baseAngle: 0.95,
     radiusX: 40,
     radiusY: 42,
@@ -107,13 +107,13 @@ const ORBIT_CARDS: OrbitCardSpec[] = [
     height: 134,
     accent: "#a855f7",
     gradient: "radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.32), rgba(10, 12, 20, 0.95) 70%)",
-    icon: RefreshCw,
+    icon: Database,
     tiltDeg: 5,
   },
   {
     id: "orb-card-7",
-    label: "SIGNED NONCE",
-    sublabel: "HMAC Provenance",
+    label: "TRUST DESIGN",
+    sublabel: "Review Every Step",
     baseAngle: 2.25,
     radiusX: 42,
     radiusY: 41,
@@ -127,13 +127,13 @@ const ORBIT_CARDS: OrbitCardSpec[] = [
   },
   {
     id: "orb-card-8",
-    label: "CONTEXT GRAPH",
-    sublabel: "Spatial Enclave",
+    label: "RENKAV ETHOS",
+    sublabel: "Make the Next Matter",
     baseAngle: 2.85,
     radiusX: 44,
     radiusY: 15,
     zDepth: -30,
-    width: 145,
+    width: 155,
     height: 122,
     accent: "#00d8ff",
     gradient: "linear-gradient(125deg, rgba(0, 216, 255, 0.25), rgba(8, 12, 18, 0.95) 75%)",

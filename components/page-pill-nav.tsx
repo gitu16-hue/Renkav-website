@@ -7,7 +7,7 @@ import { ArrowLeft } from "lucide-react";
 
 const PILL_ROUTES = [
   { href: "/about", label: "ABOUT RENKAV" },
-  { href: "/ventures", label: "ELEVEN PROTOTYPE" },
+  { href: "/ventures", label: "VENTURES · ELEVEN" },
   { href: "/leadership", label: "LEADERSHIP" },
   { href: "/contact", label: "CONTACT" },
 ];

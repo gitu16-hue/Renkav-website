@@ -23,51 +23,51 @@ interface CapabilityCard {
 const CAPABILITIES: CapabilityCard[] = [
   {
     id: "01",
-    tag: "COGNITIVE PERSISTENCE",
+    tag: "APPLIED INTERACTION",
     title: "Context Continuity",
-    desc: "Persistent workspace memory retains multi-session project context and decisions safely across tool boundaries.",
-    stat: "128K TOKEN GRAPHS",
+    desc: "Building software where your approved project context travels smoothly from session to session.",
+    stat: "RENKAV STANDARD",
     icon: Brain,
   },
   {
     id: "02",
-    tag: "SOVEREIGN PERMISSIONS",
-    title: "Action Gating",
-    desc: "Sensitive filesystem mutations, emails, and financial API calls require explicit, verifiable human approval.",
-    stat: "RING-0 SECURITY",
+    tag: "USER GOVERNANCE",
+    title: "Visible Control",
+    desc: "Clear consent boundaries so you review consequential AI proposals before any action executes.",
+    stat: "HUMAN AGENCY",
     icon: ShieldCheck,
   },
   {
     id: "03",
-    tag: "POLYGLOT RUNTIME",
-    title: "Adaptive Models",
-    desc: "Fluid dynamic handoff between frontier LLMs (Claude, GPT, Gemini) and localized quantized edge weights.",
-    stat: "MULTI-MODEL DAG",
+    tag: "OPEN ECOSYSTEM",
+    title: "Model Flexibility",
+    desc: "Incubating architectures decoupled from any single model vendor—adapting as intelligence evolves.",
+    stat: "MULTI-MODEL",
     icon: Cpu,
   },
   {
     id: "04",
-    tag: "VERIFICATION PIPELINE",
-    title: "Evidence Adjudication",
-    desc: "Zero-hallucination validation gates generated code, drafts, and claims against grounding sources before delivery.",
-    stat: "100% GROUNDED",
-    icon: GitBranch,
+    tag: "VENTURE 01 · FLAGSHIP",
+    title: "Project ELEVEN",
+    desc: "Our first prototype exploring an Intelligence Operating System layer on top of your existing tools.",
+    stat: "IN DEVELOPMENT",
+    icon: Terminal,
   },
   {
     id: "05",
-    tag: "ACOUSTIC PERCEPTION",
-    title: "Realtime 16kHz VAD",
-    desc: "Continuous low-latency voice capture loop with noise reduction and instantaneous turn-detection.",
-    stat: "< 140MS LATENCY",
+    tag: "NATURAL INTERFACE",
+    title: "Multimodal Fluidity",
+    desc: "Designing intuitive voice and text interaction flows built for real everyday workflows.",
+    stat: "VOICE + TEXT",
     icon: Volume2,
   },
   {
     id: "06",
-    tag: "AGENT ORCHESTRATION",
-    title: "Safe Tool Dispatch",
-    desc: "Sandboxed execution for background command runs, web browsing, code analysis, and document compilation.",
-    stat: "ISOLATED RUNNERS",
-    icon: Terminal,
+    tag: "WORKFLOW PILOTS",
+    title: "Collaborative Research",
+    desc: "Partnering with operators and teams to solve genuine digital bottlenecks with testable prototypes.",
+    stat: "CO-DESIGN",
+    icon: GitBranch,
   },
 ];
 
@@ -225,10 +225,10 @@ export function InfiniteCapabilitiesReel() {
         <div>
           <p className="eyebrow text-[#a2e5d0] flex items-center gap-2 mb-2">
             <span className="status-dot" aria-hidden="true" />
-            <span>ARCHITECTURAL CAPABILITIES</span>
+            <span>RENKAV FOCUS AREAS</span>
           </p>
           <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-white">
-            Built for ongoing digital work.
+            What we’re building across ventures.
           </h2>
         </div>
         <div className="flex items-center gap-2 text-xs text-[#9eb3be] mono">

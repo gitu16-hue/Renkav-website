@@ -25,7 +25,7 @@ export interface LabExperiment {
   code: string;
   title: string;
   category: string;
-  status: "ACTIVE EXPERIMENT" | "IN BENCHMARK" | "RING-0 VALIDATED";
+  status: "ACTIVE RESEARCH" | "PROTOTYPE PHASE" | "STUDIO STANDARD";
   abstract: string;
   technicalSpec: string;
   icon: React.ComponentType<{ size?: number; className?: string; strokeWidth?: number }>;
@@ -36,110 +36,110 @@ export interface LabExperiment {
 const LAB_EXPERIMENTS: LabExperiment[] = [
   {
     id: "lab-01",
-    code: "EXP-01 / LAT-PERSIST",
-    title: "Context Memory Lattice",
-    category: "Persistent Enclave",
-    status: "RING-0 VALIDATED",
+    code: "VENTURE 01 / FLAGSHIP",
+    title: "Project ELEVEN",
+    category: "Intelligence Operating System",
+    status: "PROTOTYPE PHASE",
     abstract:
-      "Sub-millisecond hybrid vector-relational context retrieval operating purely within local memory.",
+      "RENKAV's first flagship software prototype—connecting ongoing work, approved context, and multiple AI models.",
     technicalSpec:
-      "Combines hierarchical navigable small-world (HNSW) graphs with an encrypted local SQLite relational index. Contextual fragments are embedded via quantized local models and encrypted with AES-256-GCM. Eliminates recurring prompt re-hydration costs.",
-    icon: Database,
-    color: "#00d8ff",
+      "Designed as an intelligent layer on top of your existing operating system rather than a replacement. Focuses on helping people pick up ongoing multi-step projects while keeping sensitive actions behind explicit review.",
+    icon: Compass,
+    color: "#a2e5d0",
     stats: [
-      { label: "P99 Latency", val: "1.1ms" },
-      { label: "Memory Footprint", val: "38MB" },
-      { label: "Leak Surface", val: "0.0%" },
+      { label: "Stage", val: "In Development" },
+      { label: "Focus", val: "Continuity" },
+      { label: "Control", val: "User Approved" },
     ],
   },
   {
     id: "lab-02",
-    code: "EXP-02 / CRYPTO-NONCE",
-    title: "Cryptographic Action Nonce",
-    category: "Deterministic Ledger",
-    status: "RING-0 VALIDATED",
+    code: "RES-02 / CONTINUITY",
+    title: "Portable Project Memory",
+    category: "Context Architecture",
+    status: "STUDIO STANDARD",
     abstract:
-      "Immutable cryptographic proof-of-intent ledger for AI tool calls and file operations.",
+      "Separating the memory of your project from isolated single-session chat windows.",
     technicalSpec:
-      "Every tool invocation emits a deterministic sha256 HMAC nonce signed by user session authority. Actions without matching signatures are rejected by the kernel barrier before touching disk, socket, or process tables.",
-    icon: Lock,
-    color: "#b8f36b",
+      "Explores user-curated context spaces where notes, decisions, and references persist cleanly across sessions and tools—giving users direct visibility into what the software remembers and why.",
+    icon: Database,
+    color: "#00d8ff",
     stats: [
-      { label: "Signing Clock", val: "<0.3ms" },
-      { label: "Replay Defense", val: "Nonce Epoch" },
-      { label: "Verification", val: "Deterministic" },
+      { label: "Ownership", val: "User-Curated" },
+      { label: "Scope", val: "Multi-Session" },
+      { label: "Transparency", val: "Inspectable" },
     ],
   },
   {
     id: "lab-03",
-    code: "EXP-03 / ROUTE-ARB",
-    title: "Dynamic Latency Router",
-    category: "Inference Arbitration",
-    status: "ACTIVE EXPERIMENT",
+    code: "RES-03 / GOVERNANCE",
+    title: "Visible Consent Frameworks",
+    category: "Human-in-the-Loop",
+    status: "STUDIO STANDARD",
     abstract:
-      "Real-time token cost and reasoning complexity solver routing between frontier models.",
+      "Interaction design patterns ensuring AI systems propose actions clearly before executing them.",
     technicalSpec:
-      "Evaluates prompt entropy, multi-step dependency graphs, and token economics to select between deep reasoning models (Claude 3.7 Sonnet) and low-latency executors (Gemini 2.0 Flash) without compromising execution accuracy.",
-    icon: Cpu,
-    color: "#a2e5d0",
+      "Separates planning from execution. Before drafting external communications or modifying project states, RENKAV tools present clear review summaries and traceable histories afterward.",
+    icon: Lock,
+    color: "#b8f36b",
     stats: [
-      { label: "Cost Reduction", val: "64%" },
-      { label: "Routing Jitter", val: "<8ms" },
-      { label: "Model Fleet", val: "Heterogeneous" },
+      { label: "Approval", val: "Explicit Gate" },
+      { label: "Auditability", val: "Post-Action Log" },
+      { label: "Safety", val: "By Design" },
     ],
   },
   {
     id: "lab-04",
-    code: "EXP-04 / AMBIENT-VAD",
-    title: "Sovereign 16kHz VAD",
-    category: "Audio Perception",
-    status: "IN BENCHMARK",
+    code: "RES-04 / ORCHESTRATION",
+    title: "Model-Agnostic Routing",
+    category: "Adaptive Intelligence",
+    status: "ACTIVE RESEARCH",
     abstract:
-      "Ultra-low latency voice activity detection running directly in WebAssembly/WebGPU.",
+      "Matching specific reasoning, writing, or coordination steps to the most suitable AI model.",
     technicalSpec:
-      "Zero-cloud biometric streaming. 16kHz mono audio is chunked into 30ms frames and analyzed via an on-device Silero-derived neural VAD model. Speech endpoints trigger sub-15ms barge-in interrupts to halt background agent speech.",
-    icon: Mic,
-    color: "#08766c",
+      "Prevents workflow fragmentation when new foundation models emerge. Users benefit from one consistent assistant experience capable of delegating subtasks to different underlying models seamlessly.",
+    icon: Cpu,
+    color: "#38bdf8",
     stats: [
-      { label: "Barge-in Interrupt", val: "14ms" },
-      { label: "Telemetry Stream", val: "Zero Leak" },
-      { label: "Sample Rate", val: "16kHz Mono" },
+      { label: "Lock-in", val: "None" },
+      { label: "Architecture", val: "Modular" },
+      { label: "Adaptability", val: "Continuous" },
     ],
   },
   {
     id: "lab-05",
-    code: "EXP-05 / DAG-HEAL",
-    title: "Self-Healing DAG Sandbox",
-    category: "Execution Resilience",
-    status: "ACTIVE EXPERIMENT",
+    code: "RES-05 / LOCAL COMPUTE",
+    title: "Local Edge Exploration",
+    category: "Hybrid Processing",
+    status: "ACTIVE RESEARCH",
     abstract:
-      "Atomic transactional rollback for multi-step autonomous tool pipelines.",
+      "Investigating on-device execution paths for supported tasks where privacy or responsiveness matters.",
     technicalSpec:
-      "Wraps side-effecting operations in isolated filesystem snapshots. When a tool throws an exit code or validation failure, the DAG engine triggers an atomic rollback to the preceding clean checkpoint, replanning alternative execution paths.",
+      "Testing practical boundaries between cloud intelligence and local hardware acceleration. Focused on identifying which everyday tasks can run reliably without external round-trips.",
     icon: RefreshCw,
-    color: "#38bdf8",
+    color: "#a855f7",
     stats: [
-      { label: "Rollback Time", val: "42ms" },
-      { label: "Fault Recovery", val: "94.8%" },
-      { label: "Snapshot Overhead", val: "<5MB" },
+      { label: "Posture", val: "Exploratory" },
+      { label: "Target", val: "Supported Tasks" },
+      { label: "Promise", val: "Evidence-First" },
     ],
   },
   {
     id: "lab-06",
-    code: "EXP-06 / POLICY-GATE",
-    title: "Ring-0 Authority Matrix",
-    category: "Human Governance",
-    status: "RING-0 VALIDATED",
+    code: "RES-06 / VOICE & TEXT",
+    title: "Multimodal Interaction",
+    category: "Natural Workflow",
+    status: "ACTIVE RESEARCH",
     abstract:
-      "Visual consent policies that prevent AI from executing sensitive mutations silently.",
+      "Fluid transitions between speaking naturally and reviewing structured drafts on screen.",
     technicalSpec:
-      "Provides hierarchical policy enforcement: read-only operations proceed autonomously; write, execute, or network egress operations suspend the agent thread until approved in the notification stream or hardware key confirmation.",
-    icon: Compass,
-    color: "#e2e8e3",
+      "Studies how workers move smoothly between quick voice check-ins and careful written editing—making AI collaboration feel unhurried, clear, and responsive.",
+    icon: Mic,
+    color: "#e5c07b",
     stats: [
-      { label: "Security Level", val: "Ring-0" },
-      { label: "Policy Checks", val: "Pre-dispatch" },
-      { label: "Bypass Vectors", val: "Zero Allowed" },
+      { label: "Input Modes", val: "Voice + Text" },
+      { label: "Design Goal", val: "Calm Clarity" },
+      { label: "Partners", val: "Pilot Inquiries" },
     ],
   },
 ];
@@ -277,15 +277,13 @@ export function LabsSpatialLens() {
           <div>
             <div className="tag mb-4 border-[#00d8ff]/40 text-[#00d8ff] bg-[#00d8ff]/10">
               <span className="status-dot" aria-hidden="true" />
-              <span>LABS SPATIAL LENS · EXPERIMENTAL SUBSYSTEMS</span>
+              <span>RENKAV RESEARCH LAB · VENTURES & EXPLORATIONS</span>
             </div>
             <h2 className="heading text-white text-balance">
-              The research laboratory behind ELEVEN.
+              The studio behind what comes next.
             </h2>
             <p className="bodycopy mt-3 text-[#9eb3be] max-w-[64ch] text-pretty">
-              Pan through live research experiments and architectural prototypes.
-              Click any module to inspect its cryptographic specifications, memory
-              footprint, and isolation benchmarks.
+              Explore the active research directions, human-control frameworks, and software ventures taking shape inside RENKAV Technologies.
             </p>
           </div>
 
@@ -426,7 +424,7 @@ export function LabsSpatialLens() {
           {/* Interactive Progress Indicator */}
           <div className="mt-8 flex items-center justify-between px-2">
             <span className="text-xs mono text-[#768a98]">
-              01 / {LAB_EXPERIMENTS.length} Prototypes
+              01 / {LAB_EXPERIMENTS.length} Focus Tracks
             </span>
             <div className="w-36 sm:w-48 h-1 bg-white/10 rounded-full overflow-hidden">
               <div
@@ -497,7 +495,7 @@ export function LabsSpatialLens() {
             <div className="space-y-4">
               <div>
                 <span className="mono text-[11px] font-bold text-[#768a98] uppercase tracking-wider block mb-1">
-                  Architecture Overview
+                  Overview
                 </span>
                 <p className="text-[15px] sm:text-[16px] text-[#c4d5dc] leading-relaxed">
                   {activeModalItem.abstract}
@@ -506,7 +504,7 @@ export function LabsSpatialLens() {
 
               <div className="p-4 rounded-xl border border-white/10 bg-white/5">
                 <span className="mono text-[11px] font-bold text-[#a2e5d0] uppercase tracking-wider block mb-2">
-                  Kernel Implementation Specs
+                  Research & Product Focus
                 </span>
                 <p className="text-[14px] text-[#9eb3be] leading-relaxed">
                   {activeModalItem.technicalSpec}

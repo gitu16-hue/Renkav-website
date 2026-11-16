@@ -72,31 +72,31 @@ export default async function Home() {
           <InteractiveHeroTitle className="text-center" />
 
           <p className="entry-3 mt-6 sm:mt-7 max-w-[58ch] text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.7] text-pretty mx-auto">
-            We’re building software that helps people pick up where they left
-            off, plan their next steps, and stay in control of what AI does on
-            their behalf.
+            RENKAV Technologies builds applied AI software ventures—starting with
+            ELEVEN—that help people continue ongoing work, adapt across models,
+            and stay in control of every action.
           </p>
 
           <div className="entry-4 mt-8 sm:mt-9 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4">
             <RollButton
-              href="/ventures"
+              href="/about"
               variant="light"
               icon={<ArrowUpRight size={17} aria-hidden="true" />}
             >
-              Explore ELEVEN
+              About RENKAV
             </RollButton>
             <RollButton
-              href="/contact"
+              href="/ventures"
               variant="glass"
               icon={<ArrowRight size={17} aria-hidden="true" />}
             >
-              Get in touch
+              Explore ELEVEN
             </RollButton>
           </div>
 
           <p className="entry-4 mt-10 sm:mt-12 pt-5 border-t border-white/10 text-[#a2e5d0] uppercase tracking-[.22em] text-[11px] font-bold mono flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[#a2e5d0]/60" />
-            <span>Make the Next Matter.</span>
+            <span>Applied AI Venture Studio · Make the Next Matter.</span>
           </p>
         </div>
       </HeroOrbitStage>
@@ -113,7 +113,7 @@ export default async function Home() {
       {/* Infinite Momentum Capabilities Reel */}
       <InfiniteCapabilitiesReel />
 
-      {/* Meet ELEVEN — Dynamic Obsidian Showcase with Continuous Spinning Orbital Rings */}
+      {/* Meet ELEVEN — Highlighted as RENKAV's First Venture */}
       <section className="section-pad relative overflow-hidden bg-[#050505] text-white border-t border-white/10">
         <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
         <CanvasParticleField />
@@ -121,16 +121,16 @@ export default async function Home() {
           <div className="order-1 lg:order-2 scroll-reveal">
             <div className="tag mb-5 sm:mb-6 border-[#a2e5d0]/40 text-[#a2e5d0] bg-[#a2e5d0]/10">
               <span className="status-dot-lime mr-1" aria-hidden="true" />
-              <span>OUR FIRST PROJECT · IN DEVELOPMENT</span>
+              <span>VENTURE 01 · OUR FIRST PROJECT</span>
             </div>
             <h2 className="heading text-white text-balance">
               Meet <span className="text-[#a2e5d0]">ELEVEN.</span>
             </h2>
             <p className="mt-5 sm:mt-6 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty">
-              ELEVEN is an AI assistant in development. We’re designing it to
-              pick up ongoing work using context you’ve approved, work with
-              different AI models, and ask before taking actions that need your
-              permission.
+              ELEVEN is RENKAV’s first software venture in development—an AI
+              assistant prototype designed to pick up ongoing work using context
+              you’ve approved, work across AI models, and keep consequential
+              decisions yours.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <RollButton
@@ -138,10 +138,10 @@ export default async function Home() {
                 variant="light"
                 icon={<ArrowUpRight size={17} aria-hidden="true" />}
               >
-                See what we’re building
+                Explore Venture 01
               </RollButton>
               <span className="text-xs text-[#9eb3be] mono">
-                Subsidiary Cognitive Runtime
+                Flagship Project by RENKAV
               </span>
             </div>
           </div>
@@ -191,8 +191,8 @@ export default async function Home() {
         <div className="container-main relative z-10">
           <SectionHeading
             light
-            kicker="PRODUCT PRINCIPLES"
-            title="What we’re designing for"
+            kicker="RENKAV DESIGN STANDARDS"
+            title="What we build across every venture"
           />
           <div className="mt-12 grid lg:grid-cols-3 gap-6 lg:gap-8">
             {principles.map((p, idx) => (

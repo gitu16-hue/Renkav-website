@@ -19,20 +19,9 @@ interface SpiralCardSpec {
 const SPIRAL_CARDS: SpiralCardSpec[] = [
   {
     id: "ss3d-1",
-    tag: "01 / PROJECT ELEVEN",
-    title: "ELEVEN WORKSPACE",
-    subtitle: "Context that continues across sessions, models, and tools.",
-    href: "/ventures",
-    accent: "#a2e5d0",
-    bgGradient:
-      "radial-gradient(circle at 20% 20%, rgba(162, 229, 208, 0.28) 0%, rgba(10, 16, 24, 0.96) 65%)",
-    icon: Cpu,
-  },
-  {
-    id: "ss3d-2",
-    tag: "02 / OUR VISION",
-    title: "SOVEREIGN MEMORY",
-    subtitle: "Local vector enclave where you own what AI remembers.",
+    tag: "01 / RENKAV THESIS",
+    title: "APPLIED AI STUDIO",
+    subtitle: "Designing software where people never have to start over every morning.",
     href: "/about",
     accent: "#00d8ff",
     bgGradient:
@@ -40,10 +29,21 @@ const SPIRAL_CARDS: SpiralCardSpec[] = [
     icon: Eye,
   },
   {
+    id: "ss3d-2",
+    tag: "02 / VENTURE 01",
+    title: "PROJECT ELEVEN",
+    subtitle: "Our first flagship prototype—one assistant experience across models and tools.",
+    href: "/ventures",
+    accent: "#a2e5d0",
+    bgGradient:
+      "radial-gradient(circle at 20% 20%, rgba(162, 229, 208, 0.28) 0%, rgba(10, 16, 24, 0.96) 65%)",
+    icon: Cpu,
+  },
+  {
     id: "ss3d-3",
-    tag: "03 / FOUNDING TEAM",
-    title: "HUMAN LEADERSHIP",
-    subtitle: "Built by Gitanshu Damade & Yashika Pawar.",
+    tag: "03 / LEADERSHIP",
+    title: "FOUNDING TEAM",
+    subtitle: "Built by Gitanshu Damade & Yashika Pawar with a focus on human control.",
     href: "/leadership",
     accent: "#b8f36b",
     bgGradient:
@@ -53,8 +53,8 @@ const SPIRAL_CARDS: SpiralCardSpec[] = [
   {
     id: "ss3d-4",
     tag: "04 / COLLABORATE",
-    title: "START A SESSION",
-    subtitle: "Tell us about the real workflow you want AI to help with.",
+    title: "WORK WITH RENKAV",
+    subtitle: "Discuss a real digital workflow, research idea, or strategic partnership.",
     href: "/contact",
     accent: "#e5c07b",
     bgGradient:

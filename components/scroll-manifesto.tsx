@@ -13,9 +13,9 @@ import React, { useEffect, useRef, useState } from "react";
 
 const MANIFESTO_PARAGRAPHS = [
   {
-    lead: "THE PHILOSOPHY",
-    text: "Working with AI shouldn’t mean starting over every morning. We’re building software that holds your approved context across conversations, swaps between intelligence models on demand, and keeps every consequential action gated behind your explicit review.",
-    highlights: ["starting over every morning", "holds your approved context", "gated behind your explicit review"],
+    lead: "RENKAV PHILOSOPHY · APPLIED AI STUDIO",
+    text: "AI software should carry the thread of ongoing work, not force people to explain their projects from scratch every morning. At RENKAV Technologies, we build human-governed software ventures—starting with ELEVEN—where you remain in command of context, model choices, and every action.",
+    highlights: ["ongoing work", "RENKAV Technologies", "starting with ELEVEN", "command of context"],
   },
 ];
 
@@ -74,7 +74,7 @@ export function ScrollManifesto() {
         <div className="flex items-center gap-3 mb-8 sm:mb-10">
           <span className="h-2 w-2 rounded-full bg-[#a2e5d0] animate-pulse" />
           <p className="eyebrow text-[#a2e5d0] tracking-[0.24em] font-mono text-xs uppercase">
-            {MANIFESTO_PARAGRAPHS[0].lead} · SCROLL-LINKED COGNITIVE SYSTEM
+            {MANIFESTO_PARAGRAPHS[0].lead}
           </p>
         </div>
 
@@ -83,12 +83,12 @@ export function ScrollManifesto() {
             const isFilled = idx <= activeWordThreshold;
             const cleanWord = word.replace(/[^a-zA-Z]/g, "").toLowerCase();
             const isMintTarget =
-              cleanWord === "starting" ||
-              cleanWord === "morning" ||
-              cleanWord === "approved" ||
+              cleanWord === "renkav" ||
+              cleanWord === "eleven" ||
+              cleanWord === "ongoing" ||
+              cleanWord === "command" ||
               cleanWord === "context" ||
-              cleanWord === "explicit" ||
-              cleanWord === "review";
+              cleanWord === "action";
 
             return (
               <span
