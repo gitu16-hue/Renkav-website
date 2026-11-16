@@ -78,7 +78,10 @@ export function ScrollManifesto() {
           </p>
         </div>
 
-        <p className="text-[26px] sm:text-[34px] md:text-[44px] font-bold leading-[1.3] tracking-[-0.03em] text-pretty">
+        <p
+          className="text-[28px] sm:text-[38px] md:text-[48px] font-normal leading-[1.16] tracking-[-0.015em] text-pretty"
+          style={{ fontFamily: "var(--font-optima)" }}
+        >
           {words.map((word, idx) => {
             const isFilled = idx <= activeWordThreshold;
             const cleanWord = word.replace(/[^a-zA-Z]/g, "").toLowerCase();

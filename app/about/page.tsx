@@ -63,19 +63,25 @@ export default function About() {
       <section className="section-pad bg-[#050505] text-white border-t border-white/10">
         <div className="container-main">
           <div className="rounded-3xl border border-white/12 bg-[#090d14]/90 p-8 sm:p-12 md:p-14 shadow-2xl grid lg:grid-cols-[1.05fr_.95fr] gap-10 lg:gap-16 items-start">
-            <div className="scroll-reveal">
+            <div className="scroll-reveal split">
               <div className="tag mb-5 border-[#a2e5d0]/40 text-[#a2e5d0] bg-[#a2e5d0]/10">
                 <span className="status-dot" aria-hidden="true" />
                 <span>FOUNDING STORY</span>
               </div>
-              <h2 className="heading text-white text-balance">
-                Why RENKAV exists.
+              <h2 className="heading split-title text-white text-balance">
+                <span className="line">
+                  <span className="line-inner">Why RENKAV exists.</span>
+                </span>
               </h2>
-              <p className="mt-6 text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.75] text-pretty">
-                Switching between AI tools can mean rebuilding context every time.
-                You explain the project again, bring the right notes over, and
-                decide what to do with the answer. We started RENKAV to explore a
-                simpler way to work with AI. ELEVEN is where we’re starting.
+              <p className="mt-6 text-[#c4d5dc] text-[16px] md:text-[18px] leading-[1.75] text-pretty split-text">
+                <span className="line">
+                  <span className="line-inner">
+                    Switching between AI tools can mean rebuilding context every time.
+                    You explain the project again, bring the right notes over, and
+                    decide what to do with the answer. We started RENKAV to explore a
+                    simpler way to work with AI. ELEVEN is where we’re starting.
+                  </span>
+                </span>
               </p>
               <div className="mt-8 pt-6 border-t border-white/10 flex items-center gap-3 text-xs mono text-[#a2e5d0]">
                 <Sparkles size={14} />

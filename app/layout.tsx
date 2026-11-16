@@ -16,6 +16,18 @@ const manrope = localFont({
   display: "swap",
   weight: "200 800",
 });
+const belleza = localFont({
+  src: "../node_modules/@fontsource/belleza/files/belleza-latin-400-normal.woff2",
+  variable: "--font-belleza",
+  display: "swap",
+  weight: "400",
+});
+const marcellus = localFont({
+  src: "../node_modules/@fontsource/marcellus/files/marcellus-latin-400-normal.woff2",
+  variable: "--font-marcellus",
+  display: "swap",
+  weight: "400",
+});
 
 import "./globals.css";
 import { MotionControl } from "@/components/motion-control";
@@ -71,7 +83,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${GeistSans.variable} ${GeistMono.variable} ${inter.variable} ${manrope.variable} el-grain antialiased`}
+        className={`${GeistSans.variable} ${GeistMono.variable} ${inter.variable} ${manrope.variable} ${belleza.variable} ${marcellus.variable} el-grain antialiased`}
       >
         <a
           href="#main"

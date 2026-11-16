@@ -276,8 +276,8 @@ export function ScrollSpiral3D() {
 
               <div>
                 <h3
-                  className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-white uppercase flex items-center justify-between"
-                  style={{ fontFamily: "var(--font-display)" }}
+                  className="text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-white flex items-center justify-between"
+                  style={{ fontFamily: "var(--font-optima)" }}
                 >
                   <span>{card.title}</span>
                   <ArrowUpRight

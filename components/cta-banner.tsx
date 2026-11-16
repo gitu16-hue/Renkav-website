@@ -23,16 +23,24 @@ export function CtaBanner({
         className="pointer-events-none absolute -right-24 -bottom-24 w-[420px] h-[420px] rounded-full bg-[#a2e5d0]/10 blur-[100px]"
         aria-hidden="true"
       />
-      <div className="container-main relative z-10 scroll-reveal flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12">
+      <div className="container-main relative z-10 scroll-reveal split flex flex-col lg:flex-row lg:items-end justify-between gap-8 lg:gap-12">
         <div className="max-w-[780px]">
-          <p className="eyebrow text-[#a2e5d0] mb-3 sm:mb-4 flex items-center gap-2">
+          <p className="eyebrow s-overline text-[#a2e5d0] mb-3 sm:mb-4 flex items-center gap-2">
             <span className="status-dot" aria-hidden="true" />
-            <span>{eyebrow}</span>
+            <span className="line">
+              <span className="line-inner">{eyebrow}</span>
+            </span>
           </p>
-          <h2 className="heading text-white text-balance">{title}</h2>
+          <h2 className="heading split-title text-white text-balance">
+            <span className="line">
+              <span className="line-inner">{title}</span>
+            </span>
+          </h2>
           {description && (
-            <p className="mt-4 sm:mt-5 text-[#9eb3be] max-w-[62ch] text-[16px] md:text-[17px] leading-[1.7] text-pretty">
-              {description}
+            <p className="mt-4 sm:mt-5 text-[#9eb3be] max-w-[62ch] text-[16px] md:text-[17px] leading-[1.7] text-pretty split-text">
+              <span className="line">
+                <span className="line-inner">{description}</span>
+              </span>
             </p>
           )}
         </div>

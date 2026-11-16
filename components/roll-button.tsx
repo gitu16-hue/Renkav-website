@@ -41,19 +41,19 @@ export function RollButton({
 
   const innerContent = (
     <span className="inline-flex items-center justify-center gap-2.5">
-      <span className="relative inline-block overflow-hidden h-[1.35em] leading-[1.35em]">
-        <span className="block transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full">
+      <span className="split-hover relative inline-block overflow-hidden h-[1.35em] leading-[1.35em]">
+        <span className="line line-normal block transition-[transform,opacity] duration-[1000ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:-translate-y-full group-hover:opacity-0">
           {children}
         </span>
         <span
           aria-hidden="true"
-          className="block absolute top-full left-0 w-full transition-transform duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-full"
+          className="line line-hover block absolute top-0 left-0 w-full translate-y-full opacity-0 transition-[transform,opacity] duration-[1000ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-y-0 group-hover:opacity-100"
         >
           {children}
         </span>
       </span>
       {icon && (
-        <span className="inline-flex transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+        <span className="inline-flex transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
           {icon}
         </span>
       )}

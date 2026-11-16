@@ -59,10 +59,15 @@ export function SiteHeader({
               <Link
                 key={href}
                 href={href}
-                className="nav-link"
+                className="nav-link group"
                 aria-current={path === href ? "page" : undefined}
               >
-                {label}
+                <span className="split-hover inline-block overflow-hidden align-bottom">
+                  <span className="line line-normal">{label}</span>
+                  <span aria-hidden="true" className="line line-hover">
+                    {label}
+                  </span>
+                </span>
               </Link>
             ))}
           </nav>
@@ -134,18 +139,23 @@ export function SiteHeader({
                     key={href}
                     href={href}
                     onClick={() => setOpen(false)}
-                    className={`group flex items-center justify-between py-2 text-3xl sm:text-5xl font-black uppercase tracking-tight transition-all duration-300 hover:pl-4 ${
+                    className={`group flex items-center justify-between py-2 text-3xl sm:text-5xl font-normal tracking-tight transition-all duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] hover:pl-4 ${
                       isActive
                         ? "text-[#a2e5d0]"
                         : "text-white hover:text-[#a2e5d0]"
                     }`}
-                    style={{ fontFamily: "var(--font-display)" }}
+                    style={{ fontFamily: "var(--font-optima)" }}
                   >
                     <span className="flex items-baseline gap-4">
                       <span className="mono text-xs font-bold text-white/35 group-hover:text-[#a2e5d0]">
                         0{idx + 1}
                       </span>
-                      <span>{label}</span>
+                      <span className="split-hover inline-block overflow-hidden">
+                        <span className="line line-normal">{label}</span>
+                        <span aria-hidden="true" className="line line-hover">
+                          {label}
+                        </span>
+                      </span>
                     </span>
                     <ArrowUpRight
                       size={24}

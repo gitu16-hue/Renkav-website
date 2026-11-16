@@ -118,19 +118,27 @@ export default async function Home() {
         <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
         <CanvasParticleField />
         <div className="container-main relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          <div className="order-1 lg:order-2 scroll-reveal">
+          <div className="order-1 lg:order-2 scroll-reveal split">
             <div className="tag mb-5 sm:mb-6 border-[#a2e5d0]/40 text-[#a2e5d0] bg-[#a2e5d0]/10">
               <span className="status-dot-lime mr-1" aria-hidden="true" />
               <span>VENTURE 01 · OUR FIRST PROJECT</span>
             </div>
-            <h2 className="heading text-white text-balance">
-              Meet <span className="text-[#a2e5d0]">ELEVEN.</span>
+            <h2 className="heading split-title text-white text-balance">
+              <span className="line">
+                <span className="line-inner">
+                  Meet <span className="text-[#a2e5d0]">ELEVEN.</span>
+                </span>
+              </span>
             </h2>
-            <p className="mt-5 sm:mt-6 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty">
-              ELEVEN is RENKAV’s first software venture in development—an AI
-              assistant prototype designed to pick up ongoing work using context
-              you’ve approved, work across AI models, and keep consequential
-              decisions yours.
+            <p className="mt-5 sm:mt-6 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty split-text">
+              <span className="line">
+                <span className="line-inner">
+                  ELEVEN is RENKAV’s first software venture in development—an AI
+                  assistant prototype designed to pick up ongoing work using context
+                  you’ve approved, work across AI models, and keep consequential
+                  decisions yours.
+                </span>
+              </span>
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-5">
               <RollButton
@@ -250,17 +258,25 @@ export default async function Home() {
         <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
         <CanvasParticleField />
         <div className="container-main relative z-10 grid md:grid-cols-[1.15fr_.85fr] gap-10 items-center">
-          <div className="scroll-reveal">
-            <p className="eyebrow text-[#a2e5d0] mb-4 sm:mb-5 flex items-center gap-2">
+          <div className="scroll-reveal split">
+            <p className="eyebrow s-overline text-[#a2e5d0] mb-4 sm:mb-5 flex items-center gap-2">
               <span className="status-dot" aria-hidden="true" />
-              <span>FOUNDING TEAM</span>
+              <span className="line">
+                <span className="line-inner">FOUNDING TEAM</span>
+              </span>
             </p>
-            <h2 className="heading text-white text-balance">
-              Meet the people building RENKAV.
+            <h2 className="heading split-title text-white text-balance">
+              <span className="line">
+                <span className="line-inner">Meet the people building RENKAV.</span>
+              </span>
             </h2>
-            <p className="mt-4 sm:mt-5 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty">
-              Gitanshu Damade and Yashika Pawar are the founders behind RENKAV
-              and its first project, ELEVEN.
+            <p className="mt-4 sm:mt-5 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty split-text">
+              <span className="line">
+                <span className="line-inner">
+                  Gitanshu Damade and Yashika Pawar are the founders behind RENKAV
+                  and its first project, ELEVEN.
+                </span>
+              </span>
             </p>
           </div>
           <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row md:items-end lg:items-center md:justify-end gap-5 scroll-reveal" data-delay="1">

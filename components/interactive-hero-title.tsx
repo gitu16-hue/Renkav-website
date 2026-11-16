@@ -74,14 +74,18 @@ export function InteractiveHeroTitle({ className = "" }: InteractiveHeroTitlePro
     <h1
       ref={containerRef}
       onPointerLeave={handlePointerLeave}
-      className={`display hero-title entry-2 max-w-[780px] select-none ${className}`}
+      className={`display hero-title split split-title entry-2 max-w-[780px] select-none ${className}`}
     >
       {/* Line 1 */}
-      <span className="font-reveal-line block overflow-hidden leading-tight">
-        <span className="font-reveal-inner block">
+      <span className="font-reveal-line line block overflow-hidden leading-tight">
+        <span
+          className="font-reveal-inner block"
+          style={{ animationDuration: "1.6s" }}
+        >
           {isMounted && isFinePointer
             ? LINE_1.split("").map((char, idx) => {
-                const weight = getCharWeight(0, idx, 600);
+                const weight = getCharWeight(0, idx, 400);
+                const lift = weight > 400 ? -((weight - 400) / 380) * 3 : 0;
                 return (
                   <span
                     key={idx}
@@ -90,13 +94,13 @@ export function InteractiveHeroTitle({ className = "" }: InteractiveHeroTitlePro
                       setHoveredCharIndex(idx);
                     }}
                     style={{
-                      fontVariationSettings: `'wght' ${weight}`,
+                      transform: `translateY(${lift.toFixed(2)}px)`,
                       transition:
-                        "font-variation-settings 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease",
+                        "transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s cubic-bezier(0.19, 1, 0.22, 1)",
                       display: "inline-block",
                       whiteSpace: char === " " ? "pre" : "normal",
                     }}
-                    className="hover:text-white transition-colors cursor-default"
+                    className="hover:text-[#a2e5d0] transition-colors cursor-default"
                   >
                     {char}
                   </span>
@@ -107,14 +111,15 @@ export function InteractiveHeroTitle({ className = "" }: InteractiveHeroTitlePro
       </span>
 
       {/* Line 2 with luminous mint accent */}
-      <span className="font-reveal-line block overflow-hidden leading-tight">
+      <span className="font-reveal-line line block overflow-hidden leading-tight">
         <span
           className="font-reveal-inner block text-[#a2e5d0]"
-          style={{ animationDelay: "0.18s" }}
+          style={{ animationDelay: "0.14s", animationDuration: "1.6s" }}
         >
           {isMounted && isFinePointer
             ? LINE_2.split("").map((char, idx) => {
-                const weight = getCharWeight(1, idx, 700);
+                const weight = getCharWeight(1, idx, 400);
+                const lift = weight > 400 ? -((weight - 400) / 380) * 3 : 0;
                 return (
                   <span
                     key={idx}
@@ -123,9 +128,9 @@ export function InteractiveHeroTitle({ className = "" }: InteractiveHeroTitlePro
                       setHoveredCharIndex(idx);
                     }}
                     style={{
-                      fontVariationSettings: `'wght' ${weight}`,
+                      transform: `translateY(${lift.toFixed(2)}px)`,
                       transition:
-                        "font-variation-settings 0.22s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease",
+                        "transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), color 0.4s cubic-bezier(0.19, 1, 0.22, 1)",
                       display: "inline-block",
                       whiteSpace: char === " " ? "pre" : "normal",
                     }}

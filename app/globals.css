@@ -44,15 +44,20 @@
   --el-shadow-md: 0 6px 20px rgba(0, 0, 0, 0.6), 0 0 24px rgba(162, 229, 208, 0.05);
   --el-shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.75), 0 0 45px rgba(162, 229, 208, 0.08);
 
-  /* Typography Stacks (Geist precision with local fallbacks) */
-  --font-body: var(--font-geist-sans), var(--font-inter), Arial, sans-serif;
-  --font-display: var(--font-geist-sans), var(--font-manrope), Arial, sans-serif;
+  /* Typography Stacks (The Vineyard Hotel — Optima Flared Humanist Display + Mori Geometric Sans) */
+  --font-optima: "Optima", var(--font-belleza), var(--font-marcellus), "URW Classico", sans-serif;
+  --font-mori: var(--font-manrope), var(--font-inter), var(--font-geist-sans), Arial, sans-serif;
+  --font-body: var(--font-mori);
+  --font-display: var(--font-optima);
   --font-mono: var(--font-geist-mono), "SF Mono", monospace;
   --font-geist: var(--font-geist-sans), "Geist", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", system-ui, sans-serif;
   --font-technical: var(--font-geist-mono), "Geist Mono", "SF Mono", monospace;
 
-  /* Timing & Motion Tokens (Emil Kowalski animation standards) */
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  /* Timing & Motion Tokens (Vineyard signature exponential ease + Emil Kowalski standards) */
+  --ease: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-vineyard: cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
   --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.1);
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
   --duration-base: 280ms;
@@ -103,16 +108,19 @@ body {
 h1,
 h2,
 h3,
+h4,
 .display,
 .heading,
 .subheading {
-  font-family: var(--font-display);
+  font-family: var(--font-optima);
+  font-weight: 400;
   text-wrap: balance;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.02em;
   text-underline-position: from-font;
 }
 
 p {
+  font-family: var(--font-mori);
   overflow-wrap: break-word;
   text-wrap: pretty;
 }
@@ -152,49 +160,55 @@ p {
   }
 }
 
-.eyebrow {
-  font-size: 0.72rem; /* 11.5px */
-  letter-spacing: 0.18em;
+.eyebrow,
+.s-overline {
+  font-size: 0.78rem; /* 12.5px — Vineyard .s-overline proportion */
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  font-weight: 700;
-  font-family: var(--font-mono);
+  font-weight: 400;
+  font-family: var(--font-optima);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
 .display {
-  font-size: clamp(2.6rem, 2rem + 3vw, 5.5rem);
-  font-weight: 700;
-  letter-spacing: -0.045em;
+  font-family: var(--font-optima);
+  font-size: clamp(2.85rem, 2.1rem + 3.4vw, 5.9rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
   line-height: 1.06;
 }
 
 .heading {
-  font-size: clamp(2rem, 1.6rem + 1.6vw, 3.6rem);
-  font-weight: 700;
-  letter-spacing: -0.035em;
-  line-height: 1.14;
+  font-family: var(--font-optima);
+  font-size: clamp(2.15rem, 1.7rem + 1.8vw, 3.85rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.1;
 }
 
 .subheading {
-  font-size: clamp(1.35rem, 1.2rem + 0.8vw, 2.2rem);
-  font-weight: 650;
-  letter-spacing: -0.025em;
-  line-height: 1.24;
+  font-family: var(--font-optima);
+  font-size: clamp(1.45rem, 1.25rem + 0.9vw, 2.35rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
 }
 
 .bodycopy {
+  font-family: var(--font-mori);
   font-size: clamp(1rem, 0.98rem + 0.15vw, 1.0625rem);
-  line-height: 1.68;
+  font-weight: 400;
+  line-height: 1.65;
   color: var(--muted);
   text-wrap: pretty;
 }
 
-/* Classic micro-motion primitives (Emil Kowalski: hardware-accelerated, zero composite blur) */
+/* Classic micro-motion primitives (Vineyard 1.6s cubic-bezier(0.19, 1, 0.22, 1) masked line appearance) */
 @keyframes el-rise {
   from {
     opacity: 0;
-    transform: translate3d(0, 18px, 0);
+    transform: translate3d(0, 22px, 0);
   }
   to {
     opacity: 1;
@@ -204,22 +218,17 @@ p {
 
 @keyframes font-slide-up {
   0% {
-    opacity: 0;
-    transform: translate3d(0, 110%, 0);
-  }
-  25% {
-    opacity: 0.5;
+    transform: translate3d(0, 105%, 0);
   }
   100% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0%, 0);
   }
 }
 
 @keyframes font-rise {
   0% {
     opacity: 0;
-    transform: translate3d(0, 24px, 0);
+    transform: translate3d(0, 28px, 0);
   }
   100% {
     opacity: 1;
@@ -230,7 +239,7 @@ p {
 @keyframes font-rise-scale {
   0% {
     opacity: 0;
-    transform: translate3d(0, 20px, 0) scale(0.965);
+    transform: translate3d(0, 22px, 0) scale(0.975);
   }
   100% {
     opacity: 1;
@@ -309,49 +318,149 @@ p {
   background-size: 40px 40px;
 }
 
-/* Kinetic Font Appearance (Emil Kowalski / Design Engineering Standards) */
-.font-reveal-line {
+/* The Vineyard Hotel Signature Masked Line-by-Line Split Reveal (.split, .line, .line-inner) */
+.split {
+  --delay: 0s;
+}
+
+.font-reveal-line,
+.split .line,
+.split-title .line,
+.split-text .line {
   display: block;
+  position: relative;
   overflow: hidden;
   line-height: inherit;
-  padding-bottom: 0.05em;
+  padding-bottom: 1.5%;
+  margin-top: -1.5%;
 }
 
 .font-reveal-inner {
   display: block;
-  animation: font-slide-up 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
-  will-change: transform, opacity;
+  animation: font-slide-up 1.6s var(--ease-vineyard) both;
+  will-change: transform;
 }
 
-/* Staggered entrance animations */
+/* Scroll-triggered Vineyard .line-inner masked emergence */
+html:not([data-reduce-motion="true"]) .split .line .line-inner {
+  display: block;
+  transform: translate3d(0, 105%, 0);
+  transition: transform 1.6s var(--ease-vineyard);
+  will-change: transform;
+}
+
+html:not([data-reduce-motion="true"]) .split .line:nth-child(1) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 1);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(2) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 2);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(3) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 3);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(4) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 4);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(5) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 5);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(6) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 6);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(7) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 7);
+}
+html:not([data-reduce-motion="true"]) .split .line:nth-child(8) .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.06s * 8);
+}
+
+html:not([data-reduce-motion="true"]) .split .s-overline .line .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.04s);
+}
+html:not([data-reduce-motion="true"]) .split .split-title .line .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.14s);
+}
+html:not([data-reduce-motion="true"]) .split .split-text .line .line-inner {
+  transition-delay: calc(var(--delay, 0s) + 0.28s);
+}
+
+html:not([data-reduce-motion="true"]) .scroll-reveal.revealed .line .line-inner,
+html:not([data-reduce-motion="true"]) .split.revealed .line .line-inner,
+html:not([data-reduce-motion="true"]) .revealed.split .line .line-inner {
+  transform: translate3d(0, 0%, 0);
+}
+
+/* Vineyard .split-hover Dual-Line Interactive Text Hover */
+.split-hover {
+  position: relative;
+  overflow: hidden;
+}
+.split-hover .line {
+  display: block;
+  transition: 1s var(--ease-vineyard);
+  transition-property: transform, opacity;
+}
+.split-hover .line.line-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transform: translateY(100%);
+}
+.split-hover:hover .line-normal,
+.group:hover .split-hover .line-normal {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+.split-hover:hover .line-hover,
+.group:hover .split-hover .line-hover {
+  opacity: 1;
+  transform: translateY(0%);
+}
+
+/* Staggered entrance animations (Vineyard 1.6s exponential cadence) */
 .entry-1 {
-  animation: font-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) 0.05s both;
+  animation: font-rise 1.2s var(--ease-vineyard) 0.05s both;
 }
 .entry-2 {
-  animation: font-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.14s both;
+  animation: font-rise 1.4s var(--ease-vineyard) 0.15s both;
 }
 .entry-3 {
-  animation: font-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+  animation: font-rise 1.5s var(--ease-vineyard) 0.28s both;
 }
 .entry-4 {
-  animation: font-rise-scale 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  animation: font-rise-scale 1.5s var(--ease-vineyard) 0.42s both;
 }
 .reveal-in {
   opacity: 1 !important;
   transform: translate3d(0, 0, 0) !important;
 }
 
-/* Kinetic Scroll Reveal System (triggers smoothly when scrolling down) */
+/* Kinetic Scroll Reveal System (Vineyard 1.4s–1.6s cubic-bezier(0.19, 1, 0.22, 1) section choreography) */
 html:not([data-reduce-motion="true"]) .scroll-reveal {
   opacity: 0;
-  transform: translate3d(0, 28px, 0);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translate3d(0, 32px, 0);
+  transition: opacity 1.35s var(--ease-vineyard),
+              transform 1.35s var(--ease-vineyard);
   will-change: opacity, transform;
 }
 
 html:not([data-reduce-motion="true"]) .scroll-reveal.revealed {
   opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+/* Automatic child heading & copy choreography inside revealed sections */
+html:not([data-reduce-motion="true"]) .scroll-reveal h2,
+html:not([data-reduce-motion="true"]) .scroll-reveal h3 {
+  transition: transform 1.6s var(--ease-vineyard) 0.1s, opacity 1.4s var(--ease-vineyard) 0.1s;
+}
+html:not([data-reduce-motion="true"]) .scroll-reveal:not(.revealed) h2,
+html:not([data-reduce-motion="true"]) .scroll-reveal:not(.revealed) h3 {
+  transform: translate3d(0, 18px, 0);
+}
+html:not([data-reduce-motion="true"]) .scroll-reveal.revealed h2,
+html:not([data-reduce-motion="true"]) .scroll-reveal.revealed h3 {
   transform: translate3d(0, 0, 0);
 }
 

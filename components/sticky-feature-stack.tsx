@@ -230,7 +230,7 @@ export function StickyFeatureStack() {
                       </span>
                     </div>
 
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight text-white mb-2">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-normal tracking-tight text-white mb-2">
                       {card.title}
                     </h3>
                     <p

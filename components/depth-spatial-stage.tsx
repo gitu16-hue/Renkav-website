@@ -384,8 +384,8 @@ export function DepthSpatialStage() {
               {/* Card Body */}
               <div className="my-5">
                 <h3
-                  className="text-xl sm:text-2xl md:text-[28px] font-black tracking-tight text-white leading-tight"
-                  style={{ fontFamily: "var(--font-display)" }}
+                  className="text-xl sm:text-2xl md:text-[28px] font-normal tracking-tight text-white leading-tight"
+                  style={{ fontFamily: "var(--font-optima)" }}
                 >
                   {plane.name}
                 </h3>
