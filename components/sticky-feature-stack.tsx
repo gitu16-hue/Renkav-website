@@ -10,7 +10,8 @@ import {
   ArrowUpRight,
   Sparkles,
 } from "lucide-react";
-import Link from "next/link";
+import { RollButton } from "./roll-button";
+import { CanvasParticleField } from "./canvas-particle-field";
 
 interface FeatureCard {
   step: string;
@@ -145,20 +146,27 @@ export function StickyFeatureStack() {
       ref={containerRef}
       className="relative py-24 sm:py-32 bg-[#000000] text-white overflow-hidden border-t border-[#121212]"
     >
-      {/* Background Giant Outline Typography (Made to Disrupt signature style) */}
+      <CanvasParticleField />
+
+      {/* Background Giant Outline Typography with smooth horizontal motion */}
       <div
-        className="pointer-events-none absolute top-12 left-0 right-0 flex justify-center overflow-hidden opacity-5 select-none"
+        className="pointer-events-none absolute top-12 left-0 right-0 flex overflow-hidden opacity-5 select-none"
         aria-hidden="true"
       >
-        <span
-          className="text-[clamp(6rem,16vw,18rem)] font-black uppercase tracking-tighter whitespace-nowrap leading-none text-transparent"
-          style={{
-            WebkitTextStroke: "2px #ffffff",
-            fontFamily: "var(--font-display)",
-          }}
-        >
-          OUR EDGE / OUR EDGE /
-        </span>
+        <div className="flex w-max animate-marquee-fast">
+          {Array.from({ length: 4 }).map((_, i) => (
+            <span
+              key={i}
+              className="text-[clamp(6rem,16vw,18rem)] font-black uppercase tracking-tighter whitespace-nowrap leading-none text-transparent px-8"
+              style={{
+                WebkitTextStroke: "2px #ffffff",
+                fontFamily: "var(--font-display)",
+              }}
+            >
+              OUR EDGE / OUR EDGE /
+            </span>
+          ))}
+        </div>
       </div>
 
       <div className="container-main relative z-10">
@@ -256,20 +264,30 @@ export function StickyFeatureStack() {
                     </div>
                   </div>
 
-                  {/* Right Column: Generative Obsidian Art Asset (Mirroring Made to Disrupt's 3D imagery) */}
+                  {/* Right Column: Generative Obsidian Art Asset with Active Orbital Rotation */}
                   <div className="relative min-h-[260px] sm:min-h-[320px] rounded-2xl overflow-hidden border border-white/10 bg-[#060606] flex items-center justify-center p-8 select-none">
                     <div
-                      className="absolute inset-0 opacity-20"
+                      className="absolute inset-0 opacity-25 animate-pulse"
                       style={{
                         backgroundImage: `radial-gradient(circle at 50% 50%, ${card.accentColor} 0%, transparent 70%)`,
                       }}
                     />
                     <div className="absolute inset-0 grid-pattern opacity-15" />
 
+                    {/* Continuous Spinning Gyroscopic Orbital Rings */}
+                    <div
+                      className="pointer-events-none absolute w-56 h-56 rounded-full border border-dashed opacity-25 animate-[spin_18s_linear_infinite]"
+                      style={{ borderColor: card.accentColor }}
+                    />
+                    <div
+                      className="pointer-events-none absolute w-40 h-40 rounded-full border opacity-20 animate-[spin_12s_linear_infinite_reverse]"
+                      style={{ borderColor: card.accentColor }}
+                    />
+
                     {/* Graphic Wireframe Representation */}
                     <div className="relative z-10 flex flex-col items-center text-center">
                       <div
-                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center border shadow-2xl mb-5 transition-transform hover:scale-105 duration-300"
+                        className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl flex items-center justify-center border shadow-2xl mb-5 transition-transform hover:scale-110 duration-300"
                         style={{
                           backgroundColor: `${card.accentColor}15`,
                           borderColor: `${card.accentColor}55`,
@@ -313,12 +331,14 @@ export function StickyFeatureStack() {
               Explore the engineering principles and prototype development milestones.
             </p>
           </div>
-          <Link
+          <RollButton
             href="/ventures"
-            className="btn btn-light shrink-0 px-6 py-3 font-semibold text-sm"
+            variant="light"
+            className="shrink-0"
+            icon={<ArrowUpRight size={16} aria-hidden="true" />}
           >
-            Explore ELEVEN <ArrowUpRight size={16} aria-hidden="true" />
-          </Link>
+            Explore ELEVEN
+          </RollButton>
         </div>
       </div>
     </section>

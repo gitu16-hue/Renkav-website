@@ -1,4 +1,3 @@
-import Link from "next/link";
 import {
   ArrowUpRight,
   ArrowRight,
@@ -18,8 +17,8 @@ import { LabsSpatialLens } from "@/components/labs-spatial-lens";
 import { HeroOrbitStage } from "@/components/hero-orbit-stage";
 import { ScrollSpiral3D } from "@/components/scroll-spiral-3d";
 import { RollButton } from "@/components/roll-button";
-import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 import { StickyFeatureStack } from "@/components/sticky-feature-stack";
+import { CanvasParticleField } from "@/components/canvas-particle-field";
 import { showHolographicOrb } from "@/flags";
 
 const principles = [
@@ -30,6 +29,7 @@ const principles = [
     description:
       "Use context you choose to keep so you don’t have to explain the whole project again.",
     tag: "CONTEXT THAT CONTINUES",
+    accent: "#a2e5d0",
   },
   {
     num: "02",
@@ -38,6 +38,7 @@ const principles = [
     description:
       "The goal is one assistant experience that can work with different AI models.",
     tag: "INTELLIGENCE THAT ADAPTS",
+    accent: "#00d8ff",
   },
   {
     num: "03",
@@ -46,6 +47,7 @@ const principles = [
     description:
       "Review sensitive actions before they happen and see what happened afterward.",
     tag: "CONTROL THAT’S VISIBLE",
+    accent: "#b8f36b",
   },
 ];
 
@@ -99,63 +101,69 @@ export default async function Home() {
         </div>
       </HeroOrbitStage>
 
-      {/* Made to Disrupt-inspired Scroll-Driven 3D Spiral Helix Carousel (#ss3d) */}
+      {/* Scroll-Driven & Continuous-Motion 3D Spiral Helix Carousel (#ss3d) */}
       <ScrollSpiral3D />
-
-      {/* Made to Disrupt-inspired Diagonal Kinetic Marquee Ribbons */}
-      <DiagonalMarqueeRibbon />
 
       {/* Scroll-Filled Manifesto */}
       <ScrollManifesto />
 
-      {/* Made to Disrupt-inspired Sticky Stacking Feature Pillar Cards */}
+      {/* Sticky Stacking Feature Pillar Cards with Continuous Orbital Rings */}
       <StickyFeatureStack />
 
       {/* Infinite Momentum Capabilities Reel */}
       <InfiniteCapabilitiesReel />
 
-      <section className="section-pad bg-[#f8faf7]">
-        <div className="container-main grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+      {/* Meet ELEVEN — Dynamic Obsidian Showcase with Continuous Spinning Orbital Rings */}
+      <section className="section-pad relative overflow-hidden bg-[#050505] text-white border-t border-white/10">
+        <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
+        <CanvasParticleField />
+        <div className="container-main relative z-10 grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <div className="order-1 lg:order-2 scroll-reveal">
-            <div className="tag mb-5 sm:mb-6 border-[#a2e5d0]/50 text-[#08766c] bg-[#eef7f3]">
+            <div className="tag mb-5 sm:mb-6 border-[#a2e5d0]/40 text-[#a2e5d0] bg-[#a2e5d0]/10">
               <span className="status-dot-lime mr-1" aria-hidden="true" />
               <span>OUR FIRST PROJECT · IN DEVELOPMENT</span>
             </div>
-            <h2 className="heading text-[#0d141e] text-balance">
-              Meet <span className="text-[#08766c]">ELEVEN.</span>
+            <h2 className="heading text-white text-balance">
+              Meet <span className="text-[#a2e5d0]">ELEVEN.</span>
             </h2>
-            <p className="bodycopy mt-5 sm:mt-6 text-[16px] md:text-[17px] max-w-[62ch] text-pretty">
+            <p className="mt-5 sm:mt-6 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty">
               ELEVEN is an AI assistant in development. We’re designing it to
               pick up ongoing work using context you’ve approved, work with
               different AI models, and ask before taking actions that need your
               permission.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Link href="/ventures" className="btn btn-dark">
-                See what we’re building{" "}
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
-              <span className="text-xs text-[#566978] mono">
+            <div className="mt-8 flex flex-wrap items-center gap-5">
+              <RollButton
+                href="/ventures"
+                variant="light"
+                icon={<ArrowUpRight size={17} aria-hidden="true" />}
+              >
+                See what we’re building
+              </RollButton>
+              <span className="text-xs text-[#9eb3be] mono">
                 Subsidiary Cognitive Runtime
               </span>
             </div>
           </div>
+
           <div className="relative order-2 lg:order-1 scroll-reveal" data-delay="1">
-            <Card3DTilt maxTilt={6}>
+            <Card3DTilt maxTilt={7}>
               <div
-                className="bg-[#0b1017] rounded-xl p-8 md:p-12 min-h-[380px] md:min-h-[440px] overflow-hidden relative border border-[#1a2533] shadow-2xl"
+                className="bg-[#090d14] rounded-3xl p-8 md:p-12 min-h-[380px] md:min-h-[440px] overflow-hidden relative border border-white/15 shadow-2xl"
                 aria-hidden="true"
               >
                 <div className="absolute inset-0 grid-pattern opacity-20" />
-                <div className="absolute -right-20 -bottom-20 w-[420px] h-[420px] rounded-full border border-[#a2e5d0]/20" />
-                <div className="absolute right-0 bottom-0 w-[300px] h-[300px] rounded-full border border-[#b8f36b]/15" />
-                <div className="absolute right-[50px] bottom-[45px] w-[200px] h-[200px] rounded-full border border-[#a2e5d0]/30" />
-                
+                {/* Continuous Rotating Concentric Orbital Rings */}
+                <div className="absolute -right-24 -bottom-24 w-[440px] h-[440px] rounded-full border border-dashed border-[#a2e5d0]/30 animate-[spin_28s_linear_infinite]" />
+                <div className="absolute -right-4 -bottom-4 w-[320px] h-[320px] rounded-full border border-[#b8f36b]/25 animate-[spin_20s_linear_infinite_reverse]" />
+                <div className="absolute right-[44px] bottom-[44px] w-[200px] h-[200px] rounded-full border-2 border-dotted border-[#00d8ff]/40 animate-[spin_14s_linear_infinite]" />
+                <div className="absolute right-[100px] bottom-[100px] w-[88px] h-[88px] rounded-full bg-[#a2e5d0]/15 blur-xl animate-pulse" />
+
                 <div className="relative z-10 flex items-center justify-between">
                   <span className="eyebrow text-[#a2e5d0] flex items-center gap-2">
                     <span className="status-dot" /> RENKAV / VENTURE 01
                   </span>
-                  <span className="mono text-[10px] text-[#b8f36b] uppercase tracking-wider px-2 py-0.5 rounded-full border border-[#b8f36b]/30 bg-[#b8f36b]/10">
+                  <span className="mono text-[10px] text-[#b8f36b] uppercase tracking-wider px-2.5 py-1 rounded-full border border-[#b8f36b]/30 bg-[#b8f36b]/10">
                     Prototype
                   </span>
                 </div>
@@ -164,7 +172,7 @@ export default async function Home() {
                   <span className="block text-white text-[clamp(3.8rem,7vw,6.4rem)] font-bold tracking-[-.06em] leading-none">
                     ELEVEN<span className="text-[#b8f36b]">.</span>
                   </span>
-                  <p className="mt-3 text-[#98abb5] uppercase tracking-[.22em] text-[10px] font-bold mono">
+                  <p className="mt-3 text-[#9eb3be] uppercase tracking-[.22em] text-[10px] font-bold mono">
                     Intelligence Operating System Prototype
                   </p>
                 </div>
@@ -174,9 +182,15 @@ export default async function Home() {
         </div>
       </section>
 
-      <section className="section-pad bg-white border-y border-[#e2e8e3]">
-        <div className="container-main">
+      {/* Product Principles — 3D Tilt Interactive Obsidian Cards */}
+      <section className="section-pad relative overflow-hidden bg-[#070a0f] text-white border-y border-white/10">
+        <div
+          className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[720px] h-[300px] rounded-full bg-[#00d8ff]/8 blur-[120px]"
+          aria-hidden="true"
+        />
+        <div className="container-main relative z-10">
           <SectionHeading
+            light
             kicker="PRODUCT PRINCIPLES"
             title="What we’re designing for"
           />
@@ -184,59 +198,87 @@ export default async function Home() {
             {principles.map((p, idx) => (
               <div
                 key={p.num}
-                className="soft-card p-7 sm:p-8 lg:p-9 flex flex-col justify-between scroll-reveal"
+                className="scroll-reveal h-full"
                 data-delay={String(idx + 1)}
               >
-                <div>
-                  <div className="flex items-center justify-between mb-8">
-                    <span className="mono tabular-nums text-[12px] font-bold tracking-widest text-[#566978]">
-                      {p.num} / 03
-                    </span>
-                    <p.icon
-                      size={24}
-                      strokeWidth={1.6}
-                      color="#08766c"
-                      aria-hidden="true"
-                    />
+                <Card3DTilt maxTilt={6}>
+                  <div className="group rounded-3xl p-7 sm:p-8 lg:p-9 border border-white/12 bg-[#0c1118]/90 hover:border-white/30 flex flex-col justify-between h-full shadow-2xl transition-colors duration-300">
+                    <div>
+                      <div className="flex items-center justify-between mb-8">
+                        <span className="mono tabular-nums text-[12px] font-bold tracking-widest text-[#768a98]">
+                          {p.num} / 03
+                        </span>
+                        <div
+                          className="h-11 w-11 rounded-xl flex items-center justify-center border border-white/10 bg-white/5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-6"
+                          style={{ color: p.accent }}
+                        >
+                          <p.icon size={22} strokeWidth={1.7} aria-hidden="true" />
+                        </div>
+                      </div>
+                      <h3 className="text-[20px] sm:text-[22px] font-bold tracking-tight text-white mb-3 text-balance">
+                        {p.title}
+                      </h3>
+                      <p className="text-[15px] sm:text-[16px] text-[#9eb3be] leading-relaxed text-pretty">
+                        {p.description}
+                      </p>
+                    </div>
+                    <div className="mt-8 pt-4 border-t border-white/10 flex items-center justify-between">
+                      <span
+                        className="mono text-[10px] font-bold tracking-widest uppercase"
+                        style={{ color: p.accent }}
+                      >
+                        {p.tag}
+                      </span>
+                      <span
+                        className="h-1.5 w-1.5 rounded-full animate-pulse"
+                        style={{ backgroundColor: p.accent }}
+                      />
+                    </div>
                   </div>
-                  <h3 className="text-[20px] sm:text-[22px] font-bold tracking-tight text-[#0d141e] mb-3 text-balance">
-                    {p.title}
-                  </h3>
-                  <p className="bodycopy text-[15px] sm:text-[16px] text-pretty">
-                    {p.description}
-                  </p>
-                </div>
-                <div className="mt-8 pt-4 border-t border-[#f0f4f1]">
-                  <span className="mono text-[10px] font-bold tracking-widest text-[#08766c] uppercase">
-                    {p.tag}
-                  </span>
-                </div>
+                </Card3DTilt>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Microdose Studio-inspired Labs Spatial Lens Interactive Research Showcase */}
+      {/* Labs Spatial Lens Interactive Research Showcase */}
       <LabsSpatialLens />
 
-      <section className="section-pad bg-[#f8faf7]">
-        <div className="container-main grid md:grid-cols-[1.15fr_.85fr] gap-10 items-center">
-          <div>
-            <p className="eyebrow text-[#08766c] mb-4 sm:mb-5">FOUNDING TEAM</p>
-            <h2 className="heading text-[#0d141e] text-balance">
+      {/* Founding Team — Dynamic Obsidian Interactive Panel */}
+      <section className="section-pad relative overflow-hidden bg-[#050505] text-white border-t border-white/10">
+        <div className="absolute inset-0 grid-pattern opacity-20 pointer-events-none" />
+        <CanvasParticleField />
+        <div className="container-main relative z-10 grid md:grid-cols-[1.15fr_.85fr] gap-10 items-center">
+          <div className="scroll-reveal">
+            <p className="eyebrow text-[#a2e5d0] mb-4 sm:mb-5 flex items-center gap-2">
+              <span className="status-dot" aria-hidden="true" />
+              <span>FOUNDING TEAM</span>
+            </p>
+            <h2 className="heading text-white text-balance">
               Meet the people building RENKAV.
             </h2>
-            <p className="bodycopy mt-4 sm:mt-5 max-w-[62ch] text-pretty">
+            <p className="mt-4 sm:mt-5 text-[#c4d5dc] text-[16px] md:text-[17px] leading-[1.7] max-w-[62ch] text-pretty">
               Gitanshu Damade and Yashika Pawar are the founders behind RENKAV
               and its first project, ELEVEN.
             </p>
           </div>
-          <div className="flex md:justify-end">
-            <Link href="/leadership" className="btn btn-outline">
-              <Users size={17} aria-hidden="true" /> Meet the founders{" "}
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </Link>
+          <div className="flex flex-col sm:flex-row md:flex-col lg:flex-row md:items-end lg:items-center md:justify-end gap-5 scroll-reveal" data-delay="1">
+            <div className="flex items-center -space-x-3">
+              <div className="h-12 w-12 rounded-full border-2 border-[#050505] bg-[#132422] flex items-center justify-center mono text-sm font-bold text-[#a2e5d0] shadow-lg animate-pulse">
+                GD
+              </div>
+              <div className="h-12 w-12 rounded-full border-2 border-[#050505] bg-[#12202d] flex items-center justify-center mono text-sm font-bold text-[#00d8ff] shadow-lg">
+                YP
+              </div>
+            </div>
+            <RollButton
+              href="/leadership"
+              variant="outline"
+              icon={<Users size={16} aria-hidden="true" />}
+            >
+              Meet the founders
+            </RollButton>
           </div>
         </div>
       </section>

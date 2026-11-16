@@ -3,7 +3,6 @@ import { Mail, ArrowUpRight, ShieldAlert } from "lucide-react";
 import { ContactForm } from "@/components/contact-form";
 import { CanvasParticleField } from "@/components/canvas-particle-field";
 import { PagePillNav } from "@/components/page-pill-nav";
-import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -118,8 +117,6 @@ export default function Contact() {
           <ContactForm />
         </div>
       </section>
-
-      <DiagonalMarqueeRibbon />
     </>
   );
 }

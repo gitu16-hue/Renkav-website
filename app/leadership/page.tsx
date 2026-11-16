@@ -4,7 +4,6 @@ import { CtaBanner } from "@/components/cta-banner";
 import { Card3DTilt } from "@/components/card-3d-tilt";
 import { CanvasParticleField } from "@/components/canvas-particle-field";
 import { PagePillNav } from "@/components/page-pill-nav";
-import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 
 export const metadata: Metadata = {
   title: "Leadership",
@@ -123,8 +122,6 @@ export default function Leadership() {
           </div>
         </div>
       </section>
-
-      <DiagonalMarqueeRibbon />
 
       <CtaBanner
         eyebrow="GET IN TOUCH"

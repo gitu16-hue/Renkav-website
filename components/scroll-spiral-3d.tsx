@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Cpu, Eye, Users, MessageSquare } from "lucide-react";
+import { CanvasParticleField } from "./canvas-particle-field";
 
 interface SpiralCardSpec {
   id: string;
@@ -24,7 +25,7 @@ const SPIRAL_CARDS: SpiralCardSpec[] = [
     href: "/ventures",
     accent: "#a2e5d0",
     bgGradient:
-      "radial-gradient(circle at 20% 20%, rgba(162, 229, 208, 0.25) 0%, rgba(10, 16, 24, 0.96) 65%)",
+      "radial-gradient(circle at 20% 20%, rgba(162, 229, 208, 0.28) 0%, rgba(10, 16, 24, 0.96) 65%)",
     icon: Cpu,
   },
   {
@@ -35,7 +36,7 @@ const SPIRAL_CARDS: SpiralCardSpec[] = [
     href: "/about",
     accent: "#00d8ff",
     bgGradient:
-      "radial-gradient(circle at 80% 30%, rgba(0, 216, 255, 0.25) 0%, rgba(10, 14, 22, 0.96) 65%)",
+      "radial-gradient(circle at 80% 30%, rgba(0, 216, 255, 0.28) 0%, rgba(10, 14, 22, 0.96) 65%)",
     icon: Eye,
   },
   {
@@ -46,7 +47,7 @@ const SPIRAL_CARDS: SpiralCardSpec[] = [
     href: "/leadership",
     accent: "#b8f36b",
     bgGradient:
-      "radial-gradient(circle at 50% 80%, rgba(184, 243, 107, 0.22) 0%, rgba(12, 16, 20, 0.96) 65%)",
+      "radial-gradient(circle at 50% 80%, rgba(184, 243, 107, 0.24) 0%, rgba(12, 16, 20, 0.96) 65%)",
     icon: Users,
   },
   {
@@ -57,19 +58,22 @@ const SPIRAL_CARDS: SpiralCardSpec[] = [
     href: "/contact",
     accent: "#e5c07b",
     bgGradient:
-      "radial-gradient(circle at 30% 70%, rgba(229, 192, 123, 0.22) 0%, rgba(12, 12, 16, 0.96) 65%)",
+      "radial-gradient(circle at 30% 70%, rgba(229, 192, 123, 0.24) 0%, rgba(12, 12, 16, 0.96) 65%)",
     icon: MessageSquare,
   },
 ];
 
 /**
- * Made to Disrupt-inspired Scroll-Driven 3D Spiral Helix Carousel (#ss3d)
- * - 230vh sticky viewport scroll stage
- * - True cylindrical trigonometry rotating 4 cards in 3D space as user scrolls
+ * Made to Disrupt-inspired Scroll-Driven & Continuous-Motion 3D Spiral Helix Carousel (#ss3d)
+ * - Combines scroll-driven cylindrical progression with continuous gentle orbital breathing & cursor tilt
  */
 export function ScrollSpiral3D() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const stageRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLAnchorElement | null)[]>([]);
+  const scrollProgressRef = useRef(0);
+  const mouseTargetRef = useRef({ x: 0, y: 0 });
+  const mouseCurrentRef = useRef({ x: 0, y: 0 });
   const [reduceMotion, setReduceMotion] = useState(false);
 
   useEffect(() => {
@@ -93,46 +97,65 @@ export function ScrollSpiral3D() {
     const handleScroll = () => {
       const container = containerRef.current;
       if (!container) return;
-
       const rect = container.getBoundingClientRect();
       const totalScroll = rect.height - window.innerHeight;
       if (totalScroll <= 0) return;
-
-      const progress = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
-      const activeIndex = progress * (SPIRAL_CARDS.length - 1);
-
-      const isMobile = window.innerWidth < 768;
-      const radiusX = isMobile ? 160 : 320;
-      const depthZ = isMobile ? 220 : 380;
-      const helixY = isMobile ? 55 : 95;
-
-      SPIRAL_CARDS.forEach((_, idx) => {
-        const el = cardRefs.current[idx];
-        if (!el) return;
-
-        const offset = idx - activeIndex;
-        const angle = offset * 0.92; // radians
-
-        const tx = Math.sin(angle) * radiusX;
-        const ty = offset * helixY;
-        const tz = (Math.cos(angle) - 1) * depthZ;
-        const ry = angle * -34; // deg
-        const rx = offset * 6; // pitch deg
-        const scale = Math.max(0.68, 1 - Math.abs(offset) * 0.14);
-        const opacity = Math.max(0.2, 1 - Math.abs(offset) * 0.35);
-        const zIndex = Math.round(100 - Math.abs(offset) * 20);
-
-        el.style.transform = `translate3d(calc(-50% + ${tx}px), calc(-50% + ${ty}px), ${tz}px) rotateY(${ry}deg) rotateX(${rx}deg) scale(${scale})`;
-        el.style.opacity = String(opacity);
-        el.style.zIndex = String(zIndex);
-      });
+      scrollProgressRef.current = Math.min(Math.max(-rect.top / totalScroll, 0), 1);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll);
     handleScroll();
 
+    let animId: number;
+    const start = performance.now();
+
+    const loop = (now: number) => {
+      const t = (now - start) * 0.001;
+      const mc = mouseCurrentRef.current;
+      const mt = mouseTargetRef.current;
+      mc.x += (mt.x - mc.x) * 0.07;
+      mc.y += (mt.y - mc.y) * 0.07;
+
+      const isMobile = window.innerWidth < 768;
+      const radiusX = isMobile ? 160 : 320;
+      const depthZ = isMobile ? 220 : 380;
+      const helixY = isMobile ? 55 : 95;
+
+      // Continuous subtle orbital phase breathing + scroll progression
+      const continuousPhase = Math.sin(t * 0.55) * 0.16;
+      const activeIndex =
+        scrollProgressRef.current * (SPIRAL_CARDS.length - 1) + continuousPhase;
+
+      SPIRAL_CARDS.forEach((_, idx) => {
+        const el = cardRefs.current[idx];
+        if (!el) return;
+
+        const offset = idx - activeIndex;
+        const angle = offset * 0.92;
+
+        const floatY = Math.sin(t * 0.9 + idx * 1.3) * 10;
+        const tx = Math.sin(angle) * radiusX + mc.x * 24;
+        const ty = offset * helixY + floatY + mc.y * 16;
+        const tz = (Math.cos(angle) - 1) * depthZ;
+        const ry = angle * -34 + mc.x * 10;
+        const rx = offset * 6 - mc.y * 8;
+        const scale = Math.max(0.68, 1 - Math.abs(offset) * 0.14);
+        const opacity = Math.max(0.24, 1 - Math.abs(offset) * 0.34);
+        const zIndex = Math.round(100 - Math.abs(offset) * 20);
+
+        el.style.transform = `translate3d(calc(-50% + ${tx.toFixed(1)}px), calc(-50% + ${ty.toFixed(1)}px), ${tz.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) rotateX(${rx.toFixed(2)}deg) scale(${scale.toFixed(3)})`;
+        el.style.opacity = String(opacity);
+        el.style.zIndex = String(zIndex);
+      });
+
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+
     return () => {
+      cancelAnimationFrame(animId);
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
     };
@@ -175,14 +198,28 @@ export function ScrollSpiral3D() {
     <section
       id="ss3d"
       ref={containerRef}
+      onPointerMove={(e) => {
+        const rect = stageRef.current?.getBoundingClientRect();
+        if (!rect) return;
+        mouseTargetRef.current = {
+          x: ((e.clientX - rect.left) / rect.width - 0.5) * 2,
+          y: ((e.clientY - rect.top) / rect.height - 0.5) * 2,
+        };
+      }}
+      onPointerLeave={() => {
+        mouseTargetRef.current = { x: 0, y: 0 };
+      }}
       className="relative bg-[#050505] text-white border-y border-white/5"
       style={{ height: "230vh" }}
     >
       {/* Sticky Full-Viewport 3D Perspective Stage */}
       <div
+        ref={stageRef}
         className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center"
         style={{ perspective: "1400px" }}
       >
+        <CanvasParticleField />
+
         {/* Background Atmospheric Backdrop Title */}
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-5 select-none">
           <span

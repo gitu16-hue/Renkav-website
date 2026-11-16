@@ -14,7 +14,6 @@ import { Card3DTilt } from "@/components/card-3d-tilt";
 import { DepthSpatialStage } from "@/components/depth-spatial-stage";
 import { CanvasParticleField } from "@/components/canvas-particle-field";
 import { PagePillNav } from "@/components/page-pill-nav";
-import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 import { RollButton } from "@/components/roll-button";
 import { showHolographicOrb } from "@/flags";
 
@@ -163,11 +162,10 @@ export default async function Ventures() {
         </div>
       </section>
 
-      <DiagonalMarqueeRibbon />
-
       <section className="section-pad bg-[#050505] text-white border-t border-white/10">
         <div className="container-main">
           <SectionHeading
+            light
             kicker="WORKED EXAMPLE"
             title="A realistic workflow"
           />
@@ -217,6 +215,7 @@ export default async function Ventures() {
       <section className="section-pad bg-[#070b11] text-white border-y border-white/10">
         <div className="container-main">
           <SectionHeading
+            light
             kicker="WHAT WE ARE BUILDING"
             title="Development priorities"
           />
@@ -257,6 +256,7 @@ export default async function Ventures() {
       <section className="section-pad bg-[#050505] text-white">
         <div className="container-main">
           <SectionHeading
+            light
             kicker="QUESTIONS & ANSWERS"
             title="Frequently asked questions"
           />

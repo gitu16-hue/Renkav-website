@@ -5,7 +5,6 @@ import { CtaBanner } from "@/components/cta-banner";
 import { Card3DTilt } from "@/components/card-3d-tilt";
 import { CanvasParticleField } from "@/components/canvas-particle-field";
 import { PagePillNav } from "@/components/page-pill-nav";
-import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 
 export const metadata: Metadata = {
   title: "About",
@@ -154,11 +153,10 @@ export default function About() {
         </div>
       </section>
 
-      <DiagonalMarqueeRibbon />
-
       <section className="section-pad bg-[#070b11] text-white border-t border-white/10">
         <div className="container-main">
           <SectionHeading
+            light
             kicker="WORKING PRINCIPLES"
             title="How we approach the work."
           />

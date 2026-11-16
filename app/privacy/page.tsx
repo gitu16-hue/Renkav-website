@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { CanvasParticleField } from "@/components/canvas-particle-field";
 import { PagePillNav } from "@/components/page-pill-nav";
-import { DiagonalMarqueeRibbon } from "@/components/diagonal-marquee-ribbon";
 
 export const metadata: Metadata = {
   title: "Privacy",
@@ -81,8 +80,6 @@ export default function Privacy() {
           </div>
         </div>
       </section>
-
-      <DiagonalMarqueeRibbon />
     </>
   );
 }
